@@ -1,141 +1,385 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Arka planı CSS ile veriyoruz, Base64 Salesforce'tan gelecek */
-            background-image: url('data:image/jpeg;base64,{{bgImage}}');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        .page-break {
-            page-break-after: always;
-        }
-        .content-wrapper {
-            padding: 2cm; /* Kenar boşlukları */
-        }
-        /* Rich Text İçerik Düzenlemeleri */
-        .rich-text img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 10px auto;
-        }
-        .rich-text table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .rich-text td, .rich-text th {
-            border: 1px solid #000;
-            padding: 5px;
-        }
-        .title-box {
-            text-align: center;
-            margin-top: 15%;
-            font-size: 24pt;
-            font-weight: bold;
-        }
-        .header-red {
-            background-color: #E31837; /* AGT Kırmızısı varsayım */
-            color: white;
-            padding: 10px;
-            font-size: 14pt;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .comment-box {
-            background: white;
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .comment-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 12pt;
-            background: #f0f0f0;
-            padding: 5px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    @page{
+      size: A4 landscape;
+      margin: 0;
+      margin-top: 3cm;
+      margin-bottom: 3cm;
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family:'Arial Unicode MS', Arial, 'Helvetica Neue', sans-serif;
+      font-size:10pt;
+
+      /* Arka plan (VF'deki @page background-image yerine) */
+      {{#if bgImage}}
+      background-image:url('data:image/jpeg;base64,{{bgImage}}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      {{/if}}
+
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page-wrapper{ width:250mm; margin:0mm auto 0mm auto; }
+
+    .mrBlockOuter{ width:100%; border-collapse:collapse; }
+
+    .mrGreyWrapper{
+      width:100%;
+      border-collapse:collapse;
+      background:#f7f7f7;
+      border:1px solid #e0e0e0;
+      padding:8px;
+      margin:0 auto 0px auto;
+    }
+
+    .mrInnerWhite{
+      width:100%;
+      border-collapse:collapse;
+      border:1px solid #999;
+      background:#ffffff;
+    }
+
+    .mrInnerCell{ padding:0px 12px 0px 12px; }
+
+    .mrRoleTitle{
+      font-size:17pt;
+      text-align:left;
+      margin:0;
+      font-weight:700;
+    }
+
+    .mrCommentBox{
+      border:0;
+      padding:0px;
+      min-height:12mm;
+      font-size:12pt;
+    }
+
+    .mrCommentTitle{
+      font-size:13pt;
+      margin-bottom:0px;
+      font-weight:700;
+    }
+
+    .mrCommentBody{
+      text-align:left;
+      word-wrap:break-word;
+      font-size:12pt;
+      line-height:1.2;
+    }
+
+    .mrCommentBody p,
+    .mrCommentBody div,
+    .mrCommentBody span,
+    .mrCommentBody li,
+    .mrCommentBody td,
+    .mrCommentBody th{
+      font-size:12pt !important;
+      line-height:1.2 !important;
+    }
+
+    .mrCommentBody table,
+    .mrCommentBody th,
+    .mrCommentBody td{
+      border:1px solid #000 !important;
+      border-collapse:collapse !important;
+    }
+
+    img{ max-width:100%; height:auto; }
+
+    .mrCommentBody img{
+      max-width:100% !important;
+      height:auto !important;
+      display:block;
+      margin:0px auto;
+      text-align:center;
+    }
+
+    .title-page{
+      margin-top:6.5cm;
+      margin-bottom:0px;
+      padding:0;
+    }
+
+    .title-page-cell{
+      vertical-align:middle;
+      text-align:center;
+      font-size:26pt;
+      font-weight:700;
+    }
+
+    .img-nobreak{
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .img-nobreak img{
+      display:block;
+      max-width:100% !important;
+      height:auto !important;
+    }
+
+    /* sayfa kırılımları */
+    .pb-after{ page-break-after: always; }
+    .pb-before{ page-break-before: always; }
+  </style>
 </head>
+
 <body>
 
-    <div class="page-break">
-        <div style="text-align:center; margin-top: 10%;">
-            {{#if logoWood}}
-                <img src="data:image/png;base64,{{logoWood}}" width="500">
+  <!-- ================= KAPAK (VF'deki gibi) ================= -->
+  <div style="background:none !important; background-color:transparent !important;" class="pb-after">
+    <div class="page-wrapper">
+      <table class="mrBlockOuter">
+        <tr>
+          <td style="padding-top:0mm;">
+
+            <table style="width:100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center">
+                  {{#if logoWood}}
+                    <img src="data:image/png;base64,{{logoWood}}" width="650"/>
+                  {{/if}}
+                </td>
+              </tr>
+            </table>
+
+            <table style="width:100%;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td style="font-size:11pt;">
+                  {{reportTitle}}
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ================= DİREKTÖR (başlık sayfası + yorumlar, role title yok) ================= -->
+  {{#if hasDirectorComments}}
+
+    <!-- Değerlendirme başlık sayfası -->
+    <div class="title-page pb-after pb-before" style="vertical-align:middle;">
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
+        <tr>
+          <td class="title-page-cell">
+            {{#if (eq channel "Export")}}
+              Yurt Dışı Satış Değerlendirme
+            {{else}}
+              Yurt İçi Satış Değerlendirme
             {{/if}}
-        </div>
-        <div class="title-box">
-            {{reportTitle}}
-        </div>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    {{#if directorComments}}
-        <div class="page-break">
-            <div class="content-wrapper">
-                <div style="text-align:center; font-size:20pt; margin-top:20%; font-weight:bold;">
-                    {{#if (eq channel "Export")}}
-                        Export Sales Evaluation
-                    {{else}}
-                        Yurt İçi Satış Değerlendirme
-                    {{/if}}
+    <!-- Direktör yorumları (her yorum ayrı sayfa) -->
+    {{#each directorComments}}
+      <div class="pb-after">
+        <div class="page-wrapper">
+          <table class="mrBlockOuter">
+            <tr>
+              <td>
+                <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td class="mrInnerCell">
+
+                            <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="mrCommentBox">
+                                  <div class="mrCommentTitle">{{title}}</div>
+                                  <div class="mrCommentBody">
+                                    {{{comment}}}
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    {{/each}}
+
+  {{/if}}
+
+
+  <!-- ================= GRUP MÜDÜRLÜĞÜ (başlık sayfası + yorumlar) ================= -->
+  {{#if hasGroupManagerComments}}
+
+    <div class="title-page pb-after pb-before" style="vertical-align:middle;">
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
+        <tr>
+          <td class="title-page-cell">
+            {{weeklySalesReviewTitle}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    {{#each groupManagerComments}}
+      <div class="pb-after">
+        <div class="page-wrapper">
+          <table class="mrBlockOuter">
+            <tr>
+              <td>
+
+                <div class="mrRoleTitle">
+                  {{#if (eq ../channel "Export")}}Group Management{{else}}Grup Müdürlüğü{{/if}}
                 </div>
-            </div>
-        </div>
 
-        <div class="page-break">
-            <div class="content-wrapper">
-                {{#each directorComments}}
-                    <div class="comment-box">
-                        <div class="comment-title">{{title}}</div>
-                        <div class="rich-text">
-                            {{{comment}}} </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
-    {{/if}}
+                <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td class="mrInnerCell">
 
-    {{#if regionalComments}}
-        <div class="page-break">
-            <div class="content-wrapper">
-                <div style="text-align:center; font-size:20pt; margin-top:20%; font-weight:bold;">
-                    Bölge Müdürlüğü Değerlendirmeleri
-                </div>
-            </div>
-        </div>
+                            <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="mrCommentBox">
+                                  <div class="mrCommentTitle">{{title}}</div>
+                                  <div class="mrCommentBody">
+                                    {{{comment}}}
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
 
-        {{#each regionalComments}}
-            <div class="page-break">
-                <div class="content-wrapper">
-                    <div class="header-red">Bölge Müdürü - {{groupTitle}}</div>
-                    
-                    {{#each items}}
-                        <div class="comment-box">
-                            <div class="comment-title">{{title}}</div>
-                            <div class="rich-text">
-                                {{{comment}}}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    {{/each}}
+
+  {{/if}}
+
+
+  <!-- ================= BÖLGE MÜDÜRÜ (başlık sayfası + group bazlı sayfalar) ================= -->
+  {{#if hasRegionalManagerComments}}
+
+    <div class="title-page pb-after pb-before" style="vertical-align:middle;">
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
+        <tr>
+          <td class="title-page-cell">
+            {{weeklySalesReviewTitle}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    {{#each regionalComments}}
+      <div class="page-wrapper pb-after" style="margin-top:0px;">
+        <table class="mrBlockOuter">
+          <tr>
+            <td>
+
+              <div class="mrRoleTitle">
+                {{#if (eq ../channel "Export")}}Regional Manager{{else}}Bölge Müdürü{{/if}}
+              </div>
+
+              <div class="mrCommentTitle" style="margin-top:0px;">
+                {{groupTitle}}
+              </div>
+
+              <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td class="mrInnerCell">
+
+                          {{#each items}}
+                            <div class="mrCommentBlock">
+                              <table style="width:100%; margin-bottom:0px;" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td class="mrCommentBox">
+
+                                    {{!-- Aynı title ise tekrar basma --}}
+                                    {{#unless (eq title ../groupTitle)}}
+                                      <div class="mrCommentTitle">{{title}}</div>
+                                    {{/unless}}
+
+                                    <div class="mrCommentBody">
+                                      {{{comment}}}
+                                    </div>
+
+                                  </td>
+                                </tr>
+                              </table>
                             </div>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-        {{/each}}
-    {{/if}}
 
-    <div class="content-wrapper" style="text-align: center; margin-top: 20%;">
-        {{#if logoText}}
-            <img src="data:image/png;base64,{{logoText}}" width="400">
-        {{/if}}
+                            <div class="pb-after"></div>
+                          {{/each}}
+
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    {{/each}}
+
+  {{/if}}
+
+
+  <!-- ================= KAPANIŞ ================= -->
+  {{#if hasAnyComments}}
+    <div>
+      <div class="page-wrapper" style="margin-top:0mm;">
+        <table class="mrBlockOuter">
+          <tr>
+            <td>
+              <table style="width:100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center">
+                    {{#if logoText}}
+                      <img src="data:image/png;base64,{{logoText}}" width="650"/>
+                    {{/if}}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
+  {{/if}}
 
 </body>
 </html>
