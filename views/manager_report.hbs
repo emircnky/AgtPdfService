@@ -16,7 +16,6 @@
       font-family:'Arial Unicode MS', Arial, 'Helvetica Neue', sans-serif;
       font-size:10pt;
 
-      /* Arka plan (VF'deki @page background-image yerine) */
       {{#if bgImage}}
       background-image:url('data:image/jpeg;base64,{{bgImage}}');
       background-size: cover;
@@ -28,8 +27,15 @@
       print-color-adjust: exact;
     }
 
-    .page-wrapper{ width:250mm; margin:0mm auto 0mm auto; }
+    /* 🔴 ALT TEXT/filename görünmesini engelle (image load edilemezse) */
+    img{
+      max-width:100%;
+      height:auto;
+      font-size:0;         /* alt text çoğu renderer'da font-size ile basılıyor */
+      color:transparent;   /* bazı engine'lerde alt text rengi buradan gelir */
+    }
 
+    .page-wrapper{ width:250mm; margin:0mm auto 0mm auto; }
     .mrBlockOuter{ width:100%; border-collapse:collapse; }
 
     .mrGreyWrapper{
@@ -72,11 +78,21 @@
 
     .mrCommentBody{
       text-align:left;
-      word-wrap:break-word;
       font-size:12pt;
       line-height:1.2;
+
+      /* 🔧 uzun string’lerde taşmayı engelle */
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
+    /* Rich text içindeki her şey için wrap güvenliği */
+    .mrCommentBody *{
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
+
+    /* VF’e benzer font */
     .mrCommentBody p,
     .mrCommentBody div,
     .mrCommentBody span,
@@ -87,21 +103,33 @@
       line-height:1.2 !important;
     }
 
-    .mrCommentBody table,
+    /* TABLO stabilizasyonu */
+    .mrCommentBody table{
+      width:100% !important;
+      border-collapse:collapse !important;
+      table-layout:fixed; /* taşmayı azaltır */
+    }
     .mrCommentBody th,
     .mrCommentBody td{
       border:1px solid #000 !important;
-      border-collapse:collapse !important;
+      padding:5px;
+      vertical-align:top;
     }
 
-    img{ max-width:100%; height:auto; }
-
+    /* IMG stabilizasyonu */
     .mrCommentBody img{
+      display:block;
+      margin:8px auto;
       max-width:100% !important;
       height:auto !important;
-      display:block;
-      margin:0px auto;
-      text-align:center;
+
+      /* sayfa bölünmesinde daha stabil */
+      page-break-inside: avoid;
+      break-inside: avoid;
+
+      /* çok büyük resimlerde sayfayı taşırmasın */
+      max-height:140mm;
+      object-fit:contain;
     }
 
     .title-page{
@@ -117,16 +145,6 @@
       font-weight:700;
     }
 
-    .img-nobreak{
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-    .img-nobreak img{
-      display:block;
-      max-width:100% !important;
-      height:auto !important;
-    }
-
     /* sayfa kırılımları */
     .pb-after{ page-break-after: always; }
     .pb-before{ page-break-before: always; }
@@ -135,7 +153,7 @@
 
 <body>
 
-  <!-- ================= KAPAK (VF'deki gibi) ================= -->
+  <!-- ================= KAPAK ================= -->
   <div style="background:none !important; background-color:transparent !important;" class="pb-after">
     <div class="page-wrapper">
       <table class="mrBlockOuter">
@@ -167,10 +185,9 @@
   </div>
 
 
-  <!-- ================= DİREKTÖR (başlık sayfası + yorumlar, role title yok) ================= -->
+  <!-- ================= DİREKTÖR ================= -->
   {{#if hasDirectorComments}}
 
-    <!-- Değerlendirme başlık sayfası -->
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
       <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
         <tr>
@@ -185,7 +202,6 @@
       </table>
     </div>
 
-    <!-- Direktör yorumları (her yorum ayrı sayfa) -->
     {{#each directorComments}}
       <div class="pb-after">
         <div class="page-wrapper">
@@ -198,7 +214,6 @@
                       <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
                         <tr>
                           <td class="mrInnerCell">
-
                             <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
                               <tr>
                                 <td class="mrCommentBox">
@@ -209,7 +224,6 @@
                                 </td>
                               </tr>
                             </table>
-
                           </td>
                         </tr>
                       </table>
@@ -226,7 +240,7 @@
   {{/if}}
 
 
-  <!-- ================= GRUP MÜDÜRLÜĞÜ (başlık sayfası + yorumlar) ================= -->
+  <!-- ================= GRUP MÜDÜRLÜĞÜ ================= -->
   {{#if hasGroupManagerComments}}
 
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
@@ -256,7 +270,6 @@
                       <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
                         <tr>
                           <td class="mrInnerCell">
-
                             <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
                               <tr>
                                 <td class="mrCommentBox">
@@ -267,7 +280,6 @@
                                 </td>
                               </tr>
                             </table>
-
                           </td>
                         </tr>
                       </table>
@@ -285,7 +297,7 @@
   {{/if}}
 
 
-  <!-- ================= BÖLGE MÜDÜRÜ (başlık sayfası + group bazlı sayfalar) ================= -->
+  <!-- ================= BÖLGE MÜDÜRÜ ================= -->
   {{#if hasRegionalManagerComments}}
 
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
@@ -325,7 +337,6 @@
                                 <tr>
                                   <td class="mrCommentBox">
 
-                                    {{!-- Aynı title ise tekrar basma --}}
                                     {{#unless (eq title ../groupTitle)}}
                                       <div class="mrCommentTitle">{{title}}</div>
                                     {{/unless}}
