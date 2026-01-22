@@ -124,8 +124,8 @@ app.post('/generate', async (req, res) => {
 
         const templateData = { ...data, excelRows, tpExcelRows, teamExcelRows };
 
-        // Şablon Yolu (templates klasöründe teklif.html olmalı)
-        const templatePath = path.resolve('./templates/teklif.html');
+        // Şablon Yolu (views klasöründe manager_report.hbs olmalı)
+        const templatePath = path.resolve('./views/manager_report.hbs');
         const templateHtml = fs.readFileSync(templatePath, 'utf8');
         const template = hbs.compile(templateHtml);
         const finalHtml = template(templateData);
