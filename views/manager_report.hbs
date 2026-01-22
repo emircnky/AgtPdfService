@@ -27,14 +27,6 @@
       print-color-adjust: exact;
     }
 
-    /* 🔴 ALT TEXT/filename görünmesini engelle (image load edilemezse) */
-    img{
-      max-width:100%;
-      height:auto;
-      font-size:0;         /* alt text çoğu renderer'da font-size ile basılıyor */
-      color:transparent;   /* bazı engine'lerde alt text rengi buradan gelir */
-    }
-
     .page-wrapper{ width:250mm; margin:0mm auto 0mm auto; }
     .mrBlockOuter{ width:100%; border-collapse:collapse; }
 
@@ -80,54 +72,52 @@
       text-align:left;
       font-size:12pt;
       line-height:1.2;
-
-      /* 🔧 uzun string’lerde taşmayı engelle */
       overflow-wrap:anywhere;
       word-break:break-word;
     }
 
-    /* Rich text içindeki her şey için wrap güvenliği */
     .mrCommentBody *{
       overflow-wrap:anywhere;
       word-break:break-word;
+      max-width:100%;
     }
 
-    /* VF’e benzer font */
-    .mrCommentBody p,
-    .mrCommentBody div,
-    .mrCommentBody span,
-    .mrCommentBody li,
-    .mrCommentBody td,
-    .mrCommentBody th{
-      font-size:12pt !important;
-      line-height:1.2 !important;
-    }
-
-    /* TABLO stabilizasyonu */
+    /* tablo stabilizasyonu */
     .mrCommentBody table{
       width:100% !important;
       border-collapse:collapse !important;
-      table-layout:fixed; /* taşmayı azaltır */
+      table-layout:fixed;
     }
     .mrCommentBody th,
     .mrCommentBody td{
       border:1px solid #000 !important;
+      border-collapse:collapse !important;
       padding:5px;
       vertical-align:top;
     }
 
-    /* IMG stabilizasyonu */
+    /* resim stabilizasyonu */
     .mrCommentBody img{
       display:block;
       margin:8px auto;
       max-width:100% !important;
       height:auto !important;
-
-      /* sayfa bölünmesinde daha stabil */
+      max-height:140mm;          /* A4 landscape içinde taşmayı azalt */
+      object-fit:contain;
       page-break-inside: avoid;
       break-inside: avoid;
+    }
 
-      /* çok büyük resimlerde sayfayı taşırmasın */
+    /* Apex wrapper kullanırsan (img-nobreak) */
+    .img-nobreak{
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .img-nobreak img{
+      display:block;
+      margin:8px auto;
+      max-width:100% !important;
+      height:auto !important;
       max-height:140mm;
       object-fit:contain;
     }
@@ -145,7 +135,6 @@
       font-weight:700;
     }
 
-    /* sayfa kırılımları */
     .pb-after{ page-break-after: always; }
     .pb-before{ page-break-before: always; }
   </style>
@@ -153,13 +142,12 @@
 
 <body>
 
-  <!-- ================= KAPAK ================= -->
+  <!-- KAPAK -->
   <div style="background:none !important; background-color:transparent !important;" class="pb-after">
     <div class="page-wrapper">
       <table class="mrBlockOuter">
         <tr>
           <td style="padding-top:0mm;">
-
             <table style="width:100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="center">
@@ -184,19 +172,13 @@
     </div>
   </div>
 
-
-  <!-- ================= DİREKTÖR ================= -->
+  <!-- DİREKTÖR -->
   {{#if hasDirectorComments}}
-
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
       <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
         <tr>
           <td class="title-page-cell">
-            {{#if (eq channel "Export")}}
-              Yurt Dışı Satış Değerlendirme
-            {{else}}
-              Yurt İçi Satış Değerlendirme
-            {{/if}}
+            {{#if (eq channel "Export")}}Yurt Dışı Satış Değerlendirme{{else}}Yurt İçi Satış Değerlendirme{{/if}}
           </td>
         </tr>
       </table>
@@ -209,26 +191,20 @@
             <tr>
               <td>
                 <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td>
-                      <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td class="mrInnerCell">
-                            <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
-                              <tr>
-                                <td class="mrCommentBox">
-                                  <div class="mrCommentTitle">{{title}}</div>
-                                  <div class="mrCommentBody">
-                                    {{{comment}}}
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
+                  <tr><td>
+                    <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                      <tr><td class="mrInnerCell">
+                        <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td class="mrCommentBox">
+                              <div class="mrCommentTitle">{{title}}</div>
+                              <div class="mrCommentBody">{{{comment}}}</div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td></tr>
+                    </table>
+                  </td></tr>
                 </table>
               </td>
             </tr>
@@ -236,20 +212,13 @@
         </div>
       </div>
     {{/each}}
-
   {{/if}}
 
-
-  <!-- ================= GRUP MÜDÜRLÜĞÜ ================= -->
+  <!-- GRUP MÜDÜRLÜĞÜ -->
   {{#if hasGroupManagerComments}}
-
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
       <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
-        <tr>
-          <td class="title-page-cell">
-            {{weeklySalesReviewTitle}}
-          </td>
-        </tr>
+        <tr><td class="title-page-cell">{{weeklySalesReviewTitle}}</td></tr>
       </table>
     </div>
 
@@ -257,136 +226,104 @@
       <div class="pb-after">
         <div class="page-wrapper">
           <table class="mrBlockOuter">
-            <tr>
-              <td>
+            <tr><td>
 
-                <div class="mrRoleTitle">
-                  {{#if (eq ../channel "Export")}}Group Management{{else}}Grup Müdürlüğü{{/if}}
-                </div>
+              <div class="mrRoleTitle">
+                {{#if (eq ../channel "Export")}}Group Management{{else}}Grup Müdürlüğü{{/if}}
+              </div>
 
-                <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td>
-                      <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+              <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
+                <tr><td>
+                  <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                    <tr><td class="mrInnerCell">
+                      <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
                         <tr>
-                          <td class="mrInnerCell">
-                            <table style="width:100%; margin-top:0px;" cellspacing="0" cellpadding="0">
-                              <tr>
-                                <td class="mrCommentBox">
-                                  <div class="mrCommentTitle">{{title}}</div>
-                                  <div class="mrCommentBody">
-                                    {{{comment}}}
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
+                          <td class="mrCommentBox">
+                            <div class="mrCommentTitle">{{title}}</div>
+                            <div class="mrCommentBody">{{{comment}}}</div>
                           </td>
                         </tr>
                       </table>
-                    </td>
-                  </tr>
-                </table>
+                    </td></tr>
+                  </table>
+                </td></tr>
+              </table>
 
-              </td>
-            </tr>
+            </td></tr>
           </table>
         </div>
       </div>
     {{/each}}
-
   {{/if}}
 
-
-  <!-- ================= BÖLGE MÜDÜRÜ ================= -->
+  <!-- BÖLGE MÜDÜRÜ -->
   {{#if hasRegionalManagerComments}}
-
     <div class="title-page pb-after pb-before" style="vertical-align:middle;">
       <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;vertical-align:middle;">
-        <tr>
-          <td class="title-page-cell">
-            {{weeklySalesReviewTitle}}
-          </td>
-        </tr>
+        <tr><td class="title-page-cell">{{weeklySalesReviewTitle}}</td></tr>
       </table>
     </div>
 
     {{#each regionalComments}}
       <div class="page-wrapper pb-after" style="margin-top:0px;">
         <table class="mrBlockOuter">
-          <tr>
-            <td>
+          <tr><td>
 
-              <div class="mrRoleTitle">
-                {{#if (eq ../channel "Export")}}Regional Manager{{else}}Bölge Müdürü{{/if}}
-              </div>
+            <div class="mrRoleTitle">
+              {{#if (eq ../channel "Export")}}Regional Manager{{else}}Bölge Müdürü{{/if}}
+            </div>
 
-              <div class="mrCommentTitle" style="margin-top:0px;">
-                {{groupTitle}}
-              </div>
+            <div class="mrCommentTitle" style="margin-top:0px;">{{groupTitle}}</div>
 
-              <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td class="mrInnerCell">
+            <table class="mrGreyWrapper" cellspacing="0" cellpadding="0">
+              <tr><td>
+                <table class="mrInnerWhite" cellspacing="0" cellpadding="0">
+                  <tr><td class="mrInnerCell">
 
-                          {{#each items}}
-                            <div class="mrCommentBlock">
-                              <table style="width:100%; margin-bottom:0px;" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td class="mrCommentBox">
+                    {{#each items}}
+                      <div class="mrCommentBlock">
+                        <table style="width:100%; margin-bottom:0px;" cellspacing="0" cellpadding="0">
+                          <tr><td class="mrCommentBox">
 
-                                    {{#unless (eq title ../groupTitle)}}
-                                      <div class="mrCommentTitle">{{title}}</div>
-                                    {{/unless}}
+                            {{#unless (eq title ../groupTitle)}}
+                              <div class="mrCommentTitle">{{title}}</div>
+                            {{/unless}}
 
-                                    <div class="mrCommentBody">
-                                      {{{comment}}}
-                                    </div>
+                            <div class="mrCommentBody">{{{comment}}}</div>
 
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
+                          </td></tr>
+                        </table>
+                      </div>
+                      <div class="pb-after"></div>
+                    {{/each}}
 
-                            <div class="pb-after"></div>
-                          {{/each}}
+                  </td></tr>
+                </table>
+              </td></tr>
+            </table>
 
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-          </tr>
+          </td></tr>
         </table>
       </div>
     {{/each}}
-
   {{/if}}
 
-
-  <!-- ================= KAPANIŞ ================= -->
+  <!-- KAPANIŞ -->
   {{#if hasAnyComments}}
     <div>
       <div class="page-wrapper" style="margin-top:0mm;">
         <table class="mrBlockOuter">
-          <tr>
-            <td>
-              <table style="width:100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td align="center">
-                    {{#if logoText}}
-                      <img src="data:image/png;base64,{{logoText}}" width="650"/>
-                    {{/if}}
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+          <tr><td>
+            <table style="width:100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center">
+                  {{#if logoText}}
+                    <img src="data:image/png;base64,{{logoText}}" width="650"/>
+                  {{/if}}
+                </td>
+              </tr>
+            </table>
+          </td></tr>
         </table>
       </div>
     </div>
