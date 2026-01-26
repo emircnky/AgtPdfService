@@ -44,7 +44,7 @@ async function getBrowser() {
 
 // --- İŞTE BU KISIM EKSİK OLABİLİR ---
 // --- MANAGER REPORT ENDPOINT ---
-app.post('/generate-manager-report', async (req, res) => {
+app.post('/generate-quote', async (req, res) => {
     let page = null;
     try {
         const data = req.body; 
