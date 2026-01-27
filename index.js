@@ -148,11 +148,12 @@ app.post('/generate-quote', async (req, res) => {
 
     await safeClosePage(page);
 
-    // JSON dön (Apex daha sağlıklı okur)
-    return res.status(500).json({
-      error: 'PDF oluşturulurken hata',
-      message: error && error.message ? error.message : String(error)
-    });
+    const msg = (error && (error.stack || error.message)) ? (error.stack || error.message) : String(error);
+
+    // Apex'in kesin göreceği şekilde düz text dön
+    res.status(500);
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    return res.send('PDF_ERROR: ' + msg);
   }
 });
 
