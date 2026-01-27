@@ -2,8 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8" />
-
-  <!-- İSTEDİĞİN FONT -->
   <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
   <style>
@@ -13,6 +11,7 @@
       margin-right: 0.2cm;
       margin-top: 0;
       margin-bottom: 3cm;
+      padding-top: 70px;
     }
 
     body{
@@ -24,22 +23,17 @@
       print-color-adjust: exact;
     }
 
-    /* Chrome PDF'de en stabil header: fixed */
     .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
       text-align: center;
-      padding-top: 10px;
       margin-top: 10px;
+      font-family: 'Arial Unicode MS';
     }
 
     .snocLogo {
       width: 250px;
       height: 80px;
       object-fit: contain;
-      display:block;
+      display: block;
       margin: 0 auto;
     }
 
@@ -47,24 +41,15 @@
       font-size: 7pt;
       font-weight: normal;
       color: #333;
-      margin-bottom: 60px;
-    }
-
-    /* içerik header'ın altından başlasın */
-    .content {
-      margin-top: 140px;
-      padding: 0 2mm;
+      margin-bottom: 30px;
     }
 
     .title {
-      font-size: 15pt;
+      font-size: 20pt;
       font-weight: bold;
       text-align: center;
-      margin-top: 25px;
-      margin-bottom: 5px;
-      border-bottom: 1px solid #000;
-      display: inline-block;
-      padding-bottom: 2px;
+      margin-top: 45px;
+      margin-bottom: 2px;
     }
 
     table.quote-lines-table {
@@ -89,56 +74,20 @@
       vertical-align: top;
     }
 
-    table.quote-lines-table tr.data-row:nth-child(even) { background-color: #f5f5f5; }
-    table.quote-lines-table tr.data-row:nth-child(odd)  { background-color: #ffffff; }
-
-    .product-desc { text-align: left; }
-
-    tr.data-row {
-      page-break-inside: avoid;
+    table.quote-lines-table tr.data-row:nth-child(even) { 
+      background-color: #f5f5f5; 
+    }
+    
+    table.quote-lines-table tr.data-row:nth-child(odd) { 
+      background-color: #ffffff; 
     }
 
-    .pageBreak { page-break-after: always; }
-
-    .totals-wrap { 
-      page-break-inside: avoid; 
-      break-inside: avoid; 
-      margin-top: 25px;
-    }
-
-    .notes { 
-      page-break-inside: avoid; 
-      display: block;
-      font-size: 6pt; 
-      margin-top: 10px; 
-      padding-top: 12px; 
+    .product-desc { 
       text-align: left; 
     }
 
-    .bank-title {
-      text-align:center;
-      width:100%;
-      margin-top: 50px;
-      margin-bottom: 40px;
-      font-size: 11pt;
-      font-weight: bold;
-      border-bottom: 1px solid #000;
-      display: inline-block;
-      padding-bottom: 2px;
-    }
-
-    .bank-table { 
-      font-size: 10pt; 
-      padding-left: 5cm; 
-      margin-bottom: 2cm; 
-    }
-    
-    .bank-table td {
-      letter-spacing: normal;
-    }
-    
-    .bank-table td:first-child {
-      letter-spacing: 10px;
+    tr.data-row {
+      page-break-inside: avoid;
     }
 
     .imgCell img {
@@ -148,41 +97,61 @@
       max-height: 80px;
       object-fit: contain;
     }
+
+    .totals-wrap { 
+      page-break-inside: avoid; 
+      break-inside: avoid; 
+    }
+
+    .bank-table { 
+      font-size: 10pt; 
+      padding-left: 5cm; 
+      margin-bottom: 2cm; 
+    }
+    
+    .bank-table td:first-child {
+      letter-spacing: 10px;
+    }
   </style>
 </head>
 
 <body>
+  <!-- HEADER -->
   <div class="header">
     {{#if logoDataUri}}
-      <img class="snocLogo" src="{{logoDataUri}}" />
+      <img class="snocLogo" src="{{logoDataUri}}" alt="Logo" />
     {{/if}}
     <div class="header-text">
       EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br/>
-      NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE <br/>
+      NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br/>
       TEL: +90 (850) 800 64 64
     </div>
   </div>
 
-  <div class="content">
-    <div style="text-align:center; width:100%;">
-      <span class="title">TEKLİF FORMU</span>
-    </div>
+  <!-- BAŞLIK -->
+  <div style="text-align:center; width:100%; margin-top: 25px; margin-bottom: 5px;">
+    <span style="font-size:15pt; font-weight:bold; border-bottom:1px solid #000; display:inline-block; padding-bottom:2px;">
+      TEKLİF FORMU
+    </span>
+  </div>
 
-    <table width="100%" style="border-collapse: collapse; margin-bottom: 5px;">
-      <tr>
-        <td style="font-size:8pt; width:50%; text-align:left; vertical-align: bottom; padding-bottom:1px;">
-          <div style="padding-top: 25px;">SAYIN: {{sayin}}</div>
-        </td>
+  <!-- SAYIN + TARİH BİLGİLERİ -->
+  <table width="100%" style="border-collapse: collapse; margin-bottom: 5px;">
+    <tr>
+      <td style="font-size:8pt; width:50%; text-align:left; vertical-align: bottom; padding-bottom:1px;">
+        <div style="padding-top: 25px;">SAYIN: {{sayin}}</div>
+      </td>
+      <td style="width:50%; vertical-align: top; text-align:right; font-size:8pt;">
+        <div>{{today}}</div>
+        <div>İLETİŞİM: {{ownerName}}</div>
+        <div>E-MAIL: {{ownerEmail}}</div>
+      </td>
+    </tr>
+  </table>
 
-        <td style="width:50%; vertical-align: top; text-align:right; font-size:8pt;">
-          <div>{{today}}</div>
-          <div>İLETİŞİM: {{ownerName}}</div>
-          <div>E-MAIL: {{ownerEmail}}</div>
-        </td>
-      </tr>
-    </table>
-
-    <table class="quote-lines-table">
+  <!-- QUOTE LINE ITEM TABLOSU -->
+  <table class="quote-lines-table">
+    <thead>
       <tr>
         <th style="width:16%;">FOTOĞRAF</th>
         <th style="width:32%;">AÇIKLAMA</th>
@@ -192,185 +161,204 @@
         <th style="width:10%;white-space: nowrap;">İNDİRİMLİ TUTAR</th>
         <th style="width:8%;white-space: nowrap;">STOK DURUMU</th>
       </tr>
-
+    </thead>
+    <tbody>
       {{#each lines}}
       <tr class="data-row">
+        <!-- FOTOĞRAF -->
         <td class="imgCell">
           {{#if hasImage}}
-            <img src="{{imageDataUri}}" />
+            <img src="{{imageDataUri}}" alt="Product" />
           {{/if}}
         </td>
 
+        <!-- AÇIKLAMA -->
         <td class="product-desc">
-          <div>{{productName}}</div>
+          {{productName}}
+          
           {{#if usageArea}}
-            <div>{{usageArea}}</div>
+            <br/><br/>{{usageArea}}
           {{/if}}
 
           {{#if description}}
-            <div style="font-size:7pt; margin-top: 4px;">{{description}}</div>
+            <br/><br/>
+            <span style="font-size:7pt;">{{description}}</span>
           {{/if}}
 
           {{#if dimension}}
-            <div style="margin-top: 8px;">{{dimension}}</div>
+            <br/><br/>{{dimension}}
           {{/if}}
         </td>
 
+        <!-- ADET -->
         <td>{{quantity}}</td>
+
+        <!-- BİRİM FİYATI -->
         <td>{{unitPrice}}</td>
+
+        <!-- TOPLAM -->
         <td>{{subTotal}}</td>
+
+        <!-- İNDİRİMLİ TUTAR -->
         <td>{{totalPrice}}</td>
+
+        <!-- STOK DURUMU -->
         <td>{{stockStatus}}</td>
       </tr>
 
+      <!-- HER 5 SATIRDA SAYFA BÖL -->
       {{#if pageBreakAfter}}
-        <tr><td colspan="7" style="page-break-after:always; height:1px;"></td></tr>
+        <tr>
+          <td colspan="7" style="page-break-after:always; height:1px;"></td>
+        </tr>
       {{/if}}
       {{/each}}
+    </tbody>
+  </table>
+
+  <!-- TOPLAM BLOĞU -->
+  <div class="totals-wrap">
+    <table style="width:100%; margin-top:25px; font-size:10pt; border-collapse:collapse;">
+      <tr>
+        <td colspan="3">
+          <div style="border-top:1px solid #000; width:100%; margin-bottom:8px;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:60%;">&nbsp;</td>
+        <td style="width:20%; text-align:left; font-weight:bold; font-size:7pt;">TOPLAM</td>
+        <td style="width:20%; text-align:right; font-size:7pt;">{{totalAmount}} ₺</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td style="text-align:left; font-weight:bold; font-size:7pt;">TOPLAM İNDİRİM</td>
+        <td style="text-align:right; font-size:7pt;">{{totalDiscount}} ₺</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td style="text-align:left; font-weight:bold; font-size:7pt;">GENEL TOPLAM</td>
+        <td style="text-align:right; font-weight:bold; font-size:7pt;">{{grandTotal}} ₺</td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div style="border-bottom:1px solid #000; width:100%; margin-top:8px;"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- NOTLAR -->
+  <div style="page-break-inside: avoid; display:block;">
+    <table style="font-size:6pt; margin-top:10px; padding-top: 12px; text-align:left;">
+      <tr><td>- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR</td></tr>
+      <tr><td>- {{notePayment}}</td></tr>
+      <tr><td>- {{noteDelivery}}</td></tr>
+      <tr><td>- {{noteKdv}}</td></tr>
+      <tr><td>- {{noteValidity}}</td></tr>
+    </table>
+  </div>
+
+  <!-- SAYFA SONU -->
+  <div style="page-break-after:always;"></div>
+
+  <!-- HESAP BİLGİLERİ SAYFASI -->
+  <div style="text-align:center; width:100%; margin-top: 50px; margin-bottom: 40px;">
+    <span style="font-size:11pt; font-weight:bold; border-bottom:1px solid #000; display:inline-block; padding-bottom:2px;">
+      HESAP BİLGİLERİMİZ
+    </span>
+  </div>
+
+  <div>
+    <table class="bank-table">
+      <tr>
+        <td>BANKA ADI</td>
+        <td>  </td>
+        <td>GARANTİ BANKASI</td>
+      </tr>
+      <tr>
+        <td>HESAP BİLGİSİ</td>
+        <td>  </td>
+        <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td>HESAP NUMARASI</td>
+        <td>  </td>
+        <td>IBAN: TR90 0006 2001 6690 0006 2978 90</td>
+      </tr>
     </table>
 
-    <div class="totals-wrap">
-      <table style="width:100%; font-size:10pt; border-collapse:collapse;">
-        <tr>
-          <td colspan="3">
-            <div style="border-top:1px solid #000; width:100%; margin-bottom:8px;"></div>
-          </td>
-        </tr>
+    <table class="bank-table">
+      <tr>
+        <td>BANKA ADI</td>
+        <td>  </td>
+        <td>AKBANK</td>
+      </tr>
+      <tr>
+        <td>HESAP BİLGİSİ</td>
+        <td>  </td>
+        <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td>HESAP NUMARASI</td>
+        <td>  </td>
+        <td>IBAN: TR84 0004 6006 2888 8000 1241 74</td>
+      </tr>
+    </table>
 
-        <tr>
-          <td style="width:60%;">&nbsp;</td>
-          <td style="width:20%; text-align:left; font-weight:bold; font-size:7pt;">TOPLAM</td>
-          <td style="width:20%; text-align:right; font-size:7pt;">{{totalAmount}} ₺</td>
-        </tr>
+    <table class="bank-table">
+      <tr>
+        <td>BANKA ADI</td>
+        <td>  </td>
+        <td>İŞ BANKASI</td>
+      </tr>
+      <tr>
+        <td>HESAP BİLGİSİ</td>
+        <td>  </td>
+        <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td>HESAP NUMARASI</td>
+        <td>  </td>
+        <td>IBAN: TR87 0006 4000 0011 2110 3359 72</td>
+      </tr>
+    </table>
 
-        <tr>
-          <td>&nbsp;</td>
-          <td style="text-align:left; font-weight:bold; font-size:7pt;">TOPLAM İNDİRİM</td>
-          <td style="text-align:right; font-size:7pt;">{{totalDiscount}} ₺</td>
-        </tr>
+    <table class="bank-table">
+      <tr>
+        <td>BANKA ADI</td>
+        <td>  </td>
+        <td>QNB FİNANSBANK</td>
+      </tr>
+      <tr>
+        <td>HESAP BİLGİSİ</td>
+        <td>  </td>
+        <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td>HESAP NUMARASI</td>
+        <td>  </td>
+        <td>IBAN: TR62 0011 1000 0000 0061 6173 81</td>
+      </tr>
+    </table>
 
-        <tr>
-          <td>&nbsp;</td>
-          <td style="text-align:left; font-weight:bold; font-size:7pt;">GENEL TOPLAM</td>
-          <td style="text-align:right; font-weight:bold; font-size:7pt;">{{grandTotal}} ₺</td>
-        </tr>
-
-        <tr>
-          <td colspan="3">
-            <div style="border-bottom:1px solid #000; width:100%; margin-top:8px;"></div>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="notes">
-      <table style="font-size:6pt; margin-top:10px; padding-top: 12px; text-align:left;">
-        <tr><td>- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR</td></tr>
-        <tr><td>- {{notePayment}}</td></tr>
-        <tr><td>- {{noteDelivery}}</td></tr>
-        <tr><td>- {{noteKdv}}</td></tr>
-        <tr><td>- {{noteValidity}}</td></tr>
-      </table>
-    </div>
-
-    <div style="page-break-after:always;"></div>
-
-    <div style="text-align:center; margin-top: 50px; margin-bottom: 40px;">
-      <span class="bank-title">HESAP BİLGİLERİMİZ</span>
-    </div>
-
-    <div>
-      <table class="bank-table">
-        <tr>
-          <td>BANKA ADI</td>
-          <td>  </td>
-          <td>GARANTİ BANKASI</td>
-        </tr>
-        <tr>
-          <td>HESAP BİLGİSİ</td>
-          <td>  </td>
-          <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-        </tr>
-        <tr>
-          <td>HESAP NUMARASI</td>
-          <td>  </td>
-          <td>IBAN: TR90 0006 2001 6690 0006 2978 90</td>
-        </tr>
-      </table>
-
-      <table class="bank-table">
-        <tr>
-          <td>BANKA ADI</td>
-          <td>  </td>
-          <td>AKBANK</td>
-        </tr>
-        <tr>
-          <td>HESAP BİLGİSİ</td>
-          <td>  </td>
-          <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-        </tr>
-        <tr>
-          <td>HESAP NUMARASI</td>
-          <td>  </td>
-          <td>IBAN: TR84 0004 6006 2888 8000 1241 74</td>
-        </tr>
-      </table>
-
-      <table class="bank-table">
-        <tr>
-          <td>BANKA ADI</td>
-          <td>  </td>
-          <td>İŞ BANKASI</td>
-        </tr>
-        <tr>
-          <td>HESAP BİLGİSİ</td>
-          <td>  </td>
-          <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-        </tr>
-        <tr>
-          <td>HESAP NUMARASI</td>
-          <td>  </td>
-          <td>IBAN: TR87 0006 4000 0011 2110 3359 72</td>
-        </tr>
-      </table>
-
-      <table class="bank-table">
-        <tr>
-          <td>BANKA ADI</td>
-          <td>  </td>
-          <td>QNB FİNANSBANK</td>
-        </tr>
-        <tr>
-          <td>HESAP BİLGİSİ</td>
-          <td>  </td>
-          <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-        </tr>
-        <tr>
-          <td>HESAP NUMARASI</td>
-          <td>  </td>
-          <td>IBAN: TR62 0011 1000 0000 0061 6173 81</td>
-        </tr>
-      </table>
-
-      <table class="bank-table">
-        <tr>
-          <td>BANKA ADI</td>
-          <td>  </td>
-          <td>ZİRAAT BANKASI</td>
-        </tr>
-        <tr>
-          <td>HESAP BİLGİSİ</td>
-          <td>  </td>
-          <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-        </tr>
-        <tr>
-          <td>HESAP NUMARASI</td>
-          <td>  </td>
-          <td>IBAN: TR19 0001 0021 8862 9823 6850 03</td>
-        </tr>
-      </table>
-    </div>
-
+    <table class="bank-table">
+      <tr>
+        <td>BANKA ADI</td>
+        <td>  </td>
+        <td>ZİRAAT BANKASI</td>
+      </tr>
+      <tr>
+        <td>HESAP BİLGİSİ</td>
+        <td>  </td>
+        <td>EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td>HESAP NUMARASI</td>
+        <td>  </td>
+        <td>IBAN: TR19 0001 0021 8862 9823 6850 03</td>
+      </tr>
+    </table>
   </div>
+
 </body>
 </html>
