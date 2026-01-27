@@ -5,26 +5,16 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-
-// Express'in kendi JSON parser'ı yeterli (body-parser şart değil)
 app.use(express.json({ limit: '50mb' }));
 
-// Helper
-hbs.registerHelper('eq', function (a, b) {
-  return a === b;
-});
+hbs.registerHelper('eq', (a, b) => a === b);
 
-// Uptime
-app.get('/', (req, res) => {
-  res.send('AGT PDF Servisi Aktif! 🚀');
-});
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// GLOBAL TARAYICI
 let browser;
 
 async function getBrowser() {
   if (!browser || !browser.isConnected()) {
-    console.log('Tarayıcı başlatılıyor...');
     browser = await puppeteer.launch({
       headless: 'new',
       args: [
@@ -38,12 +28,16 @@ async function getBrowser() {
   return browser;
 }
 
-async function generatePdfFromTemplate(data) {
-  // Template adı SENİN İSTEDİĞİN GİBİ KALDI
-  const templatePath = path.join(__dirname, 'views', 'manager_report.hbs');
+// GET ile test edince "Cannot GET" görmeyesin diye:
+app.get('/', (req, res) => res.send('AGT PDF Servisi Aktif! 🚀'));
+app.get('/generate-quote', (req, res) => res.status(405).send('Use POST /generate-quote'));
+app.get('/generate-manager-report', (req, res) => res.status(405).send('Use POST /generate-manager-report'));
+app.get('/generate-quote-pdf', (req, res) => res.status(405).send('Use POST /generate-quote-pdf'));
 
+async function renderPdfFromTemplate(data) {
+  const templatePath = path.join(__dirname, 'views', 'manager_report.hbs'); // dosya adın değişmiyor
   if (!fs.existsSync(templatePath)) {
-    throw new Error('Şablon dosyası sunucuda bulunamadı: ' + templatePath);
+    throw new Error('Template not found: ' + templatePath);
   }
 
   const templateHtml = fs.readFileSync(templatePath, 'utf8');
@@ -54,19 +48,16 @@ async function generatePdfFromTemplate(data) {
   const page = await browserInstance.newPage();
 
   try {
-    // Typekit gibi dış kaynaklar networkidle0'da takılabiliyor
-    await page.setContent(finalHtml, {
-      waitUntil: 'domcontentloaded',
-      timeout: 60000
-    });
+    // networkidle0 Typekit vb. yüzünden bazen hiç idle olmaz -> timeout üretir.
+    await page.setContent(finalHtml, { waitUntil: 'domcontentloaded', timeout: 120000 });
 
-    // Fontların yüklenmesini kısa süre bekle (yüklenmezse de devam eder)
-    await page.evaluateHandle('document.fonts && document.fonts.ready').catch(() => {});
-    await page.waitForTimeout(300);
+    // Fontlar varsa bekle (Typekit dahil)
+    await page.evaluate(() => (document.fonts ? document.fonts.ready : Promise.resolve()));
+    await sleep(300); // mini buffer
 
     const pdfBuffer = await page.pdf({
       format: 'A4',
-      landscape: false,
+      landscape: true,
       printBackground: true,
       margin: { top: '0', right: '0', bottom: '0', left: '0' }
     });
@@ -77,35 +68,21 @@ async function generatePdfFromTemplate(data) {
   }
 }
 
-// Tek handler: hangi route'tan gelirse gelsin aynı PDF üret
-async function handler(req, res) {
+// Aynı template ile 3 endpoint’i de destekleyelim (Salesforce hangi path’e atarsa atsın)
+async function handleGenerate(req, res) {
   try {
-    console.log('PDF isteği geldi =>', req.method, req.path);
-
     const data = req.body || {};
-    const pdfBuffer = await generatePdfFromTemplate(data);
-    const pdfBase64 = pdfBuffer.toString('base64');
-
-    return res.json({ status: 'Success', base64: pdfBase64 });
-  } catch (error) {
-    console.error('PDF Hatası:', error);
-    return res.status(500).send('PDF oluşturulurken hata: ' + error.message);
+    const pdfBuffer = await renderPdfFromTemplate(data);
+    res.json({ status: 'Success', base64: pdfBuffer.toString('base64') });
+  } catch (e) {
+    console.error('PDF ERROR:', e);
+    res.status(500).send('PDF oluşturulurken hata: ' + e.message);
   }
 }
 
-// ✅ Aynı handler birden fazla path'e bağlandı (404 biter)
-const ROUTES = ['/generate-quote', '/generate-manager-report', '/generate-quote-pdf'];
-
-// Tarayıcıdan kontrol edebil diye aynı path’lere GET koydum
-app.get(ROUTES, (req, res) => res.send('OK: ' + req.path));
-
-// Asıl PDF POST’ları
-app.post(ROUTES, handler);
-
-// En son: route yoksa daha anlaşılır 404 (Express default yerine)
-app.use((req, res) => {
-  res.status(404).send('Not Found: ' + req.method + ' ' + req.path);
-});
+app.post('/generate-quote', handleGenerate);
+app.post('/generate-manager-report', handleGenerate);
+app.post('/generate-quote-pdf', handleGenerate);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
