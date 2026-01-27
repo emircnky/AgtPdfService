@@ -1,337 +1,360 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
-<style>
-/* Header her sayfada tekrar etsin diye:
-    - fixed header
-    - @page margin-top header yüksekliği kadar */
-@page {
-    size: A4;
-    margin-left: 0.2cm;
-    margin-right: 0.2cm;
-    margin-bottom: 3cm;
-    margin-top: 0.8cm; /* header alanı */
-}
+    <style>
+        /* Header her sayfada tekrar etsin diye:
+       - fixed header
+       - @page margin-top header yüksekliği kadar */
+        @page {
+            size: A4;
+            margin-left: 0.2cm;
+            margin-right: 0.2cm;
+            margin-bottom: 3cm;
+            margin-top: 0.8cm;
+            /* header alanı */
+        }
 
-body{
-    margin:0;
-    padding:0;
-    font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
-    font-size:10pt;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-    color:#000;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            color: #000;
+        }
 
-/* ===== HEADER (fixed) ===== */
-.header-fixed{
-    position: fixed;
-    top: 0.2cm;
-    left: 0.2cm;
-    right: 0.2cm;
-    text-align: center;
-}
+        /* ===== HEADER (fixed) ===== */
+        .header-fixed {
+            position: fixed;
+            top: 0.2cm;
+            left: 0.2cm;
+            right: 0.2cm;
+            text-align: center;
+        }
 
-.snocLogo{
-    width: 250px;
-    height: 80px;
-    object-fit: contain;
-    display:block;
-    margin: 0 auto;
-}
+        .snocLogo {
+            width: 250px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
 
-.header-text{
-    font-size: 7pt;
-    font-weight: normal;
-    color: #333;
-    margin-top: 6px;
-}
+        .header-text {
+            font-size: 7pt;
+            font-weight: normal;
+            color: #333;
+            margin-top: 6px;
+        }
 
-/* ===== TITLE ===== */
-.main-title-wrap{
-    text-align:center;
-    width:100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.main-title{
-    font-size: 15pt;
-    font-weight: bold;
-    border-bottom: 1px solid #000;
-    display:inline-block;
-    padding-bottom: 2px;
-    letter-spacing: 0.5px;
-}
+        /* ===== TITLE ===== */
+        .main-title-wrap {
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
 
-/* ===== TOP INFO ===== */
-.top-info{
-    width:100%;
-    border-collapse: collapse;
-    margin-bottom: 6px;
-}
-.top-info td{
-    font-size: 8pt;
-    vertical-align: top;
-}
-.top-left{
-    width:50%;
-    text-align:left;
-    padding-top: 6px;
-}
-.top-right{
-    width:50%;
-    text-align:right;
-    padding-top: 6px;
-}
+        .main-title {
+            font-size: 15pt;
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            padding-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
 
-/* ===== LINES TABLE ===== */
-table.quote-lines-table{
-    width:100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 25px;
-    font-size: 7pt;
-}
+        /* ===== TOP INFO ===== */
+        .top-info {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
 
-table.quote-lines-table thead th{
-    background:#bfbfbf;
-    color:#000;
-    text-align:center;
-    padding: 10px 6px;
-    border: 2px solid #fff; /* başlıklarda “kutu” görünümü */
-    font-weight: bold;
-    letter-spacing: 0.4px;
-    white-space: nowrap;
-}
+        .top-info td {
+            font-size: 8pt;
+            vertical-align: top;
+        }
 
-table.quote-lines-table tbody td{
-    text-align:center;
-    font-size: 7pt;
-    padding: 18px 6px; /* referans pdf’te satırlar ferah */
-    vertical-align: middle;
-    border: none;
-}
+        .top-left {
+            width: 50%;
+            text-align: left;
+            padding-top: 6px;
+        }
 
-tr.data-row{
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
+        .top-right {
+            width: 50%;
+            text-align: right;
+            padding-top: 6px;
+        }
 
-/* görsel */
-td.imgCell{
-    width:16%;
-}
-td.imgCell img{
-    width: 160px;
-    height: 110px;
-    object-fit: contain;
-    display:block;
-    margin: 0 auto;
-}
+        /* ===== LINES TABLE ===== */
+        table.quote-lines-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            font-size: 7pt;
+        }
 
-/* açıklama hücresi (VF’de aslında center kalıyordu) */
-td.descCell{
-    width:32%;
-}
-.prod-name{
-    display:block;
-    font-size: 8pt;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-.prod-link{
-    display:block;
-    font-size: 6pt;
-    font-style: italic;
-    margin-top: 10px;
-    word-break: break-word;
-}
-.prod-desc{
-    display:block;
-    font-size: 7pt;
-    margin-top: 10px;
-}
-.prod-dim{
-    display:block;
-    font-size: 7pt;
-    margin-top: 10px;
-}
+        table.quote-lines-table thead th {
+            background: #bfbfbf;
+            color: #000;
+            text-align: center;
+            padding: 10px 6px;
+            border: 2px solid #fff;
+            /* başlıklarda “kutu” görünümü */
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            white-space: nowrap;
+        }
 
-.cur{
-    margin-left: 6px;
-    font-size: 8pt;
-}
+        table.quote-lines-table tbody td {
+            text-align: center;
+            font-size: 7pt;
+            padding: 18px 6px;
+            /* referans pdf’te satırlar ferah */
+            vertical-align: middle;
+            border: none;
+        }
 
-/* ===== TOTALS ===== */
-.totals-wrap{
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-top: 10px;
-}
-.line-hr{
-    border-top: 1px solid #000;
-    width:100%;
-    margin: 8px 0;
-}
-.totals-table{
-    width:100%;
-    border-collapse: collapse;
-    font-size: 8pt;
-}
-.totals-table td{
-    padding: 3px 0;
-}
-.totals-label{
-    text-align:left;
-    font-weight: bold;
-    white-space: nowrap;
-}
-.totals-value{
-    text-align:right;
-    white-space: nowrap;
-}
+        tr.data-row {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
 
-/* ===== NOTES ===== */
-.notes{
-    margin-top: 12px;
-    font-size: 6pt;
-    line-height: 1.35;
-}
-.notes .note{
-    margin: 3px 0;
-}
+        /* görsel */
+        td.imgCell {
+            width: 16%;
+        }
 
-/* ===== PAGE BREAK ===== */
-.pageBreak{
-    page-break-after: always;
-    break-after: page;
-}
+        td.imgCell img {
+            width: 160px;
+            height: 110px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
 
-/* ===== BANK PAGE ===== */
-.bank-title-wrap{
-    text-align:center;
-    width:100%;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-.bank-title{
-    font-size: 12pt;
-    font-weight: bold;
-    letter-spacing: 0.6px;
-}
+        /* açıklama hücresi (VF’de aslında center kalıyordu) */
+        td.descCell {
+            width: 32%;
+        }
 
-.bank-block{
-    width: 70%;
-    margin: 0 auto 34px auto;
-    border-collapse: collapse;
-    font-size: 9pt;
-}
-.bank-block td{
-    padding: 4px 6px;
-    vertical-align: top;
-}
-.bank-label{
-    width: 40%;
-    letter-spacing: 2px;
-    white-space: nowrap;
-}
-.bank-value{
-    width: 60%;
-}
-</style>
+        .prod-name {
+            display: block;
+            font-size: 8pt;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .prod-link {
+            display: block;
+            font-size: 6pt;
+            font-style: italic;
+            margin-top: 10px;
+            word-break: break-word;
+        }
+
+        .prod-desc {
+            display: block;
+            font-size: 7pt;
+            margin-top: 10px;
+        }
+
+        .prod-dim {
+            display: block;
+            font-size: 7pt;
+            margin-top: 10px;
+        }
+
+        .cur {
+            margin-left: 6px;
+            font-size: 8pt;
+        }
+
+        /* ===== TOTALS ===== */
+        .totals-wrap {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-top: 10px;
+        }
+
+        .line-hr {
+            border-top: 1px solid #000;
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .totals-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8pt;
+        }
+
+        .totals-table td {
+            padding: 3px 0;
+        }
+
+        .totals-label {
+            text-align: left;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .totals-value {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* ===== NOTES ===== */
+        .notes {
+            margin-top: 12px;
+            font-size: 6pt;
+            line-height: 1.35;
+        }
+
+        .notes .note {
+            margin: 3px 0;
+        }
+
+        /* ===== PAGE BREAK ===== */
+        .pageBreak {
+            page-break-after: always;
+            break-after: page;
+        }
+
+        /* ===== BANK PAGE ===== */
+        .bank-title-wrap {
+            text-align: center;
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .bank-title {
+            font-size: 12pt;
+            font-weight: bold;
+            letter-spacing: 0.6px;
+        }
+
+        .bank-block {
+            width: 70%;
+            margin: 0 auto 34px auto;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+
+        .bank-block td {
+            padding: 4px 6px;
+            vertical-align: top;
+        }
+
+        .bank-label {
+            width: 40%;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .bank-value {
+            width: 60%;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- FIXED HEADER (her sayfada tekrarlar) -->
-<div class="header-fixed">
-{{#if logoDataUri}}
-    <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
-{{/if}}
-<div class="header-text">
-    EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br/>
-    NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br/>
-    TEL: +90 (850) 800 64 64
-</div>
-</div>
+    <!-- FIXED HEADER (her sayfada tekrarlar) -->
+    <div class="header-fixed">
+        {{#if logoDataUri}}
+        <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+        {{/if}}
+        <div class="header-text">
+            EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
+            NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
+            TEL: +90 (850) 800 64 64
+        </div>
+    </div>
 
-<!-- TITLE -->
-<div class="main-title-wrap">
-<span class="main-title">TEKLİF FORMU</span>
-</div>
+    <!-- TITLE -->
+    <div class="main-title-wrap">
+        <span class="main-title">TEKLİF FORMU</span>
+    </div>
 
-<!-- TOP INFO -->
-<table class="top-info">
-<tr>
-    <td class="top-left">SAYIN; {{sayin}}</td>
-    <td class="top-right">
-    <div>{{today}}</div>
-    <div>İLETİŞİM: {{ownerName}}</div>
-    <div>E-MAIL: {{ownerEmail}}</div>
-    </td>
-</tr>
-</table>
+    <!-- TOP INFO -->
+    <table class="top-info">
+        <tr>
+            <td class="top-left">SAYIN; {{sayin}}</td>
+            <td class="top-right">
+                <div>{{today}}</div>
+                <div>İLETİŞİM: {{ownerName}}</div>
+                <div>E-MAIL: {{ownerEmail}}</div>
+            </td>
+        </tr>
+    </table>
 
-<!-- LINE PAGES -->
-{{#if pages}}
-{{#each pages}}
+    <!-- LINE PAGES -->
+    {{#if pages}}
+    {{#each pages}}
 
     <table class="quote-lines-table">
-    <thead>
-        <tr>
-        <th style="width:16%;">FOTOĞRAF</th>
-        <th style="width:32%;">AÇIKLAMA</th>
-        <th style="width:8%;">ADET</th>
-        <th style="width:13%;">BİRİM FİYATI</th>
-        <th style="width:10%;">TOPLAM</th>
-        <th style="width:10%;">İNDİRİMLİ TUTAR</th>
-        <th style="width:8%;">STOK DURUMU</th>
-        </tr>
-    </thead>
+        <thead>
+            <tr>
+                <th style="width:16%;">FOTOĞRAF</th>
+                <th style="width:32%;">AÇIKLAMA</th>
+                <th style="width:8%;">ADET</th>
+                <th style="width:13%;">BİRİM FİYATI</th>
+                <th style="width:10%;">TOPLAM</th>
+                <th style="width:10%;">İNDİRİMLİ TUTAR</th>
+                <th style="width:8%;">STOK DURUMU</th>
+            </tr>
+        </thead>
 
-    <tbody>
-    {{#each lines}}
-    <tr class="data-row">
-    <td class="imgCell">
-        {{#if hasImage}}
-<img src="{{imageUrl}}" alt="Product" />
-{{/if}}
+        <tbody>
+            {{#each lines}}
+            <tr class="data-row">
+                <td class="imgCell">
+                    {{#if hasImage}}
+                    <img src="{{imageUrl}}" alt="Product" />
+                    {{/if}}
 
-    </td>
+                </td>
 
-    <td class="descCell">
-        {{#if productName}}
-            <span class="prod-name">{{productName}}</span>
-            {{/if}}
+                <td class="descCell">
+                    {{#if productName}}
+                    <span class="prod-name">{{productName}}</span>
+                    {{/if}}
 
-            {{#if usageArea}}
-            <span class="prod-link">{{usageArea}}</span>
-            {{/if}}
+                    {{#if usageArea}}
+                    <span class="prod-link">{{usageArea}}</span>
+                    {{/if}}
 
-            {{#if description}}
-            <span class="prod-desc">{{description}}</span>
-            {{/if}}
+                    {{#if description}}
+                    <span class="prod-desc">{{description}}</span>
+                    {{/if}}
 
-            {{#if dimension}}
-            <span class="prod-dim">{{dimension}}</span>
-            {{/if}}
-        </td>
+                    {{#if dimension}}
+                    <span class="prod-dim">{{dimension}}</span>
+                    {{/if}}
+                </td>
 
-        <td>{{quantity}}</td>
+                <td>{{quantity}}</td>
 
-        <td>{{unitPrice}} <span class="cur">₺</span></td>
+                <td>{{unitPrice}} <span class="cur">₺</span></td>
 
-        <td>{{subTotal}} <span class="cur">₺</span></td>
+                <td>{{subTotal}} <span class="cur">₺</span></td>
 
-        <td>{{totalPrice}} <span class="cur">₺</span></td>
+                <td>{{totalPrice}} <span class="cur">₺</span></td>
 
-        <td>{{stockStatus}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
+                <td>{{stockStatus}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 
     {{#if @last}}
@@ -340,21 +363,21 @@ td.descCell{
         <div class="line-hr"></div>
 
         <table class="totals-table">
-        <tr>
-            <td style="width:70%;">&nbsp;</td>
-            <td class="totals-label" style="width:15%;">TOPLAM</td>
-            <td class="totals-value" style="width:15%;">{{totalAmount}} ₺</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td class="totals-label">TOPLAM İNDİRİM</td>
-            <td class="totals-value">{{totalDiscount}} ₺</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td class="totals-label">GENEL TOPLAM</td>
-            <td class="totals-value"><b>{{grandTotal}} ₺</b></td>
-        </tr>
+            <tr>
+                <td style="width:70%;">&nbsp;</td>
+                <td class="totals-label" style="width:15%;">TOPLAM</td>
+                <td class="totals-value" style="width:15%;">{{totalAmount}} ₺</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="totals-label">TOPLAM İNDİRİM</td>
+                <td class="totals-value">{{totalDiscount}} ₺</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="totals-label">GENEL TOPLAM</td>
+                <td class="totals-value"><b>{{grandTotal}} ₺</b></td>
+            </tr>
         </table>
 
         <div class="line-hr"></div>
@@ -373,83 +396,129 @@ td.descCell{
     <div class="pageBreak"></div>
     {{/if}}
 
-{{/each}}
-
-{{else}}
-<!-- fallback: eski şema (pages yoksa) -->
-<table class="quote-lines-table">
-    <thead>
-    <tr>
-        <th style="width:16%;">FOTOĞRAF</th>
-        <th style="width:32%;">AÇIKLAMA</th>
-        <th style="width:8%;">ADET</th>
-        <th style="width:13%;">BİRİM FİYATI</th>
-        <th style="width:10%;">TOPLAM</th>
-        <th style="width:10%;">İNDİRİMLİ TUTAR</th>
-        <th style="width:8%;">STOK DURUMU</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each lines}}
-    <tr class="data-row">
-        <td class="imgCell">
-        {{#if hasImage}}
-            <img src="{{{imageDataUri}}}" alt="Product" />
-        {{/if}}
-        </td>
-        <td class="descCell">
-        <span class="prod-name">{{productName}}</span>
-        {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
-        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
-        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
-        </td>
-        <td>{{quantity}}</td>
-        <td>{{unitPrice}} <span class="cur">₺</span></td>
-        <td>{{subTotal}} <span class="cur">₺</span></td>
-        <td>{{totalPrice}} <span class="cur">₺</span></td>
-        <td>{{stockStatus}}</td>
-    </tr>
     {{/each}}
-    </tbody>
-</table>
-{{/if}}
 
-<!-- BANK PAGE -->
-<div class="pageBreak"></div>
+    {{else}}
+    <!-- fallback: eski şema (pages yoksa) -->
+    <table class="quote-lines-table">
+        <thead>
+            <tr>
+                <th style="width:16%;">FOTOĞRAF</th>
+                <th style="width:32%;">AÇIKLAMA</th>
+                <th style="width:8%;">ADET</th>
+                <th style="width:13%;">BİRİM FİYATI</th>
+                <th style="width:10%;">TOPLAM</th>
+                <th style="width:10%;">İNDİRİMLİ TUTAR</th>
+                <th style="width:8%;">STOK DURUMU</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each lines}}
+            <tr class="data-row">
+                <td class="imgCell">
+                    {{#if hasImage}}
+                    <img src="{{{imageDataUri}}}" alt="Product" />
+                    {{/if}}
+                </td>
+                <td class="descCell">
+                    <span class="prod-name">{{productName}}</span>
+                    {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
+                    {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
+                    {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
+                </td>
+                <td>{{quantity}}</td>
+                <td>{{unitPrice}} <span class="cur">₺</span></td>
+                <td>{{subTotal}} <span class="cur">₺</span></td>
+                <td>{{totalPrice}} <span class="cur">₺</span></td>
+                <td>{{stockStatus}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
 
-<div class="bank-title-wrap">
-<div class="bank-title">HESAP BİLGİLERİMİZ</div>
-</div>
+    <!-- BANK PAGE -->
+    <div class="pageBreak"></div>
 
-<table class="bank-block">
-<tr><td class="bank-label">BANKA ADI</td><td class="bank-value">GARANTİ BANKASI</td></tr>
-<tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-<tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td></tr>
-</table>
+    <div class="bank-title-wrap">
+        <div class="bank-title">HESAP BİLGİLERİMİZ</div>
+    </div>
 
-<table class="bank-block">
-<tr><td class="bank-label">BANKA ADI</td><td class="bank-value">AKBANK</td></tr>
-<tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-<tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td></tr>
-</table>
+    <table class="bank-block">
+        <tr>
+            <td class="bank-label">BANKA ADI</td>
+            <td class="bank-value">GARANTİ BANKASI</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP BİLGİSİ</td>
+            <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP NUMARASI</td>
+            <td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td>
+        </tr>
+    </table>
 
-<table class="bank-block">
-<tr><td class="bank-label">BANKA ADI</td><td class="bank-value">İŞ BANKASI</td></tr>
-<tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-<tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td></tr>
-</table>
+    <table class="bank-block">
+        <tr>
+            <td class="bank-label">BANKA ADI</td>
+            <td class="bank-value">AKBANK</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP BİLGİSİ</td>
+            <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP NUMARASI</td>
+            <td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td>
+        </tr>
+    </table>
 
-<table class="bank-block">
-<tr><td class="bank-label">BANKA ADI</td><td class="bank-value">QNB FİNANSBANK</td></tr>
-<tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-<tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td></tr>
-</table>
+    <table class="bank-block">
+        <tr>
+            <td class="bank-label">BANKA ADI</td>
+            <td class="bank-value">İŞ BANKASI</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP BİLGİSİ</td>
+            <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP NUMARASI</td>
+            <td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td>
+        </tr>
+    </table>
 
-<table class="bank-block">
-<tr><td class="bank-label">BANKA ADI</td><td class="bank-value">ZİRAAT BANKASI</td></tr>
-<tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-<tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td></tr>
-</table>
+    <table class="bank-block">
+        <tr>
+            <td class="bank-label">BANKA ADI</td>
+            <td class="bank-value">QNB FİNANSBANK</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP BİLGİSİ</td>
+            <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP NUMARASI</td>
+            <td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td>
+        </tr>
+    </table>
+
+    <table class="bank-block">
+        <tr>
+            <td class="bank-label">BANKA ADI</td>
+            <td class="bank-value">ZİRAAT BANKASI</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP BİLGİSİ</td>
+            <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+        </tr>
+        <tr>
+            <td class="bank-label">HESAP NUMARASI</td>
+            <td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td>
+        </tr>
+    </table>
 
 </body>
+
 </html>
