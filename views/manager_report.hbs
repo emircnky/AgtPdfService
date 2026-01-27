@@ -23,16 +23,15 @@
       print-color-adjust: exact;
     }
 
-    .header {
+    div.header {
       text-align: center;
       margin-top: 10px;
       font-family: 'Arial Unicode MS';
     }
 
-    .snocLogo {
+    img.snocLogo {
       width: 250px;
       height: 80px;
-      object-fit: contain;
       display: block;
       margin: 0 auto;
     }
@@ -44,12 +43,16 @@
       margin-bottom: 30px;
     }
 
-    .title {
+    div.title {
       font-size: 20pt;
       font-weight: bold;
       text-align: center;
       margin-top: 45px;
       margin-bottom: 2px;
+    }
+
+    body {
+      font-family: 'Arial Unicode MS';
     }
 
     table.quote-lines-table {
@@ -71,19 +74,18 @@
       text-align: center;
       font-size: 6pt;
       padding: 4px 3px;
-      vertical-align: top;
     }
 
-    table.quote-lines-table tr.data-row:nth-child(even) { 
-      background-color: #f5f5f5; 
-    }
-    
-    table.quote-lines-table tr.data-row:nth-child(odd) { 
-      background-color: #ffffff; 
+    table.quote-lines-table tr.data-row:nth-child(even) {
+      background-color: #f5f5f5;
     }
 
-    .product-desc { 
-      text-align: left; 
+    table.quote-lines-table tr.data-row:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    .product-desc {
+      text-align: left;
     }
 
     tr.data-row {
@@ -96,11 +98,6 @@
       max-width: 120px;
       max-height: 80px;
       object-fit: contain;
-    }
-
-    .totals-wrap { 
-      page-break-inside: avoid; 
-      break-inside: avoid; 
     }
 
     .bank-table { 
@@ -116,7 +113,6 @@
 </head>
 
 <body>
-  <!-- HEADER -->
   <div class="header">
     {{#if logoDataUri}}
       <img class="snocLogo" src="{{logoDataUri}}" alt="Logo" />
@@ -130,12 +126,11 @@
 
   <!-- BAŞLIK -->
   <div style="text-align:center; width:100%; margin-top: 25px; margin-bottom: 5px;">
-    <span style="font-size:15pt; font-weight:bold; border-bottom:1px solid #000; display:inline-block; padding-bottom:2px;">
+    <span style="font-size:15pt; font-weight:bold; border-bottom:1px solid #000;">
       TEKLİF FORMU
     </span>
   </div>
 
-  <!-- SAYIN + TARİH BİLGİLERİ -->
   <table width="100%" style="border-collapse: collapse; margin-bottom: 5px;">
     <tr>
       <td style="font-size:8pt; width:50%; text-align:left; vertical-align: bottom; padding-bottom:1px;">
@@ -151,73 +146,71 @@
 
   <!-- QUOTE LINE ITEM TABLOSU -->
   <table class="quote-lines-table">
-    <thead>
+    <tr>
+      <th style="width:16%;">FOTOĞRAF</th>
+      <th style="width:32%;">AÇIKLAMA</th>
+      <th style="width:8%;">ADET</th>
+      <th style="width:13%;">BİRİM FİYATI</th>
+      <th style="width:10%;">TOPLAM</th>
+      <th style="width:10%;white-space: nowrap;">İNDİRİMLİ TUTAR</th>
+      <th style="width:8%;white-space: nowrap;">STOK DURUMU</th>
+    </tr>
+
+    {{#each lines}}
+    <!-- DATA ROW -->
+    <tr class="data-row">
+      <!-- FOTOĞRAF -->
+      <td class="imgCell">
+        {{#if hasImage}}
+          <img src="{{imageDataUri}}" width="120" height="80" style="max-width:120px; max-height:80px; object-fit:contain;" />
+        {{/if}}
+      </td>
+
+      <!-- AÇIKLAMA -->
+      <td class="product-desc">
+        {{productName}}
+        
+        {{#if usageArea}}
+          <br/><br/>{{usageArea}}
+        {{/if}}
+
+        {{#if description}}
+          <br/><br/>
+          <span style="font-size:7pt;">{{description}}</span>
+        {{/if}}
+
+        {{#if dimension}}
+          <br/><br/>{{dimension}}
+        {{/if}}
+      </td>
+
+      <!-- ADET -->
+      <td>{{quantity}}</td>
+
+      <!-- BİRİM FİYATI -->
+      <td>{{unitPrice}}</td>
+
+      <!-- TOPLAM -->
+      <td>{{subTotal}}</td>
+
+      <!-- İNDİRİMLİ TUTAR -->
+      <td>{{totalPrice}}</td>
+
+      <!-- STOK DURUMU -->
+      <td>{{stockStatus}}</td>
+    </tr>
+
+    <!-- HER 5 SATIRDA SAYFA BÖL -->
+    {{#if pageBreakAfter}}
       <tr>
-        <th style="width:16%;">FOTOĞRAF</th>
-        <th style="width:32%;">AÇIKLAMA</th>
-        <th style="width:8%;">ADET</th>
-        <th style="width:13%;">BİRİM FİYATI</th>
-        <th style="width:10%;">TOPLAM</th>
-        <th style="width:10%;white-space: nowrap;">İNDİRİMLİ TUTAR</th>
-        <th style="width:8%;white-space: nowrap;">STOK DURUMU</th>
+        <td colspan="7" style="page-break-after:always; height:1px;"></td>
       </tr>
-    </thead>
-    <tbody>
-      {{#each lines}}
-      <tr class="data-row">
-        <!-- FOTOĞRAF -->
-        <td class="imgCell">
-          {{#if hasImage}}
-            <img src="{{imageDataUri}}" alt="Product" />
-          {{/if}}
-        </td>
-
-        <!-- AÇIKLAMA -->
-        <td class="product-desc">
-          {{productName}}
-          
-          {{#if usageArea}}
-            <br/><br/>{{usageArea}}
-          {{/if}}
-
-          {{#if description}}
-            <br/><br/>
-            <span style="font-size:7pt;">{{description}}</span>
-          {{/if}}
-
-          {{#if dimension}}
-            <br/><br/>{{dimension}}
-          {{/if}}
-        </td>
-
-        <!-- ADET -->
-        <td>{{quantity}}</td>
-
-        <!-- BİRİM FİYATI -->
-        <td>{{unitPrice}}</td>
-
-        <!-- TOPLAM -->
-        <td>{{subTotal}}</td>
-
-        <!-- İNDİRİMLİ TUTAR -->
-        <td>{{totalPrice}}</td>
-
-        <!-- STOK DURUMU -->
-        <td>{{stockStatus}}</td>
-      </tr>
-
-      <!-- HER 5 SATIRDA SAYFA BÖL -->
-      {{#if pageBreakAfter}}
-        <tr>
-          <td colspan="7" style="page-break-after:always; height:1px;"></td>
-        </tr>
-      {{/if}}
-      {{/each}}
-    </tbody>
+    {{/if}}
+    {{/each}}
   </table>
 
   <!-- TOPLAM BLOĞU -->
-  <div class="totals-wrap">
+  <div style="page-break-inside: avoid; break-inside: avoid;">
     <table style="width:100%; margin-top:25px; font-size:10pt; border-collapse:collapse;">
       <tr>
         <td colspan="3">
@@ -258,12 +251,10 @@
     </table>
   </div>
 
-  <!-- SAYFA SONU -->
   <div style="page-break-after:always;"></div>
 
-  <!-- HESAP BİLGİLERİ SAYFASI -->
   <div style="text-align:center; width:100%; margin-top: 50px; margin-bottom: 40px;">
-    <span style="font-size:11pt; font-weight:bold; border-bottom:1px solid #000; display:inline-block; padding-bottom:2px;">
+    <span style="font-size:11pt; font-weight:bold; border-bottom:1px solid #000;">
       HESAP BİLGİLERİMİZ
     </span>
   </div>
