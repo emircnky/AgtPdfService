@@ -6,13 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-
-// Render / proxy / büyük payload için güvenli limit
 app.use(bodyParser.json({ limit: '50mb' }));
-
-// (Opsiyonel) basic CORS – Salesforce callout için genelde gerekmez ama tarayıcı testinde işe yarar
-// const cors = require('cors');
-// app.use(cors({ origin: '*'}));
 
 // ----------------------
 // Handlebars helpers
@@ -28,7 +22,7 @@ app.get('/', (req, res) => {
   res.status(200).send('AGT PDF Servisi Aktif! 🚀');
 });
 
-// Endpoint test (GET ile “Cannot GET” görmeyesin)
+// GET test endpoint
 app.get('/generate-quote', (req, res) => {
   res.status(200).send('OK (POST required)');
 });
@@ -55,21 +49,27 @@ async function getBrowser() {
   return browser;
 }
 
-// Render bazen idle kalabiliyor -> güvenli yardımcı
 async function safeClosePage(page) {
   if (!page) return;
   try { await page.close(); } catch (e) {}
 }
 
-// PDF doğrulama: %PDF + min size
-function assertPdfBuffer(pdfBuffer) {
-  if (!pdfBuffer || pdfBuffer.length < 1000) {
-    throw new Error('PDF buffer empty/small. len=' + (pdfBuffer ? pdfBuffer.length : 0));
+// ✅ Puppeteer v24+ page.pdf() -> Uint8Array dönebiliyor
+// Bu yüzden assert ve base64 için Buffer'a çeviriyoruz.
+function assertPdfBytes(bytes) {
+  const buf = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
+
+  if (!buf || buf.length < 1000) {
+    throw new Error('PDF buffer empty/small. len=' + (buf ? buf.length : 0));
   }
-  const header = pdfBuffer.subarray(0, 4).toString('utf8');
-  if (header !== '%PDF') {
-    throw new Error('Not a PDF. header=' + header);
+
+  // "%PDF" kontrolü byte bazlı
+  if (!(buf[0] === 0x25 && buf[1] === 0x50 && buf[2] === 0x44 && buf[3] === 0x46)) {
+    const head = Array.from(buf.subarray(0, 8)).join(',');
+    throw new Error('Not a PDF. headBytes=' + head);
   }
+
+  return buf; // Buffer döndür
 }
 
 // ----------------------
@@ -80,77 +80,71 @@ app.post('/generate-quote', async (req, res) => {
 
   try {
     const data = req.body || {};
-    const reqId = Date.now().toString() + '-' + Math.floor(Math.random() * 100000).toString();
+    const reqId = `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
     console.log(`[${reqId}] /generate-quote request received`);
 
-    // Template (senin dosya adın manager_report.hbs — burada aynen bırakıyorum)
+    // Template adı sende manager_report.hbs
     const templatePath = path.join(__dirname, 'views', 'manager_report.hbs');
 
     if (!fs.existsSync(templatePath)) {
-      console.error(`[${reqId}] Template missing:`, templatePath);
-      return res.status(500).json({ error: 'Template file not found on server.', templatePath });
+      console.error(`[${reqId}] Template missing: ${templatePath}`);
+      res.status(500);
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      return res.send('PDF_ERROR: Template file not found: ' + templatePath);
     }
 
     const templateHtml = fs.readFileSync(templatePath, 'utf8');
     const template = hbs.compile(templateHtml, { noEscape: true });
     const finalHtml = template(data);
 
-    // Browser + Page
     const browserInstance = await getBrowser();
     page = await browserInstance.newPage();
 
-    // Render için daha stabil ayarlar
     await page.setViewport({ width: 1280, height: 720 });
-
-    // Bazı ortamlarda font/asset yüklemeleri uzarsa takılmasın
     page.setDefaultNavigationTimeout(60000);
     page.setDefaultTimeout(60000);
 
-    // HTML set
+    // İçerik
     await page.setContent(finalHtml, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-    // network idle beklemesi: fail olursa devam et (typekit vb.)
+    // External asset'ler (typekit vb.) bazen takılır; bekle ama takılırsa geç
     try {
-      // Puppeteer v24+ mevcut
       await page.waitForNetworkIdle({ idleTime: 500, timeout: 60000 });
     } catch (e) {
-      console.log(`[${reqId}] waitForNetworkIdle skipped:`, e.message);
+      console.log(`[${reqId}] waitForNetworkIdle skipped: ${e.message}`);
     }
 
-    // PDF
-    const pdfBuffer = await page.pdf({
+    // PDF üret (✅ burada Uint8Array gelebilir)
+    const pdfBytes = await page.pdf({
       format: 'A4',
       landscape: true,
       printBackground: true,
       margin: { top: '0', right: '0', bottom: '0', left: '0' }
     });
 
-    // Page kapat
     await safeClosePage(page);
     page = null;
 
-    // PDF gerçekten PDF mi?
-    assertPdfBuffer(pdfBuffer);
+    // ✅ Validate + Buffer'a çevir
+    const pdfBuf = assertPdfBytes(pdfBytes);
 
-    // Base64
-    const pdfBase64 = pdfBuffer.toString('base64');
+    // ✅ Base64 doğru şekilde Buffer'dan alınır
+    const pdfBase64 = pdfBuf.toString('base64');
 
-    console.log(`[${reqId}] PDF OK bytes=${pdfBuffer.length} base64len=${pdfBase64.length}`);
+    console.log(`[${reqId}] PDF OK bytes=${pdfBuf.length} base64len=${pdfBase64.length}`);
 
     return res.status(200).json({
       status: 'Success',
       base64: pdfBase64,
-      bytes: pdfBuffer.length
+      bytes: pdfBuf.length
     });
 
   } catch (error) {
     console.error('Generate Quote PDF Error:', error);
-
     await safeClosePage(page);
 
     const msg = (error && (error.stack || error.message)) ? (error.stack || error.message) : String(error);
 
-    // Apex'in kesin göreceği şekilde düz text dön
     res.status(500);
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     return res.send('PDF_ERROR: ' + msg);
