@@ -5,21 +5,19 @@
   <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
   <style>
-    /* Header her sayfada tekrar etsin diye:
-       - fixed header
-       - @page margin-top header yüksekliği kadar */
+    /* ===== PAGE ===== */
     @page {
       size: A4;
       margin-left: 0.2cm;
       margin-right: 0.2cm;
       margin-bottom: 3cm;
-      margin-top: 3.8cm; /* header alanı */
+      margin-top: 4.2cm; /* header alanı (sabit yükseklikle uyumlu) */
     }
 
     body{
       margin:0;
       padding:0;
-      font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
+      font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif; /* FONT KORUNDU */
       font-size:10pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -32,6 +30,8 @@
       top: 0.2cm;
       left: 0.2cm;
       right: 0.2cm;
+      height: 3.8cm;      /* sabit: margin-top ile uyumlu */
+      overflow: hidden;
       text-align: center;
     }
 
@@ -48,6 +48,7 @@
       font-weight: normal;
       color: #333;
       margin-top: 6px;
+      line-height: 1.25;
     }
 
     /* ===== TITLE ===== */
@@ -75,6 +76,7 @@
     .top-info td{
       font-size: 8pt;
       vertical-align: top;
+      padding: 2px 0;
     }
     .top-left{
       width:50%;
@@ -87,32 +89,40 @@
       padding-top: 6px;
     }
 
-    /* ===== LINES TABLE ===== */
+    /* ===== LINES TABLE (VF'e yakın) ===== */
     table.quote-lines-table{
       width:100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin-top: 10px;
+      border-collapse: collapse; /* VF’e yakın */
+      margin-top: 1cm;
       font-size: 7pt;
+      table-layout: fixed;       /* taşmayı kontrol et */
     }
 
     table.quote-lines-table thead th{
       background:#bfbfbf;
       color:#000;
       text-align:center;
-      padding: 10px 6px;
-      border: 2px solid #fff; /* başlıklarda “kutu” görünümü */
+      padding: 6px 4px;          /* VF’e yakın */
+      border: 1px solid #fff;    /* beyaz grid */
       font-weight: bold;
       letter-spacing: 0.4px;
       white-space: nowrap;
+      vertical-align: middle;
     }
 
     table.quote-lines-table tbody td{
       text-align:center;
-      font-size: 7pt;
-      padding: 18px 6px; /* referans pdf’te satırlar ferah */
+      font-size: 6pt;            /* VF td boyutu */
+      padding: 6px 4px;          /* 18px çok büyüktü */
       vertical-align: middle;
-      border: none;
+      border: 1px solid #fff;    /* beyaz grid */
+    }
+
+    table.quote-lines-table tbody tr:nth-child(even){
+      background:#f5f5f5;
+    }
+    table.quote-lines-table tbody tr:nth-child(odd){
+      background:#ffffff;
     }
 
     tr.data-row{
@@ -125,44 +135,49 @@
       width:16%;
     }
     td.imgCell img{
-      width: 160px;
-      height: 110px;
+      width: 120px;      /* VF’e yakın */
+      height: 80px;      /* VF’e yakın */
       object-fit: contain;
       display:block;
       margin: 0 auto;
     }
 
-    /* açıklama hücresi (VF’de aslında center kalıyordu) */
+    /* açıklama hücresi (VF’de left) */
     td.descCell{
       width:32%;
+      text-align: left;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
     .prod-name{
       display:block;
-      font-size: 8pt;
+      font-size: 7pt;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 2px;
     }
     .prod-link{
       display:block;
       font-size: 6pt;
-      font-style: italic;
-      margin-top: 10px;
+      margin-top: 2px;
       word-break: break-word;
+      font-style: normal;
     }
     .prod-desc{
       display:block;
-      font-size: 7pt;
-      margin-top: 10px;
+      font-size: 6pt;
+      margin-top: 2px;
     }
     .prod-dim{
       display:block;
-      font-size: 7pt;
-      margin-top: 10px;
+      font-size: 6pt;
+      margin-top: 2px;
     }
 
+    /* para simgesi arası boşluk */
     .cur{
       margin-left: 6px;
       font-size: 8pt;
+      white-space: nowrap;
     }
 
     /* ===== TOTALS ===== */
@@ -179,7 +194,7 @@
     .totals-table{
       width:100%;
       border-collapse: collapse;
-      font-size: 8pt;
+      font-size: 7pt;
     }
     .totals-table td{
       padding: 3px 0;
@@ -199,6 +214,8 @@
       margin-top: 12px;
       font-size: 6pt;
       line-height: 1.35;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
     .notes .note{
       margin: 3px 0;
@@ -218,14 +235,17 @@
       margin-bottom: 30px;
     }
     .bank-title{
-      font-size: 12pt;
+      font-size: 11pt;
       font-weight: bold;
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      padding-bottom: 2px;
       letter-spacing: 0.6px;
     }
 
     .bank-block{
       width: 70%;
-      margin: 0 auto 34px auto;
+      margin: 0 auto 26px auto;
       border-collapse: collapse;
       font-size: 9pt;
     }
@@ -235,7 +255,7 @@
     }
     .bank-label{
       width: 40%;
-      letter-spacing: 2px;
+      letter-spacing: 6px; /* VF’deki gibi aralıklı */
       white-space: nowrap;
     }
     .bank-value{
@@ -266,7 +286,7 @@
   <!-- TOP INFO -->
   <table class="top-info">
     <tr>
-      <td class="top-left">SAYIN; {{sayin}}</td>
+      <td class="top-left">SAYIN: {{sayin}}</td>
       <td class="top-right">
         <div>{{today}}</div>
         <div>İLETİŞİM: {{ownerName}}</div>
@@ -320,13 +340,9 @@
             </td>
 
             <td>{{quantity}}</td>
-
             <td>{{unitPrice}} <span class="cur">₺</span></td>
-
             <td>{{subTotal}} <span class="cur">₺</span></td>
-
             <td>{{totalPrice}} <span class="cur">₺</span></td>
-
             <td>{{stockStatus}}</td>
           </tr>
           {{/each}}
@@ -375,7 +391,7 @@
     {{/each}}
 
   {{else}}
-    <!-- fallback: eski şema (pages yoksa) -->
+    <!-- fallback: pages yoksa -->
     <table class="quote-lines-table">
       <thead>
         <tr>
@@ -397,7 +413,7 @@
             {{/if}}
           </td>
           <td class="descCell">
-            <span class="prod-name">{{productName}}</span>
+            {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
             {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
             {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
             {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
