@@ -247,12 +247,12 @@
 
         .sectionTitle {
             font-weight: 700;
-            margin: 10px 0 4px 0;
+            margin: 8px 0 2px 0;
             text-transform: uppercase;
         }
 
         .sectionText {
-            margin: 0 0 6px 0;
+            margin: 0 0 2px 0;
             white-space: pre-wrap;
         }
 
@@ -260,6 +260,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 8.2pt;
+            table-layout: fixed;
         }
 
         table.totals td {
@@ -269,10 +270,11 @@
 
         .totL {
             font-weight: 700;
+            width: 100px;
         }
 
         .totC {
-            width: 10px;
+            width: 12px;
             text-align: center;
             font-weight: 700;
         }
@@ -352,7 +354,9 @@
 
         <div class="top-line">
             NECİP FAZIL BULV. NO:46/A YUKARI DUDULLU ÜMRANİYE İSTANBUL / MASKO MOBİLYACILAR KENTİ 17-B NO:21-23
-            BAŞAKŞEHİR İSTANBUL TEL:0850 800 6464 &nbsp; web: snoc.com.tr &nbsp; e-posta: musterihizmetleri@snoc.com.tr
+            BAŞAKŞEHİR İSTANBUL TEL:0850 800 6464 &nbsp; web: snoc.com.tr &nbsp; e-posta: <a
+                href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                data-cfemail="09647c7a7d6c7b60616073646c7d656c7b60497a67666a276a6664277d7b">[email&#160;protected]</a>
         </div>
     </div>
 
@@ -382,22 +386,22 @@
                     <tr>
                         <td class="kv-label">İLETİŞİM</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{contactPhone}}</td>
+                        <td class="kv-value">{{iletisim}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">SİPARİŞ ŞUBE</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{authorizationCode}}</td>
+                        <td class="kv-value">{{siparisSube}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">SATIŞ TEMSİLCİSİ</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{salesPerson}}</td>
+                        <td class="kv-value">{{satisTemsilcisi}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">SEVK DETAYI</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{shipmentDetail}}</td>
+                        <td class="kv-value">{{sevkDetayi}}</td>
                     </tr>
                 </table>
             </td>
@@ -408,12 +412,12 @@
                     <tr>
                         <td class="metaRight-label right">SİPARİŞ TARİHİ</td>
                         <td class="metaRight-colon">:</td>
-                        <td class="metaRight-value">{{orderDate}}</td>
+                        <td class="metaRight-value">{{siparisTarihi}}</td>
                     </tr>
                     <tr>
                         <td class="metaRight-label right">BELGE NO</td>
                         <td class="metaRight-colon">:</td>
-                        <td class="metaRight-value">{{documentNo}}</td>
+                        <td class="metaRight-value">{{belgeNo}}</td>
                     </tr>
                 </table>
             </td>
@@ -434,27 +438,27 @@
                     <tr>
                         <td class="kv-label">FATURA BİLGİLERİ</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{invoiceAccountName}}</td>
+                        <td class="kv-value">{{faturaBilgileri}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">ADRES</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{invoiceAddress}}</td>
+                        <td class="kv-value">{{faturaAdres}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">İL / İLÇE</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{invoiceCityDistrict}}</td>
+                        <td class="kv-value">{{faturaIlIlce}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">İLETİŞİM 1</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{phone1}}</td>
+                        <td class="kv-value">{{iletisim1}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">İLETİŞİM 2</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{phone2}}</td>
+                        <td class="kv-value">{{iletisim2}}</td>
                     </tr>
                 </table>
             </td>
@@ -470,22 +474,22 @@
                     <tr>
                         <td class="kv-label">ADRES</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{shipAddress}}</td>
+                        <td class="kv-value">{{sevkAdres}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">İL / İLÇE</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{shipCityDistrict}}</td>
+                        <td class="kv-value">{{sevkIlIlce}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">VERGİ DAİRESİ</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{taxOffice}}</td>
+                        <td class="kv-value">{{vergiDairesi}}</td>
                     </tr>
                     <tr>
                         <td class="kv-label">VERGİ / TC NO</td>
                         <td class="kv-colon">:</td>
-                        <td class="kv-value">{{taxOrTcNo}}</td>
+                        <td class="kv-value">{{vergiTcNo}}</td>
                     </tr>
                 </table>
             </td>
@@ -515,11 +519,11 @@
         <tbody>
             {{#each items}}
             <tr>
-                <td class="col-item">{{name}}</td>
-                <td class="col-qty">{{qty}}</td>
+                <td class="col-item">{{productName}}</td>
+                <td class="col-qty">{{quantity}}</td>
                 <td class="col-unit">{{unit}}</td>
                 <td class="col-price">{{unitPrice}}</td>
-                <td class="col-amount">{{amount}}</td>
+                <td class="col-amount">{{lineTotal}}</td>
                 <td class="col-date">{{deliveryDate}}</td>
             </tr>
             {{/each}}
@@ -533,34 +537,34 @@
         <tr>
             <td class="bottom-left">
                 <div class="sectionTitle" style="margin-top: 0;">MİNDER BİLGİSİ</div>
-                <div class="sectionText">{{cushionDetail}}</div>
+                <div class="sectionText">{{minderBilgisi}}</div>
 
                 <div class="sectionTitle">ÖDEME DETAYI</div>
-                <div class="sectionText">{{paymentDetail}}</div>
+                <div class="sectionText">{{odemeDetayi}}</div>
 
                 <div class="sectionTitle">SEVKİYAT DETAYI</div>
-                <div class="sectionText">{{shipmentDetail}}</div>
+                <div class="sectionText">{{sevkDetayiAlt}}</div>
 
-                <div class="sectionTitle">ÖZEL NOT</div>
-                <div class="sectionText">{{additionalField6}}</div>
+                <div class="sectionTitle">ÖZEL NOT:</div>
+                <div class="sectionText">{{ozelNot}}</div>
             </td>
 
             <td class="bottom-right">
                 <table class="totals">
                     <tr>
-                        <td class="totL">Ara Toplam</td>
+                        <td class="totL">ARA TOPLAM</td>
                         <td class="totC">:</td>
-                        <td class="totV">{{subTotal}}</td>
+                        <td class="totV">{{araToplam}}</td>
                     </tr>
                     <tr>
-                        <td class="totL">Toplam İndirim</td>
+                        <td class="totL">TOPLAM İNDİRİM</td>
                         <td class="totC">:</td>
-                        <td class="totV">{{discountTotal}}</td>
+                        <td class="totV">{{toplamIndirim}}</td>
                     </tr>
                     <tr>
-                        <td class="totL">Net Toplam</td>
+                        <td class="totL">NET TOPLAM</td>
                         <td class="totC">:</td>
-                        <td class="totV">{{netTotal}}</td>
+                        <td class="totV">{{netToplam}}</td>
                     </tr>
                 </table>
             </td>
