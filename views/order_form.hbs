@@ -169,23 +169,29 @@
         table.items {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 8.2pt;
+            border-top: none;
+            table-layout: fixed;
         }
 
-        table.items thead th {
-            text-align: left;
-            padding: 4px 2px;
-            font-weight: 700;
-        }
-
+        table.items thead th,
         table.items tbody td {
             padding: 4px 2px;
             vertical-align: top;
+            box-sizing: border-box;
         }
 
+        table.items thead th {
+            font-weight: 700;
+            border-bottom: 1px solid #000;
+        }
+
+        /* Sütun genişlikleri: th ve td için aynı class kullanıldığından
+           width burada tanımlanır — hem başlık hem satır hizalanır */
         .col-item {
-            width: 55%;
+            width: 43%;
+            text-align: left;
         }
 
         .col-qty {
@@ -195,13 +201,13 @@
         }
 
         .col-unit {
-            width: 8%;
+            width: 9%;
             text-align: left;
             white-space: nowrap;
         }
 
         .col-price {
-            width: 12%;
+            width: 13%;
             text-align: right;
             white-space: nowrap;
         }
@@ -222,7 +228,7 @@
         table.bottom {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 18px;
+            margin-top: 0;
             font-size: 8.2pt;
         }
 
@@ -280,7 +286,6 @@
         .terms {
             margin-top: 10px;
             font-size: 5pt;
-            /* <<< küçültüldü */
             line-height: 1.15;
         }
 
@@ -332,7 +337,6 @@
             font-weight: 700;
             letter-spacing: .6px;
             margin: 6px 0;
-            /* çizgilere yakın durması için */
             text-transform: uppercase;
         }
     </style>
@@ -365,6 +369,11 @@
         <tr>
             <td class="meta-left">
                 <table class="kv">
+                    <colgroup>
+                        <col style="width:125px;">
+                        <col style="width:14px;">
+                        <col>
+                    </colgroup>
                     <tr>
                         <td class="kv-label">SAYIN</td>
                         <td class="kv-colon">:</td>
@@ -415,7 +424,13 @@
     <table class="twoCols">
         <tr>
             <td class="colPadRight">
-                <table class="kv">
+                <div class="blockTitle">FATURA BİLGİLERİ:</div>
+                <table class="kv" style="table-layout:fixed;">
+                    <colgroup>
+                        <col style="width:120px;">
+                        <col style="width:12px;">
+                        <col>
+                    </colgroup>
                     <tr>
                         <td class="kv-label">FATURA BİLGİLERİ</td>
                         <td class="kv-colon">:</td>
@@ -446,7 +461,12 @@
 
             <td>
                 <div class="blockTitle">SEVKİYAT BİLGİLERİ:</div>
-                <table class="kv">
+                <table class="kv" style="table-layout:fixed;">
+                    <colgroup>
+                        <col style="width:120px;">
+                        <col style="width:12px;">
+                        <col>
+                    </colgroup>
                     <tr>
                         <td class="kv-label">ADRES</td>
                         <td class="kv-colon">:</td>
@@ -474,6 +494,14 @@
 
     <!-- ÜRÜN TABLOSU -->
     <table class="items">
+        <colgroup>
+            <col style="width:43%;">
+            <col style="width:10%;">
+            <col style="width:9%;">
+            <col style="width:13%;">
+            <col style="width:12%;">
+            <col style="width:13%;">
+        </colgroup>
         <thead>
             <tr>
                 <th class="col-item">ÜRÜN BİLGİLERİ</th>
@@ -498,13 +526,13 @@
         </tbody>
     </table>
 
-    <!-- ALT BLOK -->
-    <div class="hr" style="margin-top:18px;"></div>
+    <!-- ALT BLOK: çizgi + minder/ödeme/totals -->
+    <div class="hr" style="margin-top: 18px; margin-bottom: 14px;"></div>
 
     <table class="bottom">
         <tr>
             <td class="bottom-left">
-                <div class="sectionTitle">MİNDER BİLGİSİ</div>
+                <div class="sectionTitle" style="margin-top: 0;">MİNDER BİLGİSİ</div>
                 <div class="sectionText">{{cushionDetail}}</div>
 
                 <div class="sectionTitle">ÖDEME DETAYI</div>
@@ -559,7 +587,7 @@
         <div class="term">5-) Müşteri, Mağazanın bulunduğu ilin mücavir alanı dışına sevkiyat yapılması talebinde
             bulunursa nakliye ve montaj müşteriye ait olur. Bu şartlarda ürün müşteri tarafından satış noktasında teslim
             alınmış kabul edilir. Nakliye ve montajdan kaynaklanacak hasarların sorumluluğu müşteriye ait olur.
-            Ürünlerin nakliye ve montajı Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti.’den talep edilebilir ve uygun
+            Ürünlerin nakliye ve montajı Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti.'den talep edilebilir ve uygun
             görülürse, müşteri bunlara ait bedeli ayrıca nakden öder.</div>
         <div class="term">6-) İhtilaf halinde İSTANBUL mahkeme ve icra dairelerinin selahiyetli olduğunu kabul-beyan ve
             taahhüt ederim. İş bu sözleşmeyi okuduktan sonra aşağıya adımı, soyadımı ve imzamı attığımı kabul ve imza
