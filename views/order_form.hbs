@@ -1,8 +1,317 @@
+<!-- views/order_form.hbs -->
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"></head>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
+
+  <style>
+    @page{
+      size:A4;
+      margin: 0.2cm 0.2cm 1.5cm 0.2cm;
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
+      font-size:10pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color:#000;
+
+      /* fixed header çakışmasın */
+      padding-top: 140px;
+    }
+
+    .header-fixed{
+      position: fixed;
+      top: 0.2cm;
+      left: 0.2cm;
+      right: 0.2cm;
+      text-align: center;
+    }
+
+    .snocLogo{
+      width: 250px;
+      height: 80px;
+      object-fit: contain;
+      display:block;
+      margin: 0 auto;
+    }
+
+    .header-text{
+      font-size: 7pt;
+      font-weight: normal;
+      color: #333;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    .title-wrap{
+      text-align:center;
+      margin: 10px 0 8px 0;
+    }
+    .title{
+      font-size: 14pt;
+      font-weight: bold;
+      border-bottom: 1px solid #000;
+      display:inline-block;
+      padding-bottom: 2px;
+      letter-spacing: 0.4px;
+    }
+
+    .meta-row{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      font-size: 9pt;
+    }
+    .meta-row td{
+      vertical-align: top;
+      padding: 2px 0;
+    }
+    .meta-right{
+      text-align:right;
+      white-space: nowrap;
+    }
+
+    .block{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 9pt;
+      margin-top: 8px;
+    }
+    .block td{
+      padding: 2px 0;
+      vertical-align: top;
+    }
+    .lbl{
+      width: 26%;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .sep{
+      width: 2%;
+    }
+    .val{
+      width: 72%;
+    }
+
+    .section-title{
+      margin-top: 12px;
+      font-size: 10pt;
+      font-weight: bold;
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      padding-bottom: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    table.lines{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 8pt;
+    }
+    table.lines th{
+      background:#bfbfbf;
+      border: 1px solid #fff;
+      padding: 6px 4px;
+      text-align:center;
+      font-weight:bold;
+      white-space: nowrap;
+    }
+    table.lines td{
+      border: 1px solid #fff;
+      padding: 6px 4px;
+      text-align:center;
+      vertical-align: middle;
+    }
+    tr.data-row{
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .totals{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 9pt;
+    }
+    .totals td{
+      padding: 3px 0;
+    }
+    .tot-lbl{
+      text-align:left;
+      font-weight:bold;
+    }
+    .tot-val{
+      text-align:right;
+      white-space: nowrap;
+    }
+    .hr{
+      border-top:1px solid #000;
+      margin: 8px 0;
+    }
+
+    .terms{
+      margin-top: 10px;
+      font-size: 7pt;
+      line-height: 1.25;
+    }
+
+    .sign{
+      width:100%;
+      margin-top: 16px;
+      font-size: 9pt;
+    }
+    .sign td{
+      width:50%;
+      text-align:center;
+      padding-top: 18px;
+    }
+    .sign-line{
+      border-top:1px solid #000;
+      width:70%;
+      margin: 0 auto 6px auto;
+    }
+  </style>
+</head>
+
 <body>
-  <h1>ORDER FORM</h1>
-  <div>Order No: {{orderNumber}}</div>
+  <div class="header-fixed">
+    {{#if logoDataUri}}
+      <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+    {{/if}}
+    <div class="header-text">
+      NECİP FAZIL BULV. NO:46/A YUKARI DUDULLU ÜMRANİYE İSTANBUL / MASKO MOBİLYACILAR KENTİ 17-B NO:21-23 BAŞAKŞEHİR İSTANBUL<br/>
+      TEL:0850 800 6464  web: snoc.com.tr  e-posta: musterihizmetleri@snoc.com.tr
+    </div>
+  </div>
+
+  <div class="title-wrap">
+    <span class="title">MÜŞTERİ SİPARİŞ FORMU</span>
+  </div>
+
+  <table class="meta-row">
+    <tr>
+      <td>
+        <span style="font-weight:bold;">SİPARİŞ TARİHİ:</span> {{orderDate}}
+      </td>
+      <td class="meta-right">
+        <span style="font-weight:bold;">BELGE NO:</span> {{documentNo}}
+      </td>
+    </tr>
+  </table>
+
+  <table class="block">
+    <tr><td class="lbl">SAYIN</td><td class="sep">:</td><td class="val">{{orderName}}</td></tr>
+    <tr><td class="lbl">İLETİŞİM</td><td class="sep">:</td><td class="val">{{mainPhone}}</td></tr>
+    <tr><td class="lbl">SİPARİŞ ŞUBE</td><td class="sep">:</td><td class="val">{{authorizationCode}}</td></tr>
+    <tr><td class="lbl">SATIŞ TEMSİLCİSİ</td><td class="sep">:</td><td class="val">{{salesPerson}}</td></tr>
+    <tr><td class="lbl">SEVK DETAYI</td><td class="sep">:</td><td class="val">{{shipmentDetail}}</td></tr>
+  </table>
+
+  <div style="margin-top:10px;">
+    <span class="section-title">FATURA BİLGİLERİ</span>
+  </div>
+
+  <table class="block">
+    <tr><td class="lbl">FATURA BİLGİLERİ</td><td class="sep">:</td><td class="val">{{accountName}}</td></tr>
+    <tr><td class="lbl">ADRES</td><td class="sep">:</td><td class="val">{{invoiceAddress}}</td></tr>
+    <tr><td class="lbl">İL / İLÇE</td><td class="sep">:</td><td class="val">{{invoiceCityDistrict}}</td></tr>
+    <tr><td class="lbl">VERGİ DAİRESİ</td><td class="sep">:</td><td class="val">{{taxOffice}}</td></tr>
+    <tr><td class="lbl">VERGİ / TC NO</td><td class="sep">:</td><td class="val">{{taxOrTcNo}}</td></tr>
+    <tr><td class="lbl">İLETİŞİM 1</td><td class="sep">:</td><td class="val">{{phone1}}</td></tr>
+    <tr><td class="lbl">İLETİŞİM 2</td><td class="sep">:</td><td class="val">{{phone2}}</td></tr>
+  </table>
+
+  <div style="margin-top:10px;">
+    <span class="section-title">SEVKİYAT BİLGİLERİ</span>
+  </div>
+
+  <table class="block">
+    <tr><td class="lbl">ADRES</td><td class="sep">:</td><td class="val">{{shippingAddress}}</td></tr>
+    <tr><td class="lbl">İL / İLÇE</td><td class="sep">:</td><td class="val">{{shippingCityDistrict}}</td></tr>
+  </table>
+
+  <div style="margin-top:10px;">
+    <span class="section-title">ÜRÜN BİLGİLERİ</span>
+  </div>
+
+  <table class="lines">
+    <thead>
+      <tr>
+        <th style="width:44%;">ÜRÜN BİLGİLERİ</th>
+        <th style="width:10%;">MİKTAR</th>
+        <th style="width:10%;">BİRİM</th>
+        <th style="width:12%;">B.FİYAT</th>
+        <th style="width:12%;">TUTAR</th>
+        <th style="width:12%;">TESLİM</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each lines}}
+      <tr class="data-row">
+        <td style="text-align:left;">{{productName}}</td>
+        <td>{{quantity}}</td>
+        <td>{{unit}}</td>
+        <td>{{unitPrice}}</td>
+        <td>{{amount}}</td>
+        <td>{{deliveryDate}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="hr"></div>
+
+  <table class="totals">
+    <tr>
+      <td style="width:70%;">&nbsp;</td>
+      <td class="tot-lbl" style="width:15%;">ARA TOPLAM</td>
+      <td class="tot-val" style="width:15%;">{{subTotal}}</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td class="tot-lbl">TOPLAM İNDİRİM</td>
+      <td class="tot-val">{{totalDiscount}}</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td class="tot-lbl">NET TOPLAM</td>
+      <td class="tot-val"><b>{{netTotal}}</b></td>
+    </tr>
+  </table>
+
+  <div class="hr"></div>
+
+  <table class="block" style="margin-top:6px;">
+    <tr><td class="lbl">MİNDER BİLGİSİ</td><td class="sep">:</td><td class="val">{{cushionDetail}}</td></tr>
+    <tr><td class="lbl">ÖDEME DETAYI</td><td class="sep">:</td><td class="val">{{paymentDetail}}</td></tr>
+    <tr><td class="lbl">SEVKİYAT DETAYI</td><td class="sep">:</td><td class="val">{{shipmentDetail2}}</td></tr>
+    <tr><td class="lbl">ÖZEL NOT</td><td class="sep">:</td><td class="val">{{specialNote}}</td></tr>
+  </table>
+
+  <div class="terms">
+    1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda; peşinatın ve ilk senedin tarafıma iade edilmeyeceğini, kredi kartlı satışlarda ise; iptal ve iade durumunda şirketimizden banka tarafından kesilen komisyon ve puanların müşteri tarafından karşılanacağını ve nakden tahsil edileceği hususlarını kabul ve taahhüt ederim.
+    2-) Ürünler müşterinin sipariş formunda gösterdiği adrese teslim edilir...
+  </div>
+
+  <table class="sign">
+    <tr>
+      <td>
+        <div class="sign-line"></div>
+        <b>SATICI</b><br/>Adı, Soyadı, İmzası
+      </td>
+      <td>
+        <div class="sign-line"></div>
+        <b>MÜŞTERİ</b><br/>Adı, Soyadı, İmzası
+      </td>
+    </tr>
+  </table>
+
 </body>
 </html>
