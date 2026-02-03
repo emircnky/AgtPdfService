@@ -22,11 +22,6 @@ app.get('/', (req, res) => {
   res.status(200).send('AGT PDF Servisi Aktif! 🚀');
 });
 
-// GET test endpoint
-app.get('/generate-quote', (req, res) => {
-  res.status(200).send('OK (POST required)');
-});
-
 // ----------------------
 // Global browser
 // ----------------------
@@ -72,19 +67,23 @@ function assertPdfBytes(bytes) {
   return buf; // Buffer döndür
 }
 
-// ----------------------
-// MAIN: Generate Quote PDF
-// ----------------------
-app.post('/generate-quote', async (req, res) => {
+/**
+ * Ortak PDF üretim fonksiyonu
+ * @param {Object} req express req
+ * @param {Object} res express res
+ * @param {String} templateFile views altındaki dosya adı (örn: manager_report.hbs)
+ * @param {Object} pdfOptions { landscape: boolean, margin: {...}, timeoutMs: number }
+ */
+async function renderPdfFromTemplate(req, res, templateFile, pdfOptions = {}) {
   let page = null;
 
   try {
     const data = req.body || {};
     const reqId = `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
-    console.log(`[${reqId}] /generate-quote request received`);
 
-    // Template adı sende manager_report.hbs
-    const templatePath = path.join(__dirname, 'views', 'manager_report.hbs');
+    console.log(`[${reqId}] ${req.path} request received template=${templateFile}`);
+
+    const templatePath = path.join(__dirname, 'views', templateFile);
 
     if (!fs.existsSync(templatePath)) {
       console.error(`[${reqId}] Template missing: ${templatePath}`);
@@ -100,35 +99,33 @@ app.post('/generate-quote', async (req, res) => {
     const browserInstance = await getBrowser();
     page = await browserInstance.newPage();
 
+    const timeoutMs = pdfOptions.timeoutMs || 60000;
     await page.setViewport({ width: 1280, height: 720 });
-    page.setDefaultNavigationTimeout(60000);
-    page.setDefaultTimeout(60000);
+    page.setDefaultNavigationTimeout(timeoutMs);
+    page.setDefaultTimeout(timeoutMs);
 
     // İçerik
-    await page.setContent(finalHtml, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.setContent(finalHtml, { waitUntil: 'domcontentloaded', timeout: timeoutMs });
 
     // External asset'ler (typekit vb.) bazen takılır; bekle ama takılırsa geç
     try {
-      await page.waitForNetworkIdle({ idleTime: 500, timeout: 60000 });
+      await page.waitForNetworkIdle({ idleTime: 500, timeout: timeoutMs });
     } catch (e) {
       console.log(`[${reqId}] waitForNetworkIdle skipped: ${e.message}`);
     }
 
-    // PDF üret (✅ burada Uint8Array gelebilir)
+    // PDF üret
     const pdfBytes = await page.pdf({
       format: 'A4',
-      landscape: true,
+      landscape: !!pdfOptions.landscape,
       printBackground: true,
-      margin: { top: '0', right: '0', bottom: '0', left: '0' }
+      margin: pdfOptions.margin || { top: '0', right: '0', bottom: '0', left: '0' }
     });
 
     await safeClosePage(page);
     page = null;
 
-    // ✅ Validate + Buffer'a çevir
     const pdfBuf = assertPdfBytes(pdfBytes);
-
-    // ✅ Base64 doğru şekilde Buffer'dan alınır
     const pdfBase64 = pdfBuf.toString('base64');
 
     console.log(`[${reqId}] PDF OK bytes=${pdfBuf.length} base64len=${pdfBase64.length}`);
@@ -140,7 +137,7 @@ app.post('/generate-quote', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Generate Quote PDF Error:', error);
+    console.error('PDF Error:', error);
     await safeClosePage(page);
 
     const msg = (error && (error.stack || error.message)) ? (error.stack || error.message) : String(error);
@@ -149,6 +146,37 @@ app.post('/generate-quote', async (req, res) => {
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     return res.send('PDF_ERROR: ' + msg);
   }
+}
+
+// ----------------------
+// Quote PDF Endpoints
+// ----------------------
+app.get('/generate-quote', (req, res) => {
+  res.status(200).send('OK (POST required)');
+});
+
+app.post('/generate-quote', async (req, res) => {
+  // manager_report.hbs senin mevcut quote template’in
+  return renderPdfFromTemplate(req, res, 'manager_report.hbs', {
+    landscape: true,
+    margin: { top: '0', right: '0', bottom: '0', left: '0' }
+  });
+});
+
+// ----------------------
+// NEW: OrderForm PDF Endpoints
+// ----------------------
+app.get('/generate-order-form', (req, res) => {
+  res.status(200).send('OK (POST required)');
+});
+
+app.post('/generate-order-form', async (req, res) => {
+  // ✅ Bunun için views/order_form.hbs dosyasını oluşturacaksın
+  // PDF’i attıktan sonra order_form.hbs’yi birebir tasarıma göre düzenleyeceğiz
+  return renderPdfFromTemplate(req, res, 'order_form.hbs', {
+    landscape: true,
+    margin: { top: '0', right: '0', bottom: '0', left: '0' }
+  });
 });
 
 // ----------------------
@@ -157,6 +185,8 @@ app.post('/generate-quote', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
   console.log(`Sunucu ${PORT} portunda çalışıyor!`);
+
+  // browser warm start
   try {
     await getBrowser();
     console.log('Browser warm started.');
