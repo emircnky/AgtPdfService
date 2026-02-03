@@ -1,571 +1,413 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
-    <style>
-        /* ---- PAGE ---- */
-        @page {
-            size: A4;
-            margin-left: 0.2cm;
-            margin-right: 0.2cm; 
-            margin-bottom: 1.2cm;
-            margin-top: 3.6cm;
-            /* header alanı */
-        }
- 
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            color: #000;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
-        }
+  <style>
+    @page{
+      size: A4;
+      margin: 10mm 10mm 10mm 10mm;
+    }
 
-        /* ---- HEADER (fixed) ---- */
-        .header-fixed {
-            position: fixed;
-            top: 0.2cm;
-            left: 0.2cm;
-            right: 0.2cm;
-            text-align: center;
-        }
+    body{
+      margin:0;
+      padding:0;
+      font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color:#000;
+    }
 
-        .snocLogo {
-            width: 250px;
-            height: 80px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
+    .wrap{ width:100%; }
 
-        .header-text {
-            font-size: 7pt;
-            font-weight: normal;
-            color: #333;
-            margin-top: 6px;
-            line-height: 1.25;
-        }
+    /* ===== HEADER ===== */
+    .header{
+      text-align:center;
+      margin-top: 6px;
+    }
+    .snocLogo{
+      width: 180px;
+      height: 55px;
+      object-fit: contain;
+      display:block;
+      margin: 0 auto;
+    }
+    .headerText{
+      font-size: 6pt;
+      letter-spacing: .3px;
+      margin-top: 6px;
+      line-height: 1.2;
+    }
+    .hr{
+      border-top:1px solid #000;
+      width:100%;
+      margin: 8px 0;
+    }
 
-        /* ---- TITLE (2 lines between) ---- */
-        .main-title-wrap {
-            width: 100%;
-            text-align: center;
-            margin-top: 4px;
-            margin-bottom: 10px;
-        }
+    /* ===== TITLE between two lines ===== */
+    .titleBand{ margin: 6px 0; }
+    .bandLine{ border-top:1px solid #000; width:100%; }
+    .bandTitle{
+      text-align:center;
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: .8px;
+      margin: 6px 0;
+      text-transform: uppercase;
+    }
 
-        .title-lines {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+    /* ===== KEY/VALUE TABLES (colon right after) ===== */
+    table.kv{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+    }
+    table.kv td{
+      padding: 2px 0;
+      vertical-align: top;
+    }
+    td.kLabel{
+      width: 120px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    td.kSep{
+      width: 10px;
+      text-align: center;
+      font-weight: 700;
+    }
+    td.kVal{
+      text-align: left;          /* ✅ en kritik: sağa kaçmayı bitirir */
+      padding-left: 4px;         /* ✅ ':'dan hemen sonra nefes */
+      word-break: break-word;
+    }
 
-        .title-line {
-            flex: 1 1 auto;
-            border-top: 1px solid #000;
-            height: 0;
-        }
+    /* ===== TOP ROW ===== */
+    table.topRow{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+    }
+    table.topRow td{
+      width:50%;
+      vertical-align: top;
+    }
+    .rightBox{ padding-left: 14px; }
 
-        .main-title {
-            font-size: 15pt;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1;
-            padding: 0 6px;
-            white-space: nowrap;
-        }
+    /* ===== ADDRESS TWO-COLUMN, SAME ROW ALIGNMENT ===== */
+    .sectionTitleRow{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .sectionTitleRow td{
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 4px 0 2px 0;
+      text-transform: uppercase;
+    }
+    .sectionTitleRow td:nth-child(1){ width:50%; }
+    .sectionTitleRow td:nth-child(2){ width:50%; }
 
-        /* ---- TOP INFO ---- */
-        .top-info {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 2px;
-            margin-bottom: 10px;
-        }
+    table.addrGrid{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin-top: 2px;
+    }
+    table.addrGrid td{
+      padding: 2px 0;
+      vertical-align: top;
+    }
+    /* left block */
+    td.aL{ width:120px; font-weight:700; white-space:nowrap; }
+    td.aS{ width:10px; text-align:center; font-weight:700; }
+    td.aV{ width:auto; text-align:left; padding-left:4px; word-break:break-word; }
 
-        .top-info td {
-            font-size: 8pt;
-            vertical-align: top;
-            padding: 2px 0;
-        }
+    /* right block */
+    td.bL{ width:120px; font-weight:700; white-space:nowrap; padding-left:18px; }
+    td.bS{ width:10px; text-align:center; font-weight:700; }
+    td.bV{ width:auto; text-align:left; padding-left:4px; word-break:break-word; }
 
-        .top-left {
-            width: 50%;
-            text-align: left;
-        }
+    /* ===== ITEMS TABLE ===== */
+    .itemsTitle{
+      margin-top: 10px;
+      font-size: 8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
 
-        .top-right {
-            width: 50%;
-            text-align: right;
-        }
+    table.items{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin-top: 4px;
+    }
+    table.items th{
+      text-align:left;
+      font-weight:700;
+      padding: 4px 4px;
+      white-space: nowrap;
+    }
+    table.items td{
+      padding: 3px 4px;
+      vertical-align: top;
+    }
+    .itemsHrTop{
+      border-top:1px solid #000;
+      margin-top: 4px;
+    }
+    .itemsHrBottom{
+      border-top:1px solid #000;
+      margin-top: 6px;
+    }
+    .tdRight{ text-align:right; white-space:nowrap; }
+    .tdCenter{ text-align:center; white-space:nowrap; }
 
-        /* ---- SECTIONS ---- */
-        .section {
-            width: 100%;
-            margin-top: 8px;
-        }
+    /* ===== FOOT AREA ===== */
+    table.bottomGrid{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 8pt;
+    }
+    table.bottomGrid td{
+      vertical-align: top;
+    }
+    .bottomLeft{ width:60%; }
+    .bottomRight{ width:40%; }
 
-        .section-title {
-            font-size: 10pt;
-            font-weight: bold;
-            margin: 6px 0 6px 0;
-            letter-spacing: .3px;
-        }
+    .miniTitle{
+      font-weight:700;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 2px;
+    }
+    .miniText{
+      font-size: 8pt;
+      line-height: 1.25;
+      word-break: break-word;
+    }
 
-        /* key-value blocks */
-        .kv-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 8.5pt;
-        }
+    table.totals{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin-top: 4px;
+    }
+    table.totals td{
+      padding: 2px 0;
+      white-space: nowrap;
+    }
+    td.tL{ font-weight:700; }
+    td.tS{ width:10px; text-align:center; font-weight:700; }
+    td.tV{ text-align:right; font-weight:700; }
 
-        .kv-table td {
-            padding: 3px 0;
-            vertical-align: top;
-        }
+    /* ===== TERMS ===== */
+    .terms{
+      margin-top: 8px;
+      font-size: 4.8pt;   /* ✅ baya küçük */
+      line-height: 1.15;
+    }
+    .term{ margin: 1px 0; }
 
-        .kv-label {
-            width: 28%;
-            font-weight: bold;
-            white-space: nowrap;
-            padding-right: 10px;
-        }
-
-        .kv-value {
-            width: 72%;
-            text-align: left;
-            /* ✅ “en sağa kaçıyor” hissini bitirir */
-            white-space: normal;
-            word-break: break-word;
-        }
-
-        /* Fatura / Sevkiyat aynı hizada (2 kolon) */
-        .two-col {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 6px;
-        }
-
-        .two-col td {
-            width: 50%;
-            vertical-align: top;
-            padding-right: 10px;
-        }
-
-        .two-col .block {
-            padding-right: 10px;
-        }
-
-        /* ---- PRODUCT TABLE ---- */
-        .prod-table {
-            width: 100%;
-            border-collapse: collapse;
-            /* ✅ hizalama için şart */
-            table-layout: fixed;
-            /* ✅ colgroup ile %100 hizalama */
-            margin-top: 10px;
-            margin-bottom: 16px;
-            /* ✅ BOTTOM ile boşluk */
-            font-size: 8pt;
-        }
-
-        /* ✅ Ürün bilgiler üst çizgiyi KESİN kapat */
-        .prod-table,
-        .prod-table thead {
-            border-top: 0 !important;
-        }
-
-        /* Eğer başka yerde çizgi varsa öldür */
-        .prod-section,
-        .prod-wrap,
-        .prod-header {
-            border-top: 0 !important;
-        }
-
-        .hr,
-        .line,
-        .line-hr {
-            display: none !important;
-        }
-
-        .prod-table th,
-        .prod-table td {
-            padding: 6px 6px;
-            /* ✅ thead/tbody aynı padding */
-            vertical-align: middle;
-            border: 0;
-            box-sizing: border-box;
-        }
-
-        .prod-table thead th {
-            background: #bfbfbf;
-            color: #000;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-        }
-
-        .prod-name {
-            text-align: left;
-            white-space: normal;
-            word-break: break-word;
-        }
-
-        /* alignment helpers */
-        .ta-r {
-            text-align: right;
-        }
-
-        .ta-c {
-            text-align: center;
-        }
-
-        /* ---- BOTTOM SECTION ---- */
-        .bottom-section {
-            margin-top: 16px;
-            /* ✅ product ile araya boşluk */
-        }
-
-        .notes {
-            margin-top: 10px;
-            font-size: 6pt;
-            line-height: 1.35;
-        }
-
-        .notes .note {
-            margin: 3px 0;
-        }
-
-        /* ---- SIGNATURES ---- */
-        .sign-wrap {
-            margin-top: 14px;
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 8pt;
-        }
-
-        .sign-wrap td {
-            width: 50%;
-            vertical-align: top;
-            padding-top: 18px;
-        }
-
-        .sign-title {
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-
-        .sign-line {
-            margin-top: 26px;
-            border-top: 1px solid #000;
-            width: 90%;
-        }
-
-        /* ---- PAGE BREAK ---- */
-        .pageBreak {
-            page-break-after: always;
-            break-after: page;
-        }
-
-        /* ---- SMALL TEXT SAFETY ---- */
-        .small {
-            font-size: 6pt;
-        }
-
-        /* Avoid breaking important blocks */
-        .no-break {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-    </style>
+    /* ===== SIGNATURE ===== */
+    table.sign{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 8pt;
+    }
+    table.sign td{ width:50%; text-align:center; }
+    .signTitle{
+      font-weight:700;
+      letter-spacing:.8px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .signLine{
+      width: 70%;
+      margin: 0 auto;
+      border-top:1px solid #000;
+      height: 1px;
+    }
+    .signSub{
+      margin-top: 6px;
+      font-size: 7pt;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
+  <div class="wrap">
 
-        <!-- HEADER -->
-        <div class="header">
-            {{#if logoDataUri}}
-            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
-            {{/if}}
+    <!-- HEADER -->
+    <div class="header">
+      {{#if logoDataUri}}
+        <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+      {{/if}}
 
-            <div class="header-text">
-                NECİP FAZIL BULV. NO:46/A YUKARI DUDULLU ÜMRANİYE İSTANBUL / MASKO MOBİLYACILAR KENTİ 17-B NO:21-23
-                BAŞAKŞEHİR İSTANBUL TEL:0850 800 6464 &nbsp; web: snoc.com.tr &nbsp; e-posta:
-                musterihizmetleri@snoc.com.tr
-            </div>
-        </div>
-
-        <div class="hr"></div>
-
-        <!-- TITLE (2 çizgi arasında) -->
-        <div class="title-wrap">
-            <div class="title">MÜŞTERİ SİPARİŞ FORMU</div>
-        </div>
-
-        <div class="hr"></div>
-
-        <!-- TOP -->
-        <table class="top-grid">
-            <tr>
-                <td class="top-left">
-                    <table class="kv">
-                        <tr>
-                            <td class="k">SAYIN</td>
-                            <td class="c">:</td>
-                            <td class="v">{{sayin}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">İLETİŞİM</td>
-                            <td class="c">:</td>
-                            <td class="v">{{iletisim}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">SİPARİŞ ŞUBE</td>
-                            <td class="c">:</td>
-                            <td class="v">{{siparisSube}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">SATIŞ TEMSİLCİSİ</td>
-                            <td class="c">:</td>
-                            <td class="v">{{satisTemsilcisi}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">SEVK DETAYI</td>
-                            <td class="c">:</td>
-                            <td class="v">{{sevkDetayi}}</td>
-                        </tr>
-                    </table>
-                </td>
-
-                <td class="top-right">
-                    <table class="right-box">
-                        <tr>
-                            <td class="rk">SİPARİŞ TARİHİ</td>
-                            <td class="rc">:</td>
-                            <td class="rv">{{siparisTarihi}}</td>
-                        </tr>
-                        <tr>
-                            <td class="rk">BELGE NO</td>
-                            <td class="rc">:</td>
-                            <td class="rv">{{belgeNo}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <!-- BILLING / SHIPPING -->
-        <table class="two-col">
-            <tr>
-                <td class="col left">
-                    <div class="section-title">FATURA BİLGİLERİ:</div>
-
-                    <table class="kv">
-                        <tr>
-                            <td class="k">FATURA BİLGİLERİ</td>
-                            <td class="c">:</td>
-                            <td class="v">{{faturaBilgileri}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">ADRES</td>
-                            <td class="c">:</td>
-                            <td class="v">{{faturaAdres}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">İL / İLÇE</td>
-                            <td class="c">:</td>
-                            <td class="v">{{faturaIlIlce}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">İLETİŞİM 1</td>
-                            <td class="c">:</td>
-                            <td class="v">{{iletisim1}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">İLETİŞİM 2</td>
-                            <td class="c">:</td>
-                            <td class="v">{{iletisim2}}</td>
-                        </tr>
-                    </table>
-                </td>
-
-                <td class="col">
-                    <div class="section-title">SEVKİYAT BİLGİLERİ:</div>
-
-                    <table class="kv">
-                        <tr>
-                            <td class="k">ADRES</td>
-                            <td class="c">:</td>
-                            <td class="v">{{sevkAdres}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">İL / İLÇE</td>
-                            <td class="c">:</td>
-                            <td class="v">{{sevkIlIlce}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">VERGİ DAİRESİ</td>
-                            <td class="c">:</td>
-                            <td class="v">{{vergiDairesi}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">VERGİ / TC NO</td>
-                            <td class="c">:</td>
-                            <td class="v">{{vergiTcNo}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">&nbsp;</td>
-                            <td class="c">&nbsp;</td>
-                            <td class="v">&nbsp;</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <!-- PRODUCTS -->
-        <table class="prod-table">
-            <colgroup>
-                <col style="width:52%;">
-                <col style="width:10%;">
-                <col style="width:8%;">
-                <col style="width:10%;">
-                <col style="width:10%;">
-                <col style="width:10%;">
-            </colgroup>
-
-            <thead>
-                <tr>
-                    <th>ÜRÜN BİLGİLERİ</th>
-                    <th class="ta-r">MİKTAR</th>
-                    <th class="ta-c">BİRİM</th>
-                    <th class="ta-r">B.FİYAT</th>
-                    <th class="ta-r">TUTAR</th>
-                    <th class="ta-r">TESLİM</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {{#each items}}
-                <tr>
-                    <td class="prod-name">{{productName}}</td>
-                    <td class="ta-r">{{quantity}}</td>
-                    <td class="ta-c">{{unit}}</td>
-                    <td class="ta-r">{{unitPrice}}</td>
-                    <td class="ta-r">{{lineTotal}}</td>
-                    <td class="ta-r">{{deliveryDate}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-
-
-        <div class="hr"></div>
-
-        <!-- BOTTOM -->
-        <table class="bottom-grid">
-            <tr>
-                <td class="bottom-left">
-                    <table class="mini-kv">
-                        <tr>
-                            <td class="k">MİNDER BİLGİSİ</td>
-                            <td class="c">:</td>
-                            <td class="v">{{minderBilgisi}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">ÖDEME DETAYI</td>
-                            <td class="c">:</td>
-                            <td class="v">{{odemeDetayi}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">SEVKİYAT DETAYI</td>
-                            <td class="c">:</td>
-                            <td class="v">{{sevkDetayiAlt}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">ÖZEL NOT</td>
-                            <td class="c">:</td>
-                            <td class="v">{{ozelNot}}</td>
-                        </tr>
-                    </table>
-                </td>
-
-                <td class="bottom-right">
-                    <table class="totals">
-                        <tr>
-                            <td class="k">ARA TOPLAM</td>
-                            <td class="c">:</td>
-                            <td class="v">{{araToplam}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">TOPLAM İNDİRİM</td>
-                            <td class="c">:</td>
-                            <td class="v">{{toplamIndirim}}</td>
-                        </tr>
-                        <tr>
-                            <td class="k">NET TOPLAM</td>
-                            <td class="c">:</td>
-                            <td class="v">{{netToplam}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <!-- TERMS (çok küçük font) -->
-        <div class="terms">
-            <div class="t">1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim
-                almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda;
-                peşinatın ve ilk senedin tarafıma iade edilmeyeceğini, kredi kartlı satışlarda ise; iptal ve iade
-                durumunda şirketimizden banka tarafından kesilen komisyon ve puanların müşteri tarafından
-                karşılanacağını ve nakden tahsil edileceği hususlarını kabul ve taahhüt ederim.</div>
-            <div class="t">2-) Ürünler müşterinin sipariş formunda gösterdiği adrese teslim edilir. Müşteri, ürünün
-                teslim tarihinden en geç bir hafta önce yazılı olarak Ekvator Isı Müh.San. İnş. ve Tic. Ltd. Şti.
-                mağazasına bildirmek kaydıyla teslim adresini değiştirebilir.</div>
-            <div class="t">3-) Ürünün sevk edilmeye hazır olduğu durumlarda, müşteri sipariş formunda belirtilen sevk
-                tarihini en fazla 15 gün ileri tarihe erteleyebilir. Aksi takdirde Ekvator Isı Müh. San. İnş. ve Tic.
-                Ltd. Şti. ilgili ürünleri başka siparişlere kaydırabilir ve yeni bir sevk tarihi verebilir. Bu durumda
-                müşteri yeni teslim tarihini kabul eder.</div>
-            <div class="t">4-) Standart dışı özel siparişlerin değiştirilmesi veya iptali söz konusu değildir. Döşemeli
-                ürünlerde ve minderlerde bu süre içersinde ilgili kumaş firmasına sipariş verilmiş ise müşteri kumaş
-                bedelini nakden ödemeyi kabul ve taahhüt eder.</div>
-            <div class="t">5-) Müşteri, Mağazanın bulunduğu İlin mücavir alanı dışına sevkiyat yapılması talebinde
-                bulunursa nakliye ve montaj müşteriye ait olur. Bu şartlarda ürün müşteri tarafından satış noktasında
-                teslim alınmış kabul edilir. Nakliye ve montajdan kaynaklanacak hasarların sorumluluğu müşteriye ait
-                olur. Ürünlerin nakliye ve montajı Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti. den talep edilebilir ve
-                Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti. tarafından da uygun görülürse, müşteri bunlara ait bedeli
-                ayrıca nakden öder.</div>
-            <div class="t">6-) İhtilaf halinde İSTANBUL mahkeme ve icra dairelerinin selahiyetli olduğunu kabul-beyan ve
-                taahhüt ederim. İş bu sözleşmeyi okuduktan sonra aşağıya adımı, soyadımı ve imzamı attığımı kabul ve
-                imza ederim.</div>
-            <div class="t">7-) Siparişin onaylanması durumunda, ürünün garantisi 2 yıldır.</div>
-        </div>
-
-        <!-- SIGNATURES -->
-        <table class="sign-grid">
-            <tr>
-                <td>
-                    <div class="sign-title">MÜŞTERİ</div>
-                    <div class="sign-line"></div>
-                    <div class="sign-sub">ADI, SOYADI, İMZASI</div>
-                </td>
-                <td>
-                    <div class="sign-title">SATICI</div>
-                    <div class="sign-line"></div>
-                    <div class="sign-sub">ADI, SOYADI, İMZASI</div>
-                </td>
-            </tr>
-        </table>
-
+      <div class="headerText">
+        NECİP FAZIL BULV. NO:46/A YUKARI DUDULLU ÜMRANİYE İSTANBUL / MASKO MOBİLYACILAR KENTİ 17-B NO:21-23 BAŞAKŞEHİR İSTANBUL TEL:0850 800 6464 &nbsp; web: snoc.com.tr &nbsp; e-posta: musterihizmetleri@snoc.com.tr
+      </div>
     </div>
-</body>
 
+    <div class="hr"></div>
+
+    <!-- TITLE BETWEEN TWO LINES -->
+    <div class="titleBand">
+      <div class="bandLine"></div>
+      <div class="bandTitle">MÜŞTERİ SİPARİŞ FORMU</div>
+      <div class="bandLine"></div>
+    </div>
+
+    <!-- TOP: LEFT + RIGHT -->
+    <table class="topRow">
+      <tr>
+        <td>
+          <table class="kv">
+            <tr><td class="kLabel">SAYIN</td><td class="kSep">:</td><td class="kVal">{{sayin}}</td></tr>
+            <tr><td class="kLabel">İLETİŞİM</td><td class="kSep">:</td><td class="kVal">{{contactPhone}}</td></tr>
+            <tr><td class="kLabel">SİPARİŞ ŞUBE</td><td class="kSep">:</td><td class="kVal">{{authorizationCode}}</td></tr>
+            <tr><td class="kLabel">SATIŞ TEMSİLCİSİ</td><td class="kSep">:</td><td class="kVal">{{salesPerson}}</td></tr>
+            <tr><td class="kLabel">SEVK DETAYI</td><td class="kSep">:</td><td class="kVal">{{shipmentDetailTop}}</td></tr>
+          </table>
+        </td>
+
+        <td class="rightBox">
+          <table class="kv">
+            <tr><td class="kLabel">SİPARİŞ TARİHİ</td><td class="kSep">:</td><td class="kVal">{{orderDate}}</td></tr>
+            <tr><td class="kLabel">BELGE NO</td><td class="kSep">:</td><td class="kVal">{{documentNo}}</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- ADDRESS TITLES -->
+    <table class="sectionTitleRow">
+      <tr>
+        <td>FATURA BİLGİLERİ:</td>
+        <td>SEVKİYAT BİLGİLERİ:</td>
+      </tr>
+    </table>
+
+    <!-- ✅ SAME-ROW ALIGNED GRID -->
+    <table class="addrGrid">
+      <tr>
+        <td class="aL">FATURA BİLGİLERİ</td><td class="aS">:</td><td class="aV">{{invoiceAccountName}}</td>
+        <td class="bL">ADRES</td><td class="bS">:</td><td class="bV">{{shippingAddress}}</td>
+      </tr>
+
+      <tr>
+        <td class="aL">ADRES</td><td class="aS">:</td><td class="aV">{{billingAddress}}</td>
+        <td class="bL">İL / İLÇE</td><td class="bS">:</td><td class="bV">{{shippingCityDistrict}}</td>
+      </tr>
+
+      <tr>
+        <td class="aL">İL / İLÇE</td><td class="aS">:</td><td class="aV">{{billingCityDistrict}}</td>
+        <td class="bL">VERGİ DAİRESİ</td><td class="bS">:</td><td class="bV">{{taxOffice}}</td>
+      </tr>
+
+      <tr>
+        <td class="aL">İLETİŞİM 1</td><td class="aS">:</td><td class="aV">{{contact1}}</td>
+        <td class="bL">VERGİ / TC NO</td><td class="bS">:</td><td class="bV">{{taxNoOrTc}}</td>
+      </tr>
+
+      <tr>
+        <td class="aL">İLETİŞİM 2</td><td class="aS">:</td><td class="aV">{{contact2}}</td>
+        <td class="bL"></td><td class="bS"></td><td class="bV"></td>
+      </tr>
+    </table>
+
+    <!-- ITEMS -->
+    <div class="itemsTitle">ÜRÜN BİLGİLERİ</div>
+    <div class="itemsHrTop"></div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th style="width:55%;">&nbsp;</th>
+          <th class="tdCenter" style="width:10%;">MİKTAR</th>
+          <th class="tdCenter" style="width:10%;">BİRİM</th>
+          <th class="tdRight"  style="width:10%;">B.FİYAT</th>
+          <th class="tdRight"  style="width:10%;">TUTAR</th>
+          <th class="tdCenter" style="width:5%;">TESLİM</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each items}}
+        <tr>
+          <td>{{productName}}</td>
+          <td class="tdCenter">{{qty}}</td>
+          <td class="tdCenter">{{unit}}</td>
+          <td class="tdRight">{{unitPrice}}</td>
+          <td class="tdRight">{{amount}}</td>
+          <td class="tdCenter">{{deliveryDate}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="itemsHrBottom"></div>
+
+    <!-- BOTTOM LEFT + TOTALS RIGHT -->
+    <table class="bottomGrid">
+      <tr>
+        <td class="bottomLeft">
+          <div class="miniTitle">MİNDER BİLGİSİ</div>
+          <div class="miniText">{{cushionDetail}}</div>
+
+          <div class="miniTitle">ÖDEME DETAYI</div>
+          <div class="miniText">{{paymentDetail}}</div>
+
+          <div class="miniTitle">SEVKİYAT DETAYI</div>
+          <div class="miniText">{{shipmentDetail}}</div>
+
+          <div class="miniTitle">ÖZEL NOT</div>
+          <div class="miniText">{{additionalNote}}</div>
+        </td>
+
+        <td class="bottomRight">
+          <table class="totals">
+            <tr><td class="tL">ARA TOPLAM</td><td class="tS">:</td><td class="tV">{{subTotal}}</td></tr>
+            <tr><td class="tL">TOPLAM İNDİRİM</td><td class="tS">:</td><td class="tV">{{totalDiscount}}</td></tr>
+            <tr><td class="tL">NET TOPLAM</td><td class="tS">:</td><td class="tV">{{netTotal}}</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- TERMS (small) -->
+    <div class="terms">
+      <div class="term">1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda; peşinatın ve ilk senedin tarafıma iade edilmeyeceğini, kredi kartlı satışlarda ise; iptal ve iade durumunda şirketimizden banka tarafından kesilen komisyon ve puanların müşteri tarafından karşılanacağını ve nakden tahsil edileceği hususlarını kabul ve taahhüt ederim.</div>
+      <div class="term">2-) Ürünler müşterinin sipariş formunda gösterdiği adrese teslim edilir. Müşteri, ürünün teslim tarihinden en geç bir hafta önce yazılı olarak Ekvator Isı Müh.San. İnş. ve Tic. Ltd. Şti. mağazasına bildirmek kaydıyla teslim adresini değiştirebilir.</div>
+      <div class="term">3-) Ürünün sevk edilmeye hazır olduğu durumlarda, müşteri sipariş formunda belirtilen sevk tarihini en fazla 15 gün ileri tarihe erteleyebilir. Aksi takdirde Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti. ilgili ürünleri başka siparişlere kaydırabilir ve yeni bir sevk tarihi verebilir. Bu durumda müşteri yeni teslim tarihini kabul eder.</div>
+      <div class="term">4-) Standart dışı özel siparişlerin değiştirilmesi veya iptali söz konusu değildir. Döşemeli ürünlerde ve minderlerde bu süre içersinde ilgili kumaş firmasına sipariş verilmiş ise müşteri kumaş bedelini nakden ödemeyi kabul ve taahhüt eder.</div>
+      <div class="term">5-) Müşteri, Mağazanın bulunduğu İlin mücavir alanı dışına sevkiyat yapılması talebinde bulunursa nakliye ve montaj müşteriye ait olur. Bu şartlarda ürün müşteri tarafından satış noktasında teslim alınmış kabul edilir. Nakliye ve montajdan kaynaklanacak hasarların sorumluluğu müşteriye ait olur. Ürünlerin nakliye ve montajı Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti. den talep edilebilir ve Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti. tarafından da uygun görülürse, müşteri bunlara ait bedeli ayrıca nakden öder.</div>
+      <div class="term">6-) İhtilaf halinde İSTANBUL mahkeme ve icra dairelerinin selahiyetli olduğunu kabul-beyan ve taahhüt ederim. İş bu sözleşmeyi okuduktan sonra aşağıya adımı, soyadımı ve imzamı attığımı kabul ve imza ederim.</div>
+      <div class="term">7-) Siparişin onaylanması durumunda, ürünün garantisi 2 yıldır.</div>
+    </div>
+
+    <!-- SIGNATURES -->
+    <table class="sign">
+      <tr>
+        <td>
+          <div class="signTitle">MÜŞTERİ</div>
+          <div class="signLine"></div>
+          <div class="signSub">ADI, SOYADI, İMZASI</div>
+        </td>
+        <td>
+          <div class="signTitle">SATICI</div>
+          <div class="signLine"></div>
+          <div class="signSub">ADI, SOYADI, İMZASI</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</body>
 </html>
