@@ -11,32 +11,53 @@
       margin: 10mm 6mm 10mm 6mm;
     }
 
+    /* =========================================================
+       ✅ FONT KİLİDİ (Static Resource yok, sadece CSS ile)
+       - Her elemente Trajan Pro zorlanır.
+       - 700 gibi numeric weight yerine bold/normal kullanılır
+         (bazı engine'ler numeric weight'te fallback yapabiliyor).
+       - b/strong ayrıca kilitlenir.
+       ========================================================= */
+    html, body {
+      font-family: "Trajan Pro" !important;
+      font-weight: normal !important;
+      font-style: normal !important;
+    }
+
+    * {
+      font-family: "Trajan Pro" !important;
+      font-weight: inherit;
+      font-style: inherit;
+      text-rendering: geometricPrecision;
+    }
+
+    b, strong {
+      font-family: "Trajan Pro" !important;
+      font-weight: bold !important;
+      font-style: normal !important;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      font-family: "Trajan Pro" !important;
       color: #000;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       font-size: 10pt;
+      font-weight: normal;
     }
 
-    .center {
-      text-align: center;
-    }
+    .center { text-align: center; }
+    .right  { text-align: right; }
 
-    .right {
-      text-align: right;
-    }
-
-    .bold {
-      font-weight: 700;
-    }
+    /* numeric yerine bold */
+    .bold { font-weight: bold !important; }
 
     .top-line {
       font-size: 6.5pt;
       margin-top: 6px;
       letter-spacing: .1px;
+      font-weight: normal !important;
     }
 
     .hr {
@@ -47,7 +68,7 @@
 
     .title {
       font-size: 11pt;
-      font-weight: 700;
+      font-weight: bold !important;
       letter-spacing: .6px;
       margin: 6px 0;
       text-transform: uppercase;
@@ -92,6 +113,7 @@
       margin: 3px 0;
       font-size: 8.5pt;
       white-space: nowrap;
+      font-weight: normal !important;
     }
 
     .info-row .info-label,
@@ -104,18 +126,19 @@
     /* ÜST META (sol) */
     .info-row .info-label {
       width: 38mm;
-      font-weight: 700;
+      font-weight: bold !important;
     }
 
     .info-row .info-colon {
       width: 4mm;
       text-align: center;
-      font-weight: 700;
+      font-weight: bold !important;
     }
 
     .info-row .info-value {
       max-width: 110mm;
       white-space: normal;
+      font-weight: normal !important;
     }
 
     /* Sağ taraf */
@@ -133,14 +156,14 @@
 
     .info-row-right .info-label {
       width: 30mm;
-      font-weight: 700;
+      font-weight: bold !important;
       text-align: right;
     }
 
     .info-row-right .info-colon {
       width: 4mm;
       text-align: center;
-      font-weight: 700;
+      font-weight: bold !important;
     }
 
     .info-row-right .info-value {
@@ -149,6 +172,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       text-align: left;
+      font-weight: normal !important;
     }
 
     /* FATURA + SEVKİYAT blokları */
@@ -171,24 +195,16 @@
     }
 
     .blockTitle {
-      font-weight: 700;
+      font-weight: bold !important;
       margin: 0 0 6px 0;
       text-transform: uppercase;
       font-size: 8.2pt;
     }
 
-    /* ✅ FATURA/SEVKİYAT için ":" sütunu "blok bitişinde" dursun */
-    table.twoCols .info-row .info-label {
-      width: 28mm !important;
-    }
-
-    table.twoCols .info-row .info-colon {
-      width: 3mm !important;
-    }
-
-    table.twoCols .info-row .info-value {
-      max-width: none !important;
-    }
+    /* ✅ FATURA/SEVKİYAT için ":" sütunu (etiket bitişinde) */
+    table.twoCols .info-row .info-label { width: 28mm !important; }
+    table.twoCols .info-row .info-colon { width: 3mm !important; }
+    table.twoCols .info-row .info-value { max-width: none !important; }
 
     /* Ürün tablosu */
     table.items {
@@ -205,47 +221,20 @@
       padding: 4px 2px;
       vertical-align: top;
       box-sizing: border-box;
+      font-weight: normal !important;
     }
 
     table.items thead th {
-      font-weight: 700;
+      font-weight: bold !important;
       border-bottom: 1px solid #000;
     }
 
-    .col-item {
-      width: 43%;
-      text-align: left;
-    }
-
-    .col-qty {
-      width: 10%;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .col-unit {
-      width: 9%;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .col-price {
-      width: 13%;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .col-amount {
-      width: 12%;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .col-date {
-      width: 13%;
-      text-align: right;
-      white-space: nowrap;
-    }
+    .col-item { width: 43%; text-align: left; }
+    .col-qty  { width: 10%; text-align: right; white-space: nowrap; }
+    .col-unit { width: 9%;  text-align: left;  white-space: nowrap; }
+    .col-price{ width: 13%; text-align: right; white-space: nowrap; }
+    .col-amount{width: 12%; text-align: right; white-space: nowrap; }
+    .col-date { width: 13%; text-align: right; white-space: nowrap; }
 
     /* Alt alan */
     table.bottom {
@@ -255,9 +244,7 @@
       font-size: 8.2pt;
     }
 
-    table.bottom td {
-      vertical-align: top;
-    }
+    table.bottom td { vertical-align: top; }
 
     .bottom-left {
       width: 65%;
@@ -265,12 +252,10 @@
       padding-left: 4mm;
     }
 
-    .bottom-right {
-      width: 35%;
-    }
+    .bottom-right { width: 35%; }
 
     .sectionTitle {
-      font-weight: 700;
+      font-weight: bold !important;
       margin: 8px 0 2px 0;
       text-transform: uppercase;
     }
@@ -278,6 +263,7 @@
     .sectionText {
       margin: 0 0 2px 0;
       white-space: pre-wrap;
+      font-weight: normal !important;
     }
 
     table.totals {
@@ -290,34 +276,25 @@
     table.totals td {
       padding: 2px 0;
       white-space: nowrap;
+      font-weight: normal !important;
     }
 
-    .totL {
-      font-weight: 700;
-      width: 100px;
-    }
-
-    .totC {
-      width: 12px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .totV {
-      text-align: right;
-      font-weight: 700;
-    }
+    .totL { font-weight: bold !important; width: 100px; }
+    .totC { width: 12px; text-align: center; font-weight: bold !important; }
+    .totV { text-align: right; font-weight: bold !important; }
 
     /* Şartlar */
     .terms {
       margin-top: 10px;
       font-size: 5pt;
       line-height: 1.15;
+      font-weight: normal !important;
     }
 
     .term {
       margin: 1px 0;
       text-align: left;
+      font-weight: normal !important;
     }
 
     /* İmza */
@@ -333,10 +310,11 @@
       text-align: center;
       vertical-align: top;
       padding-top: 8px;
+      font-weight: normal !important;
     }
 
     .signTitle {
-      font-weight: 700;
+      font-weight: bold !important;
       margin-bottom: 4px;
     }
 
@@ -348,9 +326,7 @@
       height: 1px;
     }
 
-    .titleBand {
-      margin: 8px 0;
-    }
+    .titleBand { margin: 8px 0; }
 
     .bandLine {
       border-top: 1px solid #000;
@@ -360,10 +336,18 @@
     .bandTitle {
       text-align: center;
       font-size: 11pt;
-      font-weight: 700;
+      font-weight: bold !important;
       letter-spacing: .6px;
       margin: 6px 0;
       text-transform: uppercase;
+    }
+
+    /* ✅ bazen VF/PDF engine link'leri farklı fontla basabiliyor */
+    a, a:visited, a * {
+      font-family: "Trajan Pro" !important;
+      font-weight: inherit !important;
+      text-decoration: none !important;
+      color: #000 !important;
     }
   </style>
 </head>
