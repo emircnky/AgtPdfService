@@ -84,61 +84,27 @@
             width: 32%;
         }
 
-        /* SOL ÜST BLOK - en uzun: SATIŞ TEMSİLCİSİ */
-        table.kv {
-            width: 100%;
-            border-collapse: collapse;
+        /* Tüm key-value satırları için genel stil */
+        .info-row {
+            margin: 3px 0;
             font-size: 8.5pt;
         }
 
-        table.kv td {
-            padding: 2px 0;
-            vertical-align: top;
-        }
-
-        .kv-label {
+        .info-label {
+            display: inline-block;
             font-weight: 700;
-            white-space: nowrap;
+            margin-right: 8px;
         }
 
-        .kv-colon {
-            width: 20px;
-            font-weight: 700;
-            text-align: left;
-            padding-left: 4px;
+        .info-value {
+            display: inline;
         }
 
-        .kv-value {
-            width: auto;
-        }
-
-        /* Sağdaki tarih/belge alanı */
-        table.metaRight {
-            width: 100%;
-            border-collapse: collapse;
+        /* Sağ taraf için özel */
+        .info-row-right {
+            margin: 3px 0;
             font-size: 8.5pt;
-        }
-
-        table.metaRight td {
-            padding: 2px 0;
-            vertical-align: top;
-        }
-
-        .metaRight-label {
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .metaRight-colon {
-            width: 20px;
-            font-weight: 700;
-            text-align: left;
-            padding-left: 4px;
-        }
-
-        .metaRight-value {
-            width: auto;
-            white-space: nowrap;
+            text-align: right;
         }
 
         /* FATURA + SEVKİYAT blokları */
@@ -161,64 +127,9 @@
 
         .blockTitle {
             font-weight: 700;
-            margin: 0 0 4px 0;
+            margin: 0 0 6px 0;
             text-transform: uppercase;
-        }
-
-        /* FATURA BLOĞU - en uzun: FATURA BİLGİLERİ */
-        table.kv-fatura {
-            width: 100%;
-            border-collapse: collapse;
             font-size: 8.2pt;
-        }
-
-        table.kv-fatura td {
-            padding: 2px 0;
-            vertical-align: top;
-        }
-
-        .kv-fatura-label {
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .kv-fatura-colon {
-            width: 20px;
-            font-weight: 700;
-            text-align: left;
-            padding-left: 4px;
-        }
-
-        .kv-fatura-value {
-            width: auto;
-        }
-
-        /* SEVKİYAT BLOĞU - en uzun: SEVKİYAT BİLGİLERİ */
-        table.kv-sevkiyat {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 8.2pt;
-        }
-
-        table.kv-sevkiyat td {
-            padding: 2px 0;
-            vertical-align: top;
-        }
-
-        .kv-sevkiyat-label {
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .kv-sevkiyat-colon {
-            width: 20px;
-            font-weight: 700;
-            text-align: left;
-            padding-left: 4px;
-        }
-
-        .kv-sevkiyat-value {
-            width: auto;
         }
 
         /* Ürün tablosu */
@@ -423,48 +334,37 @@
     <table class="meta">
         <tr>
             <td class="meta-left">
-                <table class="kv">
-                    <tr>
-                        <td class="kv-label">SAYIN</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{sayin}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-label">İLETİŞİM</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{iletisim}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-label">SİPARİŞ ŞUBE</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{siparisSube}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-label">SATIŞ TEMSİLCİSİ</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{satisTemsilcisi}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-label">SEVK DETAYI</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{sevkDetayi}}</td>
-                    </tr>
-                </table>
+                <div class="info-row">
+                    <span class="info-label">SAYIN :</span>
+                    <span class="info-value">{{sayin}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">İLETİŞİM :</span>
+                    <span class="info-value">{{iletisim}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">SİPARİŞ ŞUBE :</span>
+                    <span class="info-value">{{siparisSube}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">SATIŞ TEMSİLCİSİ :</span>
+                    <span class="info-value">{{satisTemsilcisi}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">SEVK DETAYI :</span>
+                    <span class="info-value">{{sevkDetayi}}</span>
+                </div>
             </td>
 
             <td class="meta-right">
-                <table class="metaRight">
-                    <tr>
-                        <td class="metaRight-label right">SİPARİŞ TARİHİ</td>
-                        <td class="metaRight-colon">:</td>
-                        <td class="metaRight-value">{{siparisTarihi}}</td>
-                    </tr>
-                    <tr>
-                        <td class="metaRight-label right">BELGE NO</td>
-                        <td class="metaRight-colon">:</td>
-                        <td class="metaRight-value">{{belgeNo}}</td>
-                    </tr>
-                </table>
+                <div class="info-row-right">
+                    <span class="info-label">SİPARİŞ TARİHİ :</span>
+                    <span class="info-value">{{siparisTarihi}}</span>
+                </div>
+                <div class="info-row-right">
+                    <span class="info-label">BELGE NO :</span>
+                    <span class="info-value">{{belgeNo}}</span>
+                </div>
             </td>
         </tr>
     </table>
@@ -473,63 +373,43 @@
     <table class="twoCols">
         <tr>
             <td class="colPadRight">
-                <table class="kv-fatura">
-                    <tr>
-                        <td class="kv-fatura-label">FATURA BİLGİLERİ</td>
-                        <td class="kv-fatura-colon">:</td>
-                        <td class="kv-fatura-value">{{faturaBilgileri}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-fatura-label">ADRES</td>
-                        <td class="kv-fatura-colon">:</td>
-                        <td class="kv-fatura-value">{{faturaAdres}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-fatura-label">İL / İLÇE</td>
-                        <td class="kv-fatura-colon">:</td>
-                        <td class="kv-fatura-value">{{faturaIlIlce}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-fatura-label">İLETİŞİM 1</td>
-                        <td class="kv-fatura-colon">:</td>
-                        <td class="kv-fatura-value">{{iletisim1}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-fatura-label">İLETİŞİM 2</td>
-                        <td class="kv-fatura-colon">:</td>
-                        <td class="kv-fatura-value">{{iletisim2}}</td>
-                    </tr>
-                </table>
+                <div class="blockTitle">FATURA BİLGİLERİ :</div>
+                <div class="info-row">
+                    <span class="info-label">ADRES :</span>
+                    <span class="info-value">{{faturaAdres}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">İL / İLÇE :</span>
+                    <span class="info-value">{{faturaIlIlce}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">İLETİŞİM 1 :</span>
+                    <span class="info-value">{{iletisim1}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">İLETİŞİM 2 :</span>
+                    <span class="info-value">{{iletisim2}}</span>
+                </div>
             </td>
 
             <td>
-                <table class="kv-sevkiyat">
-                    <tr>
-                        <td class="kv-sevkiyat-label">SEVKİYAT BİLGİLERİ</td>
-                        <td class="kv-sevkiyat-colon">:</td>
-                        <td class="kv-sevkiyat-value"></td>
-                    </tr>
-                    <tr>
-                        <td class="kv-sevkiyat-label">ADRES</td>
-                        <td class="kv-sevkiyat-colon">:</td>
-                        <td class="kv-sevkiyat-value">{{sevkAdres}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-sevkiyat-label">İL / İLÇE</td>
-                        <td class="kv-sevkiyat-colon">:</td>
-                        <td class="kv-sevkiyat-value">{{sevkIlIlce}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-sevkiyat-label">VERGİ DAİRESİ</td>
-                        <td class="kv-sevkiyat-colon">:</td>
-                        <td class="kv-sevkiyat-value">{{vergiDairesi}}</td>
-                    </tr>
-                    <tr>
-                        <td class="kv-sevkiyat-label">VERGİ / TC NO</td>
-                        <td class="kv-sevkiyat-colon">:</td>
-                        <td class="kv-sevkiyat-value">{{vergiTcNo}}</td>
-                    </tr>
-                </table>
+                <div class="blockTitle">SEVKİYAT BİLGİLERİ :</div>
+                <div class="info-row">
+                    <span class="info-label">ADRES :</span>
+                    <span class="info-value">{{sevkAdres}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">İL / İLÇE :</span>
+                    <span class="info-value">{{sevkIlIlce}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">VERGİ DAİRESİ :</span>
+                    <span class="info-value">{{vergiDairesi}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">VERGİ / TC NO :</span>
+                    <span class="info-value">{{vergiTcNo}}</span>
+                </div>
             </td>
         </tr>
     </table>
