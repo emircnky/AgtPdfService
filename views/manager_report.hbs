@@ -15,31 +15,27 @@
             margin-bottom: 2cm;
         }
 
-        /* ✅ font sadece Trajan */
         html,
         body,
         * {
             font-family: "Trajan Pro" !important;
         }
 
-        /* ✅ b/strong font fallback yapmasın */
         b,
         strong {
             font-family: "Trajan Pro" !important;
             font-weight: bold;
-            /* kendi içinde bold olabilir ama totals’ta bold yok */
         }
 
         body {
             margin: 0;
             padding: 0;
             font-size: 10pt;
-
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
             color: #000;
-
-            padding-top: 3.9cm;
+            /* ✅ Header için daha fazla boşluk (4.5cm yerine 5cm) */
+            padding-top: 5cm;
         }
 
         /* ===== HEADER (fixed) ===== */
@@ -48,9 +44,12 @@
             top: 0.2cm;
             left: 0.4cm;
             right: 0.4cm;
-            height: 3.6cm;
+            /* ✅ Header yüksekliği netleştirildi */
+            height: 4.2cm;
             overflow: hidden;
             text-align: center;
+            background-color: white;
+            z-index: 1000;
         }
 
         .snocLogo {
@@ -168,7 +167,6 @@
             overflow-wrap: anywhere;
         }
 
-        /* ✅ TEAK ÜÇLÜ KANEPE vb. (productName) fontu küçüldü */
         .prod-name {
             display: block;
             font-size: 7.2pt !important;
@@ -229,7 +227,6 @@
             font-size: 8.61pt !important;
         }
 
-        /* ✅ GENEL TOPLAM kısmı bold olmayacak */
         .totals-label {
             font-size: 8.61pt !important;
             font-weight: normal !important;
@@ -260,7 +257,8 @@
         .bank-page {
             page-break-before: always;
             break-before: page;
-            padding-top: 3.9cm;
+            /* ✅ Bank sayfası için de aynı padding */
+            padding-top: 5cm;
             display: block;
         }
 
@@ -329,6 +327,16 @@
             text-decoration: none !important;
             color: #000 !important;
         }
+
+        /* ✅ DEBUG: Header ile içerik arası görsel test için */
+        /* Uncomment to see boundaries during testing:
+        .header-fixed {
+            border: 2px solid red;
+        }
+        body {
+            border: 2px solid blue;
+        }
+        */
     </style>
 </head>
 
@@ -441,7 +449,6 @@
             <tr>
                 <td>&nbsp;</td>
                 <td class="totals-label">GENEL TOPLAM</td>
-                <!-- ✅ bold yok -->
                 <td class="totals-value">{{../grandTotal}} ₺</td>
             </tr>
         </table>
