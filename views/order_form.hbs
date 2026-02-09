@@ -84,7 +84,7 @@
             width: 32%;
         }
 
-        /* Label/value satırları (solda) */
+        /* Label/value satırları - SOL ÜST BLOK */
         table.kv {
             width: 100%;
             border-collapse: collapse;
@@ -97,7 +97,7 @@
         }
 
         .kv-label {
-            width: 145px;
+            width: 155px;
             font-weight: 700;
             white-space: nowrap;
         }
@@ -165,6 +165,62 @@
             text-transform: uppercase;
         }
 
+        /* FATURA BLOĞU için özel label genişliği */
+        table.kv-fatura {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.2pt;
+        }
+
+        table.kv-fatura td {
+            padding: 2px 0;
+            vertical-align: top;
+        }
+
+        .kv-fatura-label {
+            width: 155px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .kv-fatura-colon {
+            width: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .kv-fatura-value {
+            width: auto;
+        }
+
+        /* SEVKİYAT BLOĞU için özel label genişliği */
+        table.kv-sevkiyat {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.2pt;
+        }
+
+        table.kv-sevkiyat td {
+            padding: 2px 0;
+            vertical-align: top;
+        }
+
+        .kv-sevkiyat-label {
+            width: 165px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .kv-sevkiyat-colon {
+            width: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .kv-sevkiyat-value {
+            width: auto;
+        }
+
         /* Ürün tablosu */
         table.items {
             width: 100%;
@@ -187,8 +243,6 @@
             border-bottom: 1px solid #000;
         }
 
-        /* Sütun genişlikleri: th ve td için aynı class kullanıldığından
-           width burada tanımlanır — hem başlık hem satır hizalanır */
         .col-item {
             width: 43%;
             text-align: left;
@@ -372,7 +426,7 @@
             <td class="meta-left">
                 <table class="kv">
                     <colgroup>
-                        <col style="width:145px;">
+                        <col style="width:155px;">
                         <col style="width:14px;">
                         <col>
                     </colgroup>
@@ -426,67 +480,71 @@
     <table class="twoCols">
         <tr>
             <td class="colPadRight">
-                <table class="kv" style="table-layout:fixed;">
+                <table class="kv-fatura" style="table-layout:fixed;">
                     <colgroup>
-                        <col style="width:145px;">
+                        <col style="width:155px;">
                         <col style="width:12px;">
                         <col>
                     </colgroup>
                     <tr>
-                        <td class="kv-label">FATURA BİLGİLERİ</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{faturaBilgileri}}</td>
+                        <td class="kv-fatura-label">FATURA BİLGİLERİ</td>
+                        <td class="kv-fatura-colon">:</td>
+                        <td class="kv-fatura-value">{{faturaBilgileri}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">ADRES</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{faturaAdres}}</td>
+                        <td class="kv-fatura-label">ADRES</td>
+                        <td class="kv-fatura-colon">:</td>
+                        <td class="kv-fatura-value">{{faturaAdres}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">İL / İLÇE</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{faturaIlIlce}}</td>
+                        <td class="kv-fatura-label">İL / İLÇE</td>
+                        <td class="kv-fatura-colon">:</td>
+                        <td class="kv-fatura-value">{{faturaIlIlce}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">İLETİŞİM 1</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{iletisim1}}</td>
+                        <td class="kv-fatura-label">İLETİŞİM 1</td>
+                        <td class="kv-fatura-colon">:</td>
+                        <td class="kv-fatura-value">{{iletisim1}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">İLETİŞİM 2</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{iletisim2}}</td>
+                        <td class="kv-fatura-label">İLETİŞİM 2</td>
+                        <td class="kv-fatura-colon">:</td>
+                        <td class="kv-fatura-value">{{iletisim2}}</td>
                     </tr>
                 </table>
             </td>
 
             <td>
-                <div class="blockTitle">SEVKİYAT BİLGİLERİ:</div>
-                <table class="kv" style="table-layout:fixed;">
+                <table class="kv-sevkiyat" style="table-layout:fixed;">
                     <colgroup>
-                        <col style="width:145px;">
+                        <col style="width:165px;">
                         <col style="width:12px;">
                         <col>
                     </colgroup>
                     <tr>
-                        <td class="kv-label">ADRES</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{sevkAdres}}</td>
+                        <td class="kv-sevkiyat-label">SEVKİYAT BİLGİLERİ</td>
+                        <td class="kv-sevkiyat-colon">:</td>
+                        <td class="kv-sevkiyat-value"></td>
                     </tr>
                     <tr>
-                        <td class="kv-label">İL / İLÇE</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{sevkIlIlce}}</td>
+                        <td class="kv-sevkiyat-label">ADRES</td>
+                        <td class="kv-sevkiyat-colon">:</td>
+                        <td class="kv-sevkiyat-value">{{sevkAdres}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">VERGİ DAİRESİ</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{vergiDairesi}}</td>
+                        <td class="kv-sevkiyat-label">İL / İLÇE</td>
+                        <td class="kv-sevkiyat-colon">:</td>
+                        <td class="kv-sevkiyat-value">{{sevkIlIlce}}</td>
                     </tr>
                     <tr>
-                        <td class="kv-label">VERGİ / TC NO</td>
-                        <td class="kv-colon">:</td>
-                        <td class="kv-value">{{vergiTcNo}}</td>
+                        <td class="kv-sevkiyat-label">VERGİ DAİRESİ</td>
+                        <td class="kv-sevkiyat-colon">:</td>
+                        <td class="kv-sevkiyat-value">{{vergiDairesi}}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-sevkiyat-label">VERGİ / TC NO</td>
+                        <td class="kv-sevkiyat-colon">:</td>
+                        <td class="kv-sevkiyat-value">{{vergiTcNo}}</td>
                     </tr>
                 </table>
             </td>
