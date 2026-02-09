@@ -9,11 +9,8 @@
     /* ===== PAGE ===== */
     @page {
       size: A4;
-
-      /* ✅ sağ/sol boşluğu azaltıp sayfayı geniş kullandır */
       margin-left: 0.4cm;
       margin-right: 0.4cm;
-
       margin-top: 0.8cm;
       margin-bottom: 2cm;
     }
@@ -22,7 +19,14 @@
     html,
     body,
     * {
-      font-family: "trajan-pro-3" !important;
+      font-family: "Trajan Pro" !important;
+    }
+
+    /* ✅ b/strong font fallback yapmasın */
+    b,
+    strong {
+      font-family: "Trajan Pro" !important;
+      font-weight: bold; /* kendi içinde bold olabilir ama totals’ta bold yok */
     }
 
     body {
@@ -34,7 +38,6 @@
       print-color-adjust: exact;
       color: #000;
 
-      /* içerik header altından başlasın */
       padding-top: 3.9cm;
     }
 
@@ -42,11 +45,8 @@
     .header-fixed {
       position: fixed;
       top: 0.2cm;
-
-      /* ✅ sayfayı daha geniş kullansın */
       left: 0.4cm;
       right: 0.4cm;
-
       height: 3.6cm;
       overflow: hidden;
       text-align: center;
@@ -76,7 +76,6 @@
       margin-bottom: 8px;
     }
 
-    /* ✅ ekstra ağır bold yok: sadece "bold" */
     .main-title {
       font-size: 13.77pt !important;
       font-weight: bold !important;
@@ -120,7 +119,6 @@
       table-layout: fixed;
     }
 
-    /* ✅ ekstra ağır bold yok */
     table.quote-lines-table thead th {
       font-size: 8.61pt !important;
       font-weight: bold !important;
@@ -143,14 +141,6 @@
       padding: 6px 4px;
       vertical-align: middle;
       border: 1px solid #fff;
-    }
-
-    .prod-link,
-    .prod-desc,
-    .prod-dim {
-      font-size: 7.79pt !important;
-      font-weight: normal !important;
-      margin-top: 2px;
     }
 
     tr.data-row {
@@ -177,32 +167,34 @@
       overflow-wrap: anywhere;
     }
 
-    /* ✅ ürün adı bold ama "ekstra bold" değil */
+    /* ✅ TEAK ÜÇLÜ KANEPE vb. (productName) fontu küçüldü */
     .prod-name {
       display: block;
-      font-size: 8.61pt !important;
-      font-weight: bold !important;
+      font-size: 7.2pt !important;
+      font-weight: normal !important;
       margin-bottom: 2px;
+    }
+
+    .prod-link,
+    .prod-desc,
+    .prod-dim {
+      font-size: 5.5pt !important;
+      font-weight: normal !important;
+      margin-top: 2px;
     }
 
     .prod-link {
       display: block;
-      font-size: 6pt;
-      margin-top: 2px;
-      word-break: break-word;
       font-style: normal;
+      word-break: break-word;
     }
 
     .prod-desc {
       display: block;
-      font-size: 6pt;
-      margin-top: 2px;
     }
 
     .prod-dim {
       display: block;
-      font-size: 6pt;
-      margin-top: 2px;
     }
 
     .cur {
@@ -211,7 +203,6 @@
       white-space: nowrap;
     }
 
-    /* sadece uzun iki th’de wrap */
     .th-discount,
     .th-stock {
       white-space: normal !important;
@@ -237,17 +228,17 @@
       font-size: 8.61pt !important;
     }
 
-    /* ✅ ekstra ağır bold yok */
+    /* ✅ GENEL TOPLAM kısmı bold olmayacak */
     .totals-label {
       font-size: 8.61pt !important;
-      font-weight: bold !important;
+      font-weight: normal !important;
       text-align: left;
       white-space: nowrap;
     }
 
     .totals-value {
       font-size: 8.61pt !important;
-      font-weight: bold !important;
+      font-weight: normal !important;
       text-align: right;
       white-space: nowrap;
     }
@@ -255,10 +246,7 @@
     /* ===== NOTES ===== */
     .notes {
       margin-top: 10px;
-
-      /* ✅ 2px kadar küçült (pt ile yaklaşık) */
       font-size: 5.3pt !important;
-
       font-weight: normal !important;
       line-height: 1.35;
     }
@@ -282,7 +270,6 @@
       margin-bottom: 25px;
     }
 
-    /* ✅ ekstra ağır bold yok */
     .bank-title {
       font-size: 12pt;
       font-weight: bold;
@@ -326,13 +313,11 @@
       font-weight: normal !important;
     }
 
-    /* ✅ sadece bold (ekstra heavy yok) */
     .val-861b {
       font-size: 8.61pt !important;
       font-weight: bold !important;
     }
 
-    /* mail underline olmasın */
     .email-no-link,
     .email-no-link * {
       text-decoration: none !important;
@@ -455,7 +440,8 @@
       <tr>
         <td>&nbsp;</td>
         <td class="totals-label">GENEL TOPLAM</td>
-        <td class="totals-value"><b>{{../grandTotal}} ₺</b></td>
+        <!-- ✅ bold yok -->
+        <td class="totals-value">{{../grandTotal}} ₺</td>
       </tr>
     </table>
 
