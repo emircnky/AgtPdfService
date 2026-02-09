@@ -84,7 +84,7 @@
             width: 32%;
         }
 
-        /* Label/value satırları - SOL ÜST BLOK */
+        /* SOL ÜST BLOK - en uzun: SATIŞ TEMSİLCİSİ */
         table.kv {
             width: 100%;
             border-collapse: collapse;
@@ -97,15 +97,15 @@
         }
 
         .kv-label {
-            width: 155px;
             font-weight: 700;
             white-space: nowrap;
         }
 
         .kv-colon {
-            width: 10px;
+            width: 20px;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+            padding-left: 4px;
         }
 
         .kv-value {
@@ -125,15 +125,15 @@
         }
 
         .metaRight-label {
-            width: 145px;
             font-weight: 700;
             white-space: nowrap;
         }
 
         .metaRight-colon {
-            width: 10px;
+            width: 20px;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+            padding-left: 4px;
         }
 
         .metaRight-value {
@@ -141,7 +141,7 @@
             white-space: nowrap;
         }
 
-        /* FATURA + SEVKİYAT blokları aynı hizada */
+        /* FATURA + SEVKİYAT blokları */
         table.twoCols {
             width: 100%;
             border-collapse: collapse;
@@ -165,7 +165,7 @@
             text-transform: uppercase;
         }
 
-        /* FATURA BLOĞU için özel label genişliği */
+        /* FATURA BLOĞU - en uzun: FATURA BİLGİLERİ */
         table.kv-fatura {
             width: 100%;
             border-collapse: collapse;
@@ -178,22 +178,22 @@
         }
 
         .kv-fatura-label {
-            width: 155px;
             font-weight: 700;
             white-space: nowrap;
         }
 
         .kv-fatura-colon {
-            width: 10px;
+            width: 20px;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+            padding-left: 4px;
         }
 
         .kv-fatura-value {
             width: auto;
         }
 
-        /* SEVKİYAT BLOĞU için özel label genişliği */
+        /* SEVKİYAT BLOĞU - en uzun: SEVKİYAT BİLGİLERİ */
         table.kv-sevkiyat {
             width: 100%;
             border-collapse: collapse;
@@ -206,15 +206,15 @@
         }
 
         .kv-sevkiyat-label {
-            width: 165px;
             font-weight: 700;
             white-space: nowrap;
         }
 
         .kv-sevkiyat-colon {
-            width: 10px;
+            width: 20px;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+            padding-left: 4px;
         }
 
         .kv-sevkiyat-value {
@@ -278,7 +278,7 @@
             white-space: nowrap;
         }
 
-        /* Alt alan (minder/ödeme/sevk/özel not + totals) */
+        /* Alt alan */
         table.bottom {
             width: 100%;
             border-collapse: collapse;
@@ -338,7 +338,7 @@
             font-weight: 700;
         }
 
-        /* Şartlar - çok küçük */
+        /* Şartlar */
         .terms {
             margin-top: 10px;
             font-size: 5pt;
@@ -350,7 +350,7 @@
             text-align: left;
         }
 
-        /* İmza alanı */
+        /* İmza */
         table.sign {
             width: 100%;
             border-collapse: collapse;
@@ -412,24 +412,18 @@
         </div>
     </div>
 
-    <!-- TITLE BETWEEN TWO LINES -->
+    <!-- TITLE -->
     <div class="titleBand">
         <div class="bandLine"></div>
         <div class="bandTitle">MÜŞTERİ SİPARİŞ FORMU</div>
         <div class="bandLine"></div>
     </div>
 
-
     <!-- ÜST META -->
     <table class="meta">
         <tr>
             <td class="meta-left">
                 <table class="kv">
-                    <colgroup>
-                        <col style="width:155px;">
-                        <col style="width:14px;">
-                        <col>
-                    </colgroup>
                     <tr>
                         <td class="kv-label">SAYIN</td>
                         <td class="kv-colon">:</td>
@@ -458,7 +452,6 @@
                 </table>
             </td>
 
-            <!-- Sağ blok: Sipariş tarihi + Belge no ALT ALTA -->
             <td class="meta-right">
                 <table class="metaRight">
                     <tr>
@@ -476,16 +469,11 @@
         </tr>
     </table>
 
-    <!-- FATURA + SEVKİYAT (aynı hizada satır satır) -->
+    <!-- FATURA + SEVKİYAT -->
     <table class="twoCols">
         <tr>
             <td class="colPadRight">
-                <table class="kv-fatura" style="table-layout:fixed;">
-                    <colgroup>
-                        <col style="width:155px;">
-                        <col style="width:12px;">
-                        <col>
-                    </colgroup>
+                <table class="kv-fatura">
                     <tr>
                         <td class="kv-fatura-label">FATURA BİLGİLERİ</td>
                         <td class="kv-fatura-colon">:</td>
@@ -515,12 +503,7 @@
             </td>
 
             <td>
-                <table class="kv-sevkiyat" style="table-layout:fixed;">
-                    <colgroup>
-                        <col style="width:165px;">
-                        <col style="width:12px;">
-                        <col>
-                    </colgroup>
+                <table class="kv-sevkiyat">
                     <tr>
                         <td class="kv-sevkiyat-label">SEVKİYAT BİLGİLERİ</td>
                         <td class="kv-sevkiyat-colon">:</td>
@@ -586,8 +569,7 @@
     </table>
     <div style="min-height: 120px;"></div>
 
-
-    <!-- ALT BLOK: çizgi + minder/ödeme/totals -->
+    <!-- ALT BLOK -->
     <div class="hr" style="margin-top: 18px; margin-bottom: 14px;"></div>
 
     <table class="bottom">
@@ -628,7 +610,7 @@
         </tr>
     </table>
 
-    <!-- ŞARTLAR (çok küçük font) -->
+    <!-- ŞARTLAR -->
     <div class="terms">
         <div class="term">1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim
             almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda; peşinatın
