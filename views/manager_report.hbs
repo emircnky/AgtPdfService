@@ -3,20 +3,22 @@
 
 <head>
   <meta charset="utf-8" />
-  <!-- Typekit (PDF engine yüklemeyebilir ama sen istedin diye bıraktım) -->
   <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
   <style>
     /* ===== PAGE ===== */
     @page {
       size: A4;
-      /* ✅ normal A4 hissi */
-      margin: 1cm;
+
+      /* ✅ sağ/sol boşluğu azaltıp sayfayı geniş kullandır */
+      margin-left: 0.4cm;
+      margin-right: 0.4cm;
+
       margin-top: 0.8cm;
       margin-bottom: 2cm;
     }
 
-    /* ✅ font sadece Trajan (fallbacksız) */
+    /* ✅ font sadece Trajan */
     html,
     body,
     * {
@@ -40,9 +42,11 @@
     .header-fixed {
       position: fixed;
       top: 0.2cm;
-      /* ✅ sayfa normal margin ile hizalı */
-      left: 1cm;
-      right: 1cm;
+
+      /* ✅ sayfayı daha geniş kullansın */
+      left: 0.4cm;
+      right: 0.4cm;
+
       height: 3.6cm;
       overflow: hidden;
       text-align: center;
@@ -72,9 +76,10 @@
       margin-bottom: 8px;
     }
 
+    /* ✅ ekstra ağır bold yok: sadece "bold" */
     .main-title {
       font-size: 13.77pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
       border-bottom: 1px solid #000;
       display: inline-block;
       padding-bottom: 2px;
@@ -112,14 +117,13 @@
       border-collapse: collapse;
       margin-top: 8px;
       font-size: 7pt;
-
-      /* header metni taşmasın */
       table-layout: fixed;
     }
 
+    /* ✅ ekstra ağır bold yok */
     table.quote-lines-table thead th {
       font-size: 8.61pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
       background: #bfbfbf;
       color: #000;
       text-align: center;
@@ -134,7 +138,7 @@
 
     table.quote-lines-table tbody td {
       font-size: 7.79pt !important;
-      font-weight: 400 !important;
+      font-weight: normal !important;
       text-align: center;
       padding: 6px 4px;
       vertical-align: middle;
@@ -145,7 +149,7 @@
     .prod-desc,
     .prod-dim {
       font-size: 7.79pt !important;
-      font-weight: 400 !important;
+      font-weight: normal !important;
       margin-top: 2px;
     }
 
@@ -173,10 +177,11 @@
       overflow-wrap: anywhere;
     }
 
+    /* ✅ ürün adı bold ama "ekstra bold" değil */
     .prod-name {
       display: block;
       font-size: 8.61pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
       margin-bottom: 2px;
     }
 
@@ -232,16 +237,17 @@
       font-size: 8.61pt !important;
     }
 
+    /* ✅ ekstra ağır bold yok */
     .totals-label {
       font-size: 8.61pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
       text-align: left;
       white-space: nowrap;
     }
 
     .totals-value {
       font-size: 8.61pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
       text-align: right;
       white-space: nowrap;
     }
@@ -249,8 +255,11 @@
     /* ===== NOTES ===== */
     .notes {
       margin-top: 10px;
-      font-size: 6.77pt !important;
-      font-weight: 400 !important;
+
+      /* ✅ 2px kadar küçült (pt ile yaklaşık) */
+      font-size: 5.3pt !important;
+
+      font-weight: normal !important;
       line-height: 1.35;
     }
 
@@ -273,6 +282,7 @@
       margin-bottom: 25px;
     }
 
+    /* ✅ ekstra ağır bold yok */
     .bank-title {
       font-size: 12pt;
       font-weight: bold;
@@ -282,7 +292,6 @@
       letter-spacing: 0.6px;
     }
 
-    /* ✅ 70% daraltmayı kaldırdık */
     .bank-block {
       width: 100%;
       margin: 0 0 22px 0;
@@ -298,30 +307,32 @@
     .bank-label {
       font-size: 12pt !important;
       white-space: nowrap;
+      font-weight: normal !important;
     }
 
-    /* ✅ 60% zorlamayı kaldırdık */
     .bank-value {
       font-size: 12pt !important;
       width: auto;
+      font-weight: normal !important;
     }
 
     .lbl-779 {
       font-size: 7.79pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
     }
 
     .val-861 {
       font-size: 8.61pt !important;
-      font-weight: 400 !important;
+      font-weight: normal !important;
     }
 
+    /* ✅ sadece bold (ekstra heavy yok) */
     .val-861b {
       font-size: 8.61pt !important;
-      font-weight: 700 !important;
+      font-weight: bold !important;
     }
 
-    /* mail underline olmasın (render engine linklemiş olsa bile) */
+    /* mail underline olmasın */
     .email-no-link,
     .email-no-link * {
       text-decoration: none !important;
