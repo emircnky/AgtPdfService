@@ -2,597 +2,592 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
+  <meta charset="utf-8" />
+  <!-- Typekit (PDF engine yüklemeyebilir ama sen istedin diye bıraktım) -->
+  <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
-    <style>
-        /* ===== PAGE ===== */
-        @page {
-            size: A4;
-            margin-left: 0.2cm;
-            margin-right: 0.2cm;
-            margin-bottom: 3cm;
-            margin-top: 0.6cm;
-            /* header aşağı kaymasın */
-        }
+  <style>
+    /* ===== PAGE ===== */
+    @page {
+      size: A4;
+      /* ✅ normal A4 hissi */
+      margin: 1cm;
+      margin-top: 0.8cm;
+      margin-bottom: 2cm;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
+    /* ✅ font sadece Trajan (fallbacksız) */
+    html,
+    body,
+    * {
+      font-family: "trajan-pro-3" !important;
+    }
 
-            /* FONT KORUNDU */
-            font-family: "trajan-pro-3", "Trajan Pro", "Arial Unicode MS", Arial, sans-serif;
-            font-size: 10pt;
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: 10pt;
 
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            color: #000;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color: #000;
 
-            /* içerik header altından başlasın */
-            padding-top: 3.9cm;
-        }
+      /* içerik header altından başlasın */
+      padding-top: 3.9cm;
+    }
 
-        /* ===== HEADER (fixed) ===== */
-        .header-fixed {
-            position: fixed;
-            top: 0.2cm;
-            left: 0.2cm;
-            right: 0.2cm;
-            height: 3.6cm;
-            overflow: hidden;
-            text-align: center;
-        }
+    /* ===== HEADER (fixed) ===== */
+    .header-fixed {
+      position: fixed;
+      top: 0.2cm;
+      /* ✅ sayfa normal margin ile hizalı */
+      left: 1cm;
+      right: 1cm;
+      height: 3.6cm;
+      overflow: hidden;
+      text-align: center;
+    }
 
-        .snocLogo {
-            width: 250px;
-            height: 80px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
+    .snocLogo {
+      width: 250px;
+      height: 80px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
 
-        .header-text {
-            font-size: 7pt;
-            font-weight: normal;
-            color: #333;
-            margin-top: 6px;
-            line-height: 1.25;
-        }
+    .header-text {
+      font-size: 7pt;
+      font-weight: normal;
+      color: #333;
+      margin-top: 6px;
+      line-height: 1.25;
+    }
 
-        /* ===== TITLE ===== */
-        .main-title-wrap {
-            text-align: center;
-            width: 100%;
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
+    /* ===== TITLE ===== */
+    .main-title-wrap {
+      text-align: center;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
 
-        .main-title {
-            font-size: 13.77pt !important;
-            font-weight: 700 !important;
-            border-bottom: 1px solid #000;
-            display: inline-block;
-            padding-bottom: 2px;
-            letter-spacing: 0.5px;
-        }
+    .main-title {
+      font-size: 13.77pt !important;
+      font-weight: 700 !important;
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      padding-bottom: 2px;
+      letter-spacing: 0.5px;
+    }
 
+    /* ===== TOP INFO ===== */
+    .top-info {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 6px;
+    }
 
-        /* ===== TOP INFO ===== */
-        .top-info {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 6px;
-        }
+    .top-info td {
+      font-size: 8pt;
+      vertical-align: top;
+      padding: 2px 0;
+    }
 
-        .top-info td {
-            font-size: 8pt;
-            vertical-align: top;
-            padding: 2px 0;
-        }
+    .top-left {
+      width: 50%;
+      text-align: left;
+      padding-top: 2px;
+    }
 
-        .top-left {
-            width: 50%;
-            text-align: left;
-            padding-top: 2px;
-        }
+    .top-right {
+      width: 50%;
+      text-align: right;
+      padding-top: 2px;
+    }
 
-        .top-right {
-            width: 50%;
-            text-align: right;
-            padding-top: 2px;
-        }
+    /* ===== LINES TABLE ===== */
+    table.quote-lines-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 7pt;
 
-        /* ===== LINES TABLE ===== */
-        table.quote-lines-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px;
-            font-size: 7pt;
+      /* header metni taşmasın */
+      table-layout: fixed;
+    }
 
-            /* ✅ kritik: header metni taşmasını engeller */
-            table-layout: fixed;
-        }
+    table.quote-lines-table thead th {
+      font-size: 8.61pt !important;
+      font-weight: 700 !important;
+      background: #bfbfbf;
+      color: #000;
+      text-align: center;
+      padding: 6px 4px;
+      border: 1px solid #fff;
+      letter-spacing: 0.4px;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: clip;
+      white-space: nowrap;
+    }
 
-        table.quote-lines-table thead th {
-            font-size: 8.61pt !important;
-            font-weight: 700 !important;
-            background: #bfbfbf;
-            color: #000;
-            text-align: center;
-            padding: 6px 4px;
-            border: 1px solid #fff;
-            letter-spacing: 0.4px;
-            vertical-align: middle;
-            overflow: hidden;
-            text-overflow: clip;
-            white-space: nowrap;
-        }
+    table.quote-lines-table tbody td {
+      font-size: 7.79pt !important;
+      font-weight: 400 !important;
+      text-align: center;
+      padding: 6px 4px;
+      vertical-align: middle;
+      border: 1px solid #fff;
+    }
 
+    .prod-link,
+    .prod-desc,
+    .prod-dim {
+      font-size: 7.79pt !important;
+      font-weight: 400 !important;
+      margin-top: 2px;
+    }
 
-        table.quote-lines-table tbody td {
-            font-size: 7.79pt !important;
-            font-weight: 400 !important;
-            text-align: center;
-            padding: 6px 4px;
-            vertical-align: middle;
-            border: 1px solid #fff;
-        }
+    tr.data-row {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
 
-        .prod-link,
-        .prod-desc,
-        .prod-dim {
-            font-size: 7.79pt !important;
-            font-weight: 400 !important;
-            margin-top: 2px;
-        }
+    td.imgCell {
+      width: 16%;
+    }
 
+    td.imgCell img {
+      width: 120px;
+      height: 80px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
 
-        tr.data-row {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
+    td.descCell {
+      width: 32%;
+      text-align: left;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
 
-        td.imgCell {
-            width: 16%;
-        }
+    .prod-name {
+      display: block;
+      font-size: 8.61pt !important;
+      font-weight: 700 !important;
+      margin-bottom: 2px;
+    }
 
-        td.imgCell img {
-            width: 120px;
-            height: 80px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
+    .prod-link {
+      display: block;
+      font-size: 6pt;
+      margin-top: 2px;
+      word-break: break-word;
+      font-style: normal;
+    }
 
-        td.descCell {
-            width: 32%;
-            text-align: left;
-            word-break: break-word;
-            overflow-wrap: anywhere;
-        }
+    .prod-desc {
+      display: block;
+      font-size: 6pt;
+      margin-top: 2px;
+    }
 
-        .prod-name {
-            display: block;
-            font-size: 8.61pt !important;
-            font-weight: 700 !important;
-            margin-bottom: 2px;
-        }
+    .prod-dim {
+      display: block;
+      font-size: 6pt;
+      margin-top: 2px;
+    }
 
+    .cur {
+      margin-left: 6px;
+      font-size: 8pt;
+      white-space: nowrap;
+    }
 
-        .prod-link {
-            display: block;
-            font-size: 6pt;
-            margin-top: 2px;
-            word-break: break-word;
-            font-style: normal;
-        }
+    /* sadece uzun iki th’de wrap */
+    .th-discount,
+    .th-stock {
+      white-space: normal !important;
+      line-height: 1.05;
+    }
 
-        .prod-desc {
-            display: block;
-            font-size: 6pt;
-            margin-top: 2px;
-        }
+    /* ===== TOTALS ===== */
+    .totals-wrap {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-top: 10px;
+    }
 
-        .prod-dim {
-            display: block;
-            font-size: 6pt;
-            margin-top: 2px;
-        }
+    .line-hr {
+      border-top: 0.5px solid #000;
+      width: 100%;
+      margin: 8px 0;
+    }
 
-        .cur {
-            margin-left: 6px;
-            font-size: 8pt;
-            white-space: nowrap;
-        }
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.61pt !important;
+    }
 
-        /* ✅ sadece uzun iki th’de wrap */
-        .th-discount,
-        .th-stock {
-            white-space: normal !important;
-            line-height: 1.05;
-        }
+    .totals-label {
+      font-size: 8.61pt !important;
+      font-weight: 700 !important;
+      text-align: left;
+      white-space: nowrap;
+    }
 
-        /* ===== TOTALS ===== */
-        .totals-wrap {
-            page-break-inside: avoid;
-            break-inside: avoid;
-            margin-top: 10px;
-        }
+    .totals-value {
+      font-size: 8.61pt !important;
+      font-weight: 700 !important;
+      text-align: right;
+      white-space: nowrap;
+    }
 
-        .line-hr {
-            border-top: 0.5px solid #000;
-            width: 100%;
-            margin: 8px 0;
-        }
+    /* ===== NOTES ===== */
+    .notes {
+      margin-top: 10px;
+      font-size: 6.77pt !important;
+      font-weight: 400 !important;
+      line-height: 1.35;
+    }
 
-        .totals-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 8.61pt !important;
-        }
+    .notes .note {
+      margin: 3px 0;
+    }
 
-        .totals-label {
-            font-size: 8.61pt !important;
-            font-weight: 700 !important;
-            text-align: left;
-            white-space: nowrap;
-        }
+    /* ===== BANK PAGE ===== */
+    .bank-page {
+      page-break-before: always;
+      break-before: page;
+      padding-top: 3.9cm;
+      display: block;
+    }
 
-        .totals-value {
-            font-size: 8.61pt !important;
-            font-weight: 700 !important;
-            text-align: right;
-            white-space: nowrap;
-        }
+    .bank-title-wrap {
+      text-align: center;
+      width: 100%;
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
 
+    .bank-title {
+      font-size: 12pt;
+      font-weight: bold;
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      padding-bottom: 2px;
+      letter-spacing: 0.6px;
+    }
 
-        /* ===== NOTES ===== */
-        .notes {
-            margin-top: 10px;
-            font-size: 6.77pt !important;
-            font-weight: 400 !important;
-            line-height: 1.35;
-        }
+    /* ✅ 70% daraltmayı kaldırdık */
+    .bank-block {
+      width: 100%;
+      margin: 0 0 22px 0;
+      border-collapse: collapse;
+      font-size: 9pt;
+    }
 
-        .notes .note {
-            margin: 3px 0;
-        }
+    .bank-block td {
+      padding: 4px 6px;
+      vertical-align: top;
+    }
 
+    .bank-label {
+      font-size: 12pt !important;
+      white-space: nowrap;
+    }
 
-        /* ===== BANK PAGE =====
-       ✅ 2. sayfada header-icerik çakışmasını kesin keser
-    */
-        .bank-page {
-            page-break-before: always;
-            break-before: page;
-            padding-top: 3.9cm;
-            /* header offset */
-            display: block;
-        }
+    /* ✅ 60% zorlamayı kaldırdık */
+    .bank-value {
+      font-size: 12pt !important;
+      width: auto;
+    }
 
-        .bank-title-wrap {
-            text-align: center;
-            width: 100%;
-            margin-top: 25px;
-            margin-bottom: 25px;
-        }
+    .lbl-779 {
+      font-size: 7.79pt !important;
+      font-weight: 700 !important;
+    }
 
-        .bank-title {
-            font-size: 12pt;
-            font-weight: bold;
-            border-bottom: 1px solid #000;
-            display: inline-block;
-            padding-bottom: 2px;
-            letter-spacing: 0.6px;
-        }
+    .val-861 {
+      font-size: 8.61pt !important;
+      font-weight: 400 !important;
+    }
 
-        .bank-block {
-            width: 70%;
-            margin: 0 auto 22px auto;
-            border-collapse: collapse;
-            font-size: 9pt;
-        }
+    .val-861b {
+      font-size: 8.61pt !important;
+      font-weight: 700 !important;
+    }
 
-        .bank-block td {
-            padding: 4px 6px;
-            vertical-align: top;
-        }
+    /* mail underline olmasın (render engine linklemiş olsa bile) */
+    .email-no-link,
+    .email-no-link * {
+      text-decoration: none !important;
+      color: #000 !important;
+    }
 
-        .bank-label {
-            font-size: 12pt !important;
-            white-space: nowrap;
-        }
-
-        .bank-value {
-            font-size: 12pt !important;
-            width: 60%;
-        }
-
-        .lbl-779 {
-            font-size: 7.79pt !important;
-            font-weight: 700 !important;
-        }
-
-        .val-861 {
-            font-size: 8.61pt !important;
-            font-weight: 400 !important;
-        }
-
-        .val-861b {
-            font-size: 8.61pt !important;
-            font-weight: 700 !important;
-        }
-
-        /* mail underline olmasın (render engine linklemiş olsa bile) */
-        .email-no-link,
-        .email-no-link * {
-            text-decoration: none !important;
-            color: #000 !important;
-        }
-
-        a {
-            text-decoration: none !important;
-            color: #000 !important;
-        }
-    </style>
+    a {
+      text-decoration: none !important;
+      color: #000 !important;
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- FIXED HEADER -->
-    <div class="header-fixed">
-        {{#if logoDataUri}}
-        <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
-        {{/if}}
-        <div class="header-text">
-            EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
-            NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
-            TEL: +90 (850) 800 64 64
-        </div>
-    </div>
-
-    <!-- TITLE -->
-    <div class="main-title-wrap">
-        <span class="main-title">TEKLİF FORMU</span>
-    </div>
-
-    <!-- TOP INFO -->
-    <table class="top-info">
-        <tr>
-            <td class="top-left">
-                <span class="lbl-779">SAYIN:</span>
-                <span class="val-861">{{sayin}}</span>
-            </td>
-
-            <td class="top-right">
-                <div><span class="val-861b">{{today}}</span></div>
-                <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-
-    <!-- LINE PAGES -->
-    {{#if pages}}
-    {{#each pages}}
-
-    <table class="quote-lines-table">
-        <thead>
-            <tr>
-                <!-- width'leri istersen burada 100'e tamamlayabilirsin -->
-                <th style="width:16%;">FOTOĞRAF</th>
-                <th style="width:20%;">AÇIKLAMA</th>
-                <th style="width:6%;">ADET</th>
-                <th style="width:13%;">BİRİM FİYATI</th>
-                <th style="width:8%;">TOPLAM</th>
-                <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
-                <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {{#each lines}}
-            <tr class="data-row">
-                <td class="imgCell">
-                    {{#if hasImage}}
-                    <img src="{{{imageDataUri}}}" alt="Product" />
-                    {{/if}}
-                </td>
-
-                <td class="descCell">
-                    {{#if productName}}
-                    <span class="prod-name">{{productName}}</span>
-                    {{/if}}
-
-                    {{#if usageArea}}
-                    <span class="prod-link">{{usageArea}}</span>
-                    {{/if}}
-
-                    {{#if description}}
-                    <span class="prod-desc">{{description}}</span>
-                    {{/if}}
-
-                    {{#if dimension}}
-                    <span class="prod-dim">{{dimension}}</span>
-                    {{/if}}
-                </td>
-
-                <td>{{quantity}}</td>
-                <td>{{unitPrice}} <span class="cur">₺</span></td>
-                <td>{{subTotal}} <span class="cur">₺</span></td>
-                <td>{{totalPrice}} <span class="cur">₺</span></td>
-                <td>{{stockStatus}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-
-    {{#if @last}}
-    <!-- TOTALS (sadece en son sayfada) -->
-    <div class="totals-wrap">
-        <div class="line-hr"></div>
-
-        <table class="totals-table">
-            <tr>
-                <td style="width:70%;">&nbsp;</td>
-                <td class="totals-label" style="width:15%;">TOPLAM</td>
-                <td class="totals-value" style="width:15%;">{{../totalAmount}} ₺</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td class="totals-label">TOPLAM İNDİRİM</td>
-                <td class="totals-value">{{../totalDiscount}} ₺</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td class="totals-label">GENEL TOPLAM</td>
-                <td class="totals-value"><b>{{../grandTotal}} ₺</b></td>
-            </tr>
-        </table>
-
-        <div class="line-hr"></div>
-    </div>
-
-    <!-- NOTES -->
-    <div class="notes">
-        <div class="note">- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR.</div>
-        <div class="note">- {{../notePayment}}</div>
-        <div class="note">- {{../noteDelivery}}</div>
-        <div class="note">- {{../noteKdv}}</div>
-        <div class="note">- {{../noteValidity}}</div>
-    </div>
-
+  <!-- FIXED HEADER -->
+  <div class="header-fixed">
+    {{#if logoDataUri}}
+    <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
     {{/if}}
-
-    {{#unless @last}}
-    <!-- sayfa kır -->
-    <div style="page-break-after:always; break-after:page;"></div>
-    {{/unless}}
-
-    {{/each}}
-
-    {{else}}
-    <!-- fallback -->
-    <table class="quote-lines-table">
-        <thead>
-            <tr>
-                <th style="width:16%;">FOTOĞRAF</th>
-                <th style="width:20%;">AÇIKLAMA</th>
-                <th style="width:6%;">ADET</th>
-                <th style="width:13%;">BİRİM FİYATI</th>
-                <th style="width:8%;">TOPLAM</th>
-                <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
-                <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each lines}}
-            <tr class="data-row">
-                <td class="imgCell">
-                    {{#if hasImage}}
-                    <img src="{{{imageDataUri}}}" alt="Product" />
-                    {{/if}}
-                </td>
-                <td class="descCell">
-                    {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                    {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
-                    {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
-                    {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
-                </td>
-                <td>{{quantity}}</td>
-                <td>{{unitPrice}} <span class="cur">₺</span></td>
-                <td>{{subTotal}} <span class="cur">₺</span></td>
-                <td>{{totalPrice}} <span class="cur">₺</span></td>
-                <td>{{stockStatus}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-    {{/if}}
-
-    <!-- BANK PAGE -->
-    <div class="bank-page">
-        <div class="bank-title-wrap">
-            <div class="bank-title">HESAP BİLGİLERİMİZ</div>
-        </div>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">BANKA ADI</td>
-                <td class="bank-value">GARANTİ BANKASI</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP BİLGİSİ</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP NUMARASI</td>
-                <td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td>
-            </tr>
-        </table>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">BANKA ADI</td>
-                <td class="bank-value">AKBANK</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP BİLGİSİ</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP NUMARASI</td>
-                <td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td>
-            </tr>
-        </table>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">BANKA ADI</td>
-                <td class="bank-value">İŞ BANKASI</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP BİLGİSİ</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP NUMARASI</td>
-                <td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td>
-            </tr>
-        </table>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">BANKA ADI</td>
-                <td class="bank-value">QNB FİNANSBANK</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP BİLGİSİ</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP NUMARASI</td>
-                <td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td>
-            </tr>
-        </table>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">BANKA ADI</td>
-                <td class="bank-value">ZİRAAT BANKASI</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP BİLGİSİ</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">HESAP NUMARASI</td>
-                <td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td>
-            </tr>
-        </table>
+    <div class="header-text">
+      EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
+      NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
+      TEL: +90 (850) 800 64 64
     </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="main-title-wrap">
+    <span class="main-title">TEKLİF FORMU</span>
+  </div>
+
+  <!-- TOP INFO -->
+  <table class="top-info">
+    <tr>
+      <td class="top-left">
+        <span class="lbl-779">SAYIN:</span>
+        <span class="val-861">{{sayin}}</span>
+      </td>
+
+      <td class="top-right">
+        <div><span class="val-861b">{{today}}</span></div>
+        <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
+        <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- LINE PAGES -->
+  {{#if pages}}
+  {{#each pages}}
+
+  <table class="quote-lines-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">FOTOĞRAF</th>
+        <th style="width:20%;">AÇIKLAMA</th>
+        <th style="width:6%;">ADET</th>
+        <th style="width:13%;">BİRİM FİYATI</th>
+        <th style="width:8%;">TOPLAM</th>
+        <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
+        <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each lines}}
+      <tr class="data-row">
+        <td class="imgCell">
+          {{#if hasImage}}
+          <img src="{{{imageDataUri}}}" alt="Product" />
+          {{/if}}
+        </td>
+
+        <td class="descCell">
+          {{#if productName}}
+          <span class="prod-name">{{productName}}</span>
+          {{/if}}
+
+          {{#if usageArea}}
+          <span class="prod-link">{{usageArea}}</span>
+          {{/if}}
+
+          {{#if description}}
+          <span class="prod-desc">{{description}}</span>
+          {{/if}}
+
+          {{#if dimension}}
+          <span class="prod-dim">{{dimension}}</span>
+          {{/if}}
+        </td>
+
+        <td>{{quantity}}</td>
+        <td>{{unitPrice}} <span class="cur">₺</span></td>
+        <td>{{subTotal}} <span class="cur">₺</span></td>
+        <td>{{totalPrice}} <span class="cur">₺</span></td>
+        <td>{{stockStatus}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#if @last}}
+  <!-- TOTALS (sadece en son sayfada) -->
+  <div class="totals-wrap">
+    <div class="line-hr"></div>
+
+    <table class="totals-table">
+      <tr>
+        <td style="width:70%;">&nbsp;</td>
+        <td class="totals-label" style="width:15%;">TOPLAM</td>
+        <td class="totals-value" style="width:15%;">{{../totalAmount}} ₺</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="totals-label">TOPLAM İNDİRİM</td>
+        <td class="totals-value">{{../totalDiscount}} ₺</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="totals-label">GENEL TOPLAM</td>
+        <td class="totals-value"><b>{{../grandTotal}} ₺</b></td>
+      </tr>
+    </table>
+
+    <div class="line-hr"></div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div class="note">- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR.</div>
+    <div class="note">- {{../notePayment}}</div>
+    <div class="note">- {{../noteDelivery}}</div>
+    <div class="note">- {{../noteKdv}}</div>
+    <div class="note">- {{../noteValidity}}</div>
+  </div>
+
+  {{/if}}
+
+  {{#unless @last}}
+  <div style="page-break-after:always; break-after:page;"></div>
+  {{/unless}}
+
+  {{/each}}
+
+  {{else}}
+  <!-- fallback -->
+  <table class="quote-lines-table">
+    <thead>
+      <tr>
+        <th style="width:16%;">FOTOĞRAF</th>
+        <th style="width:20%;">AÇIKLAMA</th>
+        <th style="width:6%;">ADET</th>
+        <th style="width:13%;">BİRİM FİYATI</th>
+        <th style="width:8%;">TOPLAM</th>
+        <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
+        <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each lines}}
+      <tr class="data-row">
+        <td class="imgCell">
+          {{#if hasImage}}
+          <img src="{{{imageDataUri}}}" alt="Product" />
+          {{/if}}
+        </td>
+        <td class="descCell">
+          {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
+          {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
+          {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
+          {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
+        </td>
+        <td>{{quantity}}</td>
+        <td>{{unitPrice}} <span class="cur">₺</span></td>
+        <td>{{subTotal}} <span class="cur">₺</span></td>
+        <td>{{totalPrice}} <span class="cur">₺</span></td>
+        <td>{{stockStatus}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
+  <!-- BANK PAGE -->
+  <div class="bank-page">
+    <div class="bank-title-wrap">
+      <div class="bank-title">HESAP BİLGİLERİMİZ</div>
+    </div>
+
+    <table class="bank-block">
+      <tr>
+        <td class="bank-label">BANKA ADI</td>
+        <td class="bank-value">GARANTİ BANKASI</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP BİLGİSİ</td>
+        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP NUMARASI</td>
+        <td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td>
+      </tr>
+    </table>
+
+    <table class="bank-block">
+      <tr>
+        <td class="bank-label">BANKA ADI</td>
+        <td class="bank-value">AKBANK</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP BİLGİSİ</td>
+        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP NUMARASI</td>
+        <td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td>
+      </tr>
+    </table>
+
+    <table class="bank-block">
+      <tr>
+        <td class="bank-label">BANKA ADI</td>
+        <td class="bank-value">İŞ BANKASI</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP BİLGİSİ</td>
+        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP NUMARASI</td>
+        <td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td>
+      </tr>
+    </table>
+
+    <table class="bank-block">
+      <tr>
+        <td class="bank-label">BANKA ADI</td>
+        <td class="bank-value">QNB FİNANSBANK</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP BİLGİSİ</td>
+        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP NUMARASI</td>
+        <td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td>
+      </tr>
+    </table>
+
+    <table class="bank-block">
+      <tr>
+        <td class="bank-label">BANKA ADI</td>
+        <td class="bank-value">ZİRAAT BANKASI</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP BİLGİSİ</td>
+        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+      </tr>
+      <tr>
+        <td class="bank-label">HESAP NUMARASI</td>
+        <td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td>
+      </tr>
+    </table>
+  </div>
 
 </body>
 
