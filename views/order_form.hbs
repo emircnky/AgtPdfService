@@ -6,11 +6,9 @@
   <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
   <style>
-    /* ===== PAGE ===== */
     @page {
       size: A4;
-      /* ✅ sağ taşmayı azalt: sağ margin'i düşürdük */
-      margin: 10mm 6mm 10mm 12mm; /* top right bottom left */
+      margin: 10mm 6mm 10mm 6mm;
     }
 
     body {
@@ -77,16 +75,15 @@
       padding: 2px 0;
     }
 
-    /* ✅ en sola hizaladığın alanı biraz içerden başlat */
     .meta-left {
       width: 68%;
       padding-right: 8mm;
-      padding-left: 4mm; /* <-- içeriden başlat */
+      padding-left: 4mm;
     }
 
     .meta-right {
       width: 32%;
-      padding-right: 0; /* sağ taşmayı engelle */
+      padding-right: 0;
     }
 
     /* ===== KEY-VALUE HİZALAMA (iki nokta aynı sütunda) ===== */
@@ -97,7 +94,6 @@
       white-space: nowrap;
     }
 
-    /* Sol blok: label + ":" + value kolonları */
     .info-row .info-label,
     .info-row .info-colon,
     .info-row .info-value {
@@ -105,23 +101,24 @@
       vertical-align: top;
     }
 
+    /* ÜST META (sol) */
     .info-row .info-label {
-      width: 38mm;          /* ✅ tüm etiketler aynı kolon */
+      width: 38mm;
       font-weight: 700;
     }
 
     .info-row .info-colon {
-      width: 4mm;           /* ✅ iki nokta sabit kolon */
+      width: 4mm;
       text-align: center;
       font-weight: 700;
     }
 
     .info-row .info-value {
       max-width: 110mm;
-      white-space: normal;  /* uzun değerler satıra insin */
+      white-space: normal;
     }
 
-    /* Sağ blok: sağa yaslı ama taşmasın */
+    /* Sağ taraf */
     .info-row-right {
       text-align: right;
       white-space: nowrap;
@@ -135,7 +132,7 @@
     }
 
     .info-row-right .info-label {
-      width: 30mm;          /* ✅ iki satırda aynı hizaya gelsin */
+      width: 30mm;
       font-weight: 700;
       text-align: right;
     }
@@ -147,11 +144,11 @@
     }
 
     .info-row-right .info-value {
-      max-width: 34mm;      /* ✅ sağdan taşmayı engeller */
+      max-width: 34mm;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      text-align: left;     /* değer okunaklı dursun */
+      text-align: left;
     }
 
     /* FATURA + SEVKİYAT blokları */
@@ -170,7 +167,7 @@
 
     .colPadRight {
       padding-right: 8mm;
-      padding-left: 4mm; /* ✅ sol bloklar da içerden başlasın */
+      padding-left: 4mm;
     }
 
     .blockTitle {
@@ -178,6 +175,19 @@
       margin: 0 0 6px 0;
       text-transform: uppercase;
       font-size: 8.2pt;
+    }
+
+    /* ✅ FATURA/SEVKİYAT için ":" sütunu "blok bitişinde" dursun */
+    table.twoCols .info-row .info-label {
+      width: 28mm !important;
+    }
+
+    table.twoCols .info-row .info-colon {
+      width: 3mm !important;
+    }
+
+    table.twoCols .info-row .info-value {
+      max-width: none !important;
     }
 
     /* Ürün tablosu */
@@ -252,7 +262,7 @@
     .bottom-left {
       width: 65%;
       padding-right: 8mm;
-      padding-left: 4mm; /* ✅ alt sol da içerden */
+      padding-left: 4mm;
     }
 
     .bottom-right {
@@ -423,7 +433,6 @@
     <tr>
       <td class="colPadRight">
         <div class="blockTitle">FATURA BİLGİLERİ :</div>
-
         <div class="info-row">
           <span class="info-label">ADRES</span><span class="info-colon">:</span>
           <span class="info-value">{{faturaAdres}}</span>
@@ -444,7 +453,6 @@
 
       <td>
         <div class="blockTitle">SEVKİYAT BİLGİLERİ :</div>
-
         <div class="info-row">
           <span class="info-label">ADRES</span><span class="info-colon">:</span>
           <span class="info-value">{{sevkAdres}}</span>
