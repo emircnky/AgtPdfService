@@ -11,8 +11,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 // ----------------------
 // Font base64 yükleme
 // ----------------------
-const fontRegularB64 = fs.readFileSync(path.join(__dirname, 'TRAJANPRO-REGULAR.otf')).toString('base64');
-const fontBoldB64 = fs.readFileSync(path.join(__dirname, 'TRAJANPRO-BOLD.otf')).toString('base64');
+const fontRegularB64 = fs.readFileSync(path.join(__dirname, 'TRAJANPRO-REGULAR.OTF')).toString('base64');
+const fontBoldB64 = fs.readFileSync(path.join(__dirname, 'TRAJANPRO-BOLD.OTF')).toString('base64');
 
 // ----------------------
 // Handlebars helpers
