@@ -3,18 +3,12 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
 
     <style>
-        /* ===== FONT LOAD ===== */
-        @import url('https://use.typekit.net/mhd1hjd.css');
-
+        /* ===== TRAJAN PRO - BASE64 GÖMÜLÜ FONT ===== */
         @font-face {
             font-family: "Trajan Pro";
-            src: local("TrajanPro-Regular"),
-                 local("Trajan Pro Regular"),
-                 local("TrajanPro"),
-                 url("https://use.typekit.net/mhd1hjd.css") format("opentype");
+            src: url('data:font/opentype;base64,{{{fontRegularB64}}}') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: block;
@@ -22,30 +16,24 @@
 
         @font-face {
             font-family: "Trajan Pro";
-            src: local("TrajanPro-Bold"),
-                 local("Trajan Pro Bold"),
-                 url("https://use.typekit.net/mhd1hjd.css") format("opentype");
+            src: url('data:font/opentype;base64,{{{fontBoldB64}}}') format('opentype');
             font-weight: bold;
             font-style: normal;
             font-display: block;
         }
 
         /* ===== FONT ENFORCEMENT ===== */
-        :root {
-            --main-font: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif;
-        }
-
         html,
         body,
         *,
         *::before,
         *::after {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
         }
 
         b,
         strong {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-weight: bold !important;
         }
 
@@ -94,7 +82,7 @@
         }
 
         .header-text {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 7pt;
             font-weight: normal;
             color: #333;
@@ -111,7 +99,7 @@
         }
 
         .main-title {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 13.77pt !important;
             font-weight: bold !important;
             border-bottom: 1px solid #000;
@@ -128,7 +116,7 @@
         }
 
         .top-info td {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8pt;
             vertical-align: top;
             padding: 2px 0;
@@ -156,7 +144,7 @@
         }
 
         table.quote-lines-table thead th {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8.61pt !important;
             font-weight: bold !important;
             background: #bfbfbf;
@@ -172,7 +160,7 @@
         }
 
         table.quote-lines-table tbody td {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 7.79pt !important;
             font-weight: normal !important;
             text-align: center;
@@ -206,7 +194,7 @@
         }
 
         .prod-name {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             display: block;
             font-size: 7.2pt !important;
             font-weight: normal !important;
@@ -216,7 +204,7 @@
         .prod-link,
         .prod-desc,
         .prod-dim {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 5.5pt !important;
             font-weight: normal !important;
             margin-top: 2px;
@@ -237,7 +225,7 @@
         }
 
         .cur {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             margin-left: 6px;
             font-size: 8pt;
             white-space: nowrap;
@@ -269,7 +257,7 @@
         }
 
         .totals-label {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8.61pt !important;
             font-weight: normal !important;
             text-align: left;
@@ -277,7 +265,7 @@
         }
 
         .totals-value {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8.61pt !important;
             font-weight: normal !important;
             text-align: right;
@@ -293,7 +281,7 @@
         }
 
         .notes .note {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             margin: 3px 0;
         }
 
@@ -306,7 +294,7 @@
         }
 
         .bank-title {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 12pt;
             font-weight: bold;
             border-bottom: 1px solid #000;
@@ -323,39 +311,39 @@
         }
 
         .bank-block td {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             padding: 4px 6px;
             vertical-align: top;
         }
 
         .bank-label {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 12pt !important;
             white-space: nowrap;
             font-weight: normal !important;
         }
 
         .bank-value {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 12pt !important;
             width: auto;
             font-weight: normal !important;
         }
 
         .lbl-779 {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 7.79pt !important;
             font-weight: bold !important;
         }
 
         .val-861 {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8.61pt !important;
             font-weight: normal !important;
         }
 
         .val-861b {
-            font-family: "Trajan Pro", "Trajan Pro 3", "TrajanPro", "Trajan", serif !important;
+            font-family: "Trajan Pro", serif !important;
             font-size: 8.61pt !important;
             font-weight: bold !important;
         }
@@ -380,7 +368,7 @@
     {{#each pages}}
 
     <div class="page-container">
-        <!-- ✅ HEADER (her sayfada tekrar) -->
+        <!-- HEADER (her sayfada tekrar) -->
         <div class="page-header">
             {{#if ../logoDataUri}}
             <img class="snocLogo" src="{{{../logoDataUri}}}" alt="Logo" />
@@ -392,7 +380,7 @@
             </div>
         </div>
 
-        <!-- ✅ TITLE ve TOP INFO (sadece ilk sayfada) -->
+        <!-- TITLE ve TOP INFO (sadece ilk sayfada) -->
         {{#if @first}}
         <div class="main-title-wrap">
             <span class="main-title">TEKLİF FORMU</span>
