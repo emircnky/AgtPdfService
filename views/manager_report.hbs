@@ -174,6 +174,22 @@
             break-inside: avoid;
         }
 
+        /* Link satırı - tüm genişliği kapsar, ortalı */
+        tr.link-row {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        tr.link-row td {
+            font-family: "Trajan Pro", serif !important;
+            font-size: 5.5pt !important;
+            font-weight: normal !important;
+            text-align: center;
+            padding: 2px 4px 6px 4px;
+            color: #000;
+            border: none;
+        }
+
         td.imgCell {
             width: 16%;
         }
@@ -201,7 +217,6 @@
             margin-bottom: 2px;
         }
 
-        .prod-link,
         .prod-desc,
         .prod-dim {
             font-family: "Trajan Pro", serif !important;
@@ -210,18 +225,25 @@
             margin-top: 2px;
         }
 
-        .prod-link {
-            display: block;
-            font-style: normal;
-            word-break: break-word;
-        }
-
         .prod-desc {
             display: block;
         }
 
         .prod-dim {
             display: block;
+        }
+
+        /* Link stili - görseldeki gibi uppercase, ortalı */
+        .prod-link-full {
+            font-family: "Trajan Pro", serif !important;
+            font-size: 5.5pt !important;
+            font-weight: normal !important;
+            font-style: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #000;
+            text-decoration: none;
+            word-break: break-all;
         }
 
         .cur {
@@ -418,6 +440,7 @@
 
             <tbody>
                 {{#each lines}}
+                <!-- Ürün ana satırı -->
                 <tr class="data-row">
                     <td class="imgCell">
                         {{#if hasImage}}
@@ -426,12 +449,8 @@
                     </td>
 
                     <td class="descCell">
-                        {{#if productName}}
-                        <span class="prod-name">{{productName}}</span>
-                        {{/if}}
-
-                        {{#if usageArea}}
-                        <span class="prod-link">{{usageArea}}</span>
+                        {{#if collectionName}}
+                        <span class="prod-name">{{collectionName}}</span>
                         {{/if}}
 
                         {{#if description}}
@@ -449,6 +468,16 @@
                     <td>{{totalPrice}} <span class="cur">₺</span></td>
                     <td>{{stockStatus}}</td>
                 </tr>
+
+                <!-- Ürün link satırı — sadece usageArea varsa göster, 7 kolonu kapsar -->
+                {{#if usageArea}}
+                <tr class="link-row">
+                    <td colspan="7">
+                        <span class="prod-link-full">{{usageArea}}</span>
+                    </td>
+                </tr>
+                {{/if}}
+
                 {{/each}}
             </tbody>
         </table>
@@ -541,6 +570,7 @@
             </thead>
             <tbody>
                 {{#each lines}}
+                <!-- Ürün ana satırı -->
                 <tr class="data-row">
                     <td class="imgCell">
                         {{#if hasImage}}
@@ -548,8 +578,7 @@
                         {{/if}}
                     </td>
                     <td class="descCell">
-                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                        {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
+                        {{#if collectionName}}<span class="prod-name">{{collectionName}}</span>{{/if}}
                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
                     </td>
@@ -559,6 +588,16 @@
                     <td>{{totalPrice}} <span class="cur">₺</span></td>
                     <td>{{stockStatus}}</td>
                 </tr>
+
+                <!-- Ürün link satırı — sadece usageArea varsa göster -->
+                {{#if usageArea}}
+                <tr class="link-row">
+                    <td colspan="7">
+                        <span class="prod-link-full">{{usageArea}}</span>
+                    </td>
+                </tr>
+                {{/if}}
+
                 {{/each}}
             </tbody>
         </table>
