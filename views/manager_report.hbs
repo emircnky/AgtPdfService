@@ -214,6 +214,8 @@
             display: block;
             font-style: normal;
             word-break: break-word;
+            text-decoration: none !important;
+            color: #000 !important;
         }
 
         .prod-desc {
@@ -360,7 +362,7 @@
         }
     </style>
 </head>
- 
+
 <body>
 
     <!-- LINE PAGES -->
@@ -430,8 +432,8 @@
                         <span class="prod-name">{{productName}}</span>
                         {{/if}}
 
-                        {{#if usageArea}}
-                        <span class="prod-link">{{usageArea}}</span>
+                        {{#if productLink}}
+                        <a class="prod-link" href="{{productLink}}" target="_blank">{{productLink}}</a>
                         {{/if}}
 
                         {{#if description}}
@@ -549,7 +551,7 @@
                     </td>
                     <td class="descCell">
                         {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                        {{#if usageArea}}<span class="prod-link">{{usageArea}}</span>{{/if}}
+                        {{#if productLink}}<a class="prod-link" href="{{productLink}}" target="_blank">{{productLink}}</a>{{/if}}
                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
                     </td>
