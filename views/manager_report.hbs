@@ -149,7 +149,17 @@
         }
 
         .info-row {
-            font-size: 6pt !important; 
+            font-size: 8pt !important; 
+            margin-bottom: 8px; 
+        }
+
+        .info1-container {
+            display: inline-block;
+            min-width: 180px; 
+        }
+
+        .info1-row {
+            font-size: 8pt !important; 
             margin-bottom: 8px; 
         }
 
@@ -425,8 +435,9 @@
         <table class="top-info">
             <tr>
                 <td class="top-left">
-                    <span class="lbl-779">SAYIN:</span>
-                    <span class="val-861">{{../sayin}}</span>
+                    <div class="info1-container">
+                        <div class="info1-row"><span class="lbl-779">SAYIN:</span> <span class="val-861">{{../sayin}}</span></div>
+                    </div>
                 </td>
                 <td class="top-right">
                     <div class="info-container">
