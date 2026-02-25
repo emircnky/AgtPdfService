@@ -159,6 +159,20 @@ app.post('/generate-quote', async (req, res) => {
 });
 
 // ----------------------
+// Quote PDF ENG Endpoints
+// ----------------------
+app.get('/generate-quote', (req, res) => {
+  res.status(200).send('OK (POST required)');
+});
+
+app.post('/generate-quote', async (req, res) => {
+  return renderPdfFromTemplate(req, res, 'manager_report_eng.hbs', {
+    landscape: true,
+    margin: { top: '0', right: '0', bottom: '0', left: '0' }
+  });
+});
+
+// ----------------------
 // OrderForm PDF Endpoints
 // ----------------------
 app.get('/generate-order-form', (req, res) => {
