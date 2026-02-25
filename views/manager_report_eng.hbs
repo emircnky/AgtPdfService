@@ -449,19 +449,19 @@
         <!-- TITLE ve TOP INFO (sadece ilk sayfada) -->
         {{#if @first}}
         <div class="main-title-wrap">
-            <span class="main-title">TEKLİF FORMU</span>
+            <span class="main-title">OFFER</span>
         </div>
 
         <table class="top-info">
             <tr>
                 <td class="top-left">
-                    <span class="sayin-label">SAYIN:</span>
-                    <span>{{../sayin}}</span>
+                    <span class="sayin-label">DEAR;</span>
+                    <span class="sayin-label">{{../sayin}}</span>
                 </td>
                 <td class="top-right">
                     <div class="info-container">
                         <div class="info-row"><b>{{../today}}</b></div>
-                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{../ownerName}}</span>
+                        <div class="info-row"><span class="info-label">CONTACT:</span> <span>{{../ownerName}}</span>
                         </div>
                         <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span>
                         </div>
@@ -474,13 +474,13 @@
         <table class="quote-lines-table">
             <thead>
                 <tr>
-                    <th style="width:16%;">FOTOĞRAF</th>
-                    <th style="width:28%;">AÇIKLAMA</th>
-                    <th style="width:6%;">ADET</th>
-                    <th style="width:11%;">BİRİM FİYATI</th>
-                    <th style="width:8%;">TOPLAM</th>
-                    <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
-                    <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
+                    <th style="width:16%;">PICTURE</th>
+                    <th style="width:28%;">DESCRIPTION</th>
+                    <th style="width:6%;">QTY</th>
+                    <th style="width:11%;">UNIT PRICE</th>
+                    <th style="width:8%;">TOTAL PRICE</th>
+                    <th class="th-discount" style="width:10%;">DISCOUNTED<br />PRICE</th>
+                    <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
                 </tr>
             </thead>
 
@@ -512,21 +512,21 @@
                     <td class="amount-cell">
                         <div class="price-wrapper">
                             <span class="val">{{unitPrice}}</span>
-                            <span class="cur">₺</span>
+                            <span class="cur">€</span>
                         </div>
                     </td>
 
                     <td class="amount-cell">
                         <div class="price-wrapper">
                             <span class="val">{{subTotal}}</span>
-                            <span class="cur">₺</span>
+                            <span class="cur">€</span>
                         </div>
                     </td>
 
                     <td class="amount-cell">
                         <div class="price-wrapper">
                             <span class="val">{{totalPrice}}</span>
-                            <span class="cur">₺</span>
+                            <span class="cur">€</span>
                         </div>
                     </td>
 
@@ -553,18 +553,18 @@
             <table class="totals-table">
                 <tr>
                     <td style="width:70%;">&nbsp;</td>
-                    <td class="totals-label" style="width:15%;">TOPLAM</td>
-                    <td class="totals-value" style="width:15%;">{{../totalAmount}} ₺</td>
+                    <td class="totals-label" style="width:15%;">TOTAL</td>
+                    <td class="totals-value" style="width:15%;">{{../totalAmount}} €</td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td class="totals-label">TOPLAM İNDİRİM</td>
-                    <td class="totals-value">{{../totalDiscount}} ₺</td>
+                    <td class="totals-label">DISCOUNT</td>
+                    <td class="totals-value">{{../totalDiscount}} €</td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td class="totals-label">GENEL TOPLAM</td>
-                    <td class="totals-value">{{../grandTotal}} ₺</td>
+                    <td class="totals-label">GENERAL TOTAL</td>
+                    <td class="totals-value">{{../grandTotal}} €</td>
                 </tr>
             </table>
 
@@ -573,7 +573,7 @@
 
         <!-- NOTES -->
         <div class="notes">
-            <div class="note">- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR.</div>
+            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE CONSIDERED.</div>
             <div class="note">- {{../notePayment}}</div>
             <div class="note">- {{../noteDelivery}}</div>
             <div class="note">- {{../noteKdv}}</div>
