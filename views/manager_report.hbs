@@ -10,7 +10,7 @@
             font-family: "Trajan Pro";
             src: url('data:font/opentype;base64,{{{fontRegularB64}}}') format('opentype');
             font-weight: normal;
-            font-style: normal; 
+            font-style: normal;
             font-display: block;
         }
 
@@ -123,15 +123,15 @@
         }
 
         .top-left {
-            width: 50%; 
-            text-align: left; 
+            width: 50%;
+            text-align: left;
             vertical-align: top;
-            font-size: 6pt !important; 
+            font-size: 6pt !important;
         }
 
         .sayin-label {
             font-weight: bold !important;
-            margin-right: 4px;  
+            margin-right: 4px;
         }
 
         .top-right {
@@ -142,20 +142,20 @@
 
         .top-right div {
             font-size: 6pt !important;
-            margin-bottom: 8px; 
+            margin-bottom: 8px;
         }
 
         .info-container {
             display: inline-block;
-            text-align: left; 
-            min-width: 180px; 
+            text-align: left;
+            min-width: 180px;
             padding-left: 150px;
             font-size: 10pt !important;
         }
 
         .info-row {
-            font-size: 8pt !important; 
-            margin-bottom: 8px; 
+            font-size: 8pt !important;
+            margin-bottom: 8px;
         }
 
         .info-label {
@@ -259,7 +259,7 @@
         }
 
         .prod-link-row {
-            font-family: "Trajan Pro", serif !important; 
+            font-family: "Trajan Pro", serif !important;
             font-size: 5.5pt !important;
             text-align: left;
             text-decoration: none !important;
@@ -268,15 +268,35 @@
             margin-top: 4px;
         }
 
+        /* Hücre içeriğini sağa yasla */
+        .amount-cell {
+            text-align: right;
+            vertical-align: middle;
+        }
+
+        /* Rakam ve simgeyi yan yana kilitle */
+        .price-wrapper {
+            display: inline-flex;
+            /* İçeriği yan yana dizer */
+            align-items: baseline;
+            /* Alt hizalarını eşitleyerek daha düzgün gösterir */
+            justify-content: flex-end;
+            white-space: nowrap;
+            /* Alt satıra inmeyi yasaklar */
+            width: 100%;
+        }
+
         .cur {
             font-family: "Calibri", serif !important;
-            font-size: 6pt !important;
-            white-space: nowrap;
-    
-    
-            display: inline-block; 
-            width: 100%;           
-            text-align: right;     
+            font-size: 7pt !important;
+            /* 6pt'den biraz büyük yaparak dengeleyin */
+            margin-left: 4px;
+            /* Soldan istediğin boşluğu buradan ver */
+            display: inline-block;
+        }
+
+        .val {
+            display: inline-block;
         }
 
         .th-discount,
@@ -293,7 +313,7 @@
         }
 
         .line-hr {
-            border-top: 0.1px solid #888; 
+            border-top: 0.1px solid #888;
             height: 0px;
             width: 100%;
             margin: 5px 0;
@@ -447,8 +467,10 @@
                 <td class="top-right">
                     <div class="info-container">
                         <div class="info-row"><b>{{../today}}</b></div>
-                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{../ownerName}}</span></div>
-                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span></div>
+                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{../ownerName}}</span>
+                        </div>
+                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -492,11 +514,31 @@
                     </td>
 
                     <td>{{quantity}}</td>
-                    <td>{{unitPrice}} <span class="cur">₺</span></td>
-                    <td>{{subTotal}} <span class="cur">₺</span></td>
-                    <td>{{totalPrice}} <span class="cur">₺</span></td>
+
+                    <td class="amount-cell">
+                        <div class="price-wrapper">
+                            <span class="val">{{unitPrice}}</span>
+                            <span class="cur">₺</span>
+                        </div>
+                    </td>
+
+                    <td class="amount-cell">
+                        <div class="price-wrapper">
+                            <span class="val">{{subTotal}}</span>
+                            <span class="cur">₺</span>
+                        </div>
+                    </td>
+
+                    <td class="amount-cell">
+                        <div class="price-wrapper">
+                            <span class="val">{{totalPrice}}</span>
+                            <span class="cur">₺</span>
+                        </div>
+                    </td>
+
                     <td>{{stockStatus}}</td>
                 </tr>
+
                 {{#if productLink}}
                 <tr class="link-row">
                     <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
@@ -506,6 +548,7 @@
                 {{/if}}
                 {{/each}}
             </tbody>
+
         </table>
 
         {{#if @last}}
@@ -575,7 +618,8 @@
                 <td class="top-right">
                     <div><span class="val-861b">{{today}}</span></div>
                     <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span></div>
+                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
+                    </div>
                 </td>
             </tr>
         </table>
