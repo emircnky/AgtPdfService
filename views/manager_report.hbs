@@ -135,9 +135,33 @@
         }
 
         .top-right {
-            width: 50%;
+            text-align: right;
+            vertical-align: top;
+            padding-top: 5px;
+        }
+
+        .date-row {
+            margin-bottom: 12px;
+        }
+
+        .val-861b {
+            font-weight: 600;
+            font-size: 9pt;
+        }
+
+        .contact-info-block {
+            display: inline-block;
             text-align: left;
-            padding-top: 2px;
+        }
+
+        .contact-info-block div {
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .lbl-779 {
+            font-weight: 600;
+            margin-right: 4px;
         }
 
         .top-right div {
@@ -459,12 +483,14 @@
                     <span>{{../sayin}}</span>
                 </td>
                 <td class="top-right">
-                    <div class="info-container">
-                        <div class="info-row"><b>{{../today}}</b></div>
-                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{../ownerName}}</span>
-                        </div>
-                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span>
-                        </div>
+                    <div class="date-row">
+                        <span class="val-861b">{{today}}</span>
+                    </div>
+
+                    <div class="contact-info-block">
+                        <div><span class="lbl-779">CONTACT:</span> <span class="val-861">{{ownerName}}</span></div>
+                        <div><span class="lbl-779">E-MAIL:</span> <span
+                                class="val-861 email-no-link">{{ownerEmail}}</span></div>
                     </div>
                 </td>
             </tr>
