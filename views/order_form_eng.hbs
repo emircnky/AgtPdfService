@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://use.typekit.net/mhd1hjd.css">
+
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm 6mm 10mm 6mm;
+    }
+
+    /* =========================================================
+       ✅ FONT KİLİDİ (Static Resource yok, sadece CSS ile)
+       - Her elemente Trajan Pro zorlanır.
+       - 700 gibi numeric weight yerine bold/normal kullanılır
+         (bazı engine'ler numeric weight'te fallback yapabiliyor).
+       - b/strong ayrıca kilitlenir.
+       ========================================================= */
+    html, body {
+      font-family: "Trajan Pro" !important;
+      font-weight: normal !important;
+      font-style: normal !important;
+    }
+
+    * {
+      font-family: "Trajan Pro" !important;
+      font-weight: inherit;
+      font-style: inherit;
+      text-rendering: geometricPrecision;
+    }
+
+    b, strong {
+      font-family: "Trajan Pro" !important;
+      font-weight: bold !important;
+      font-style: normal !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: #000;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 10pt;
+      font-weight: normal;
+    }
+
+    .center { text-align: center; }
+    .right  { text-align: right; }
+
+    /* numeric yerine bold */
+    .bold { font-weight: bold !important; }
+
+    .top-line {
+      font-size: 6.5pt;
+      margin-top: 6px;
+      letter-spacing: .1px;
+      font-weight: normal !important;
+    }
+
+    .hr {
+      border-top: 1px solid #000;
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .title {
+      font-size: 11pt;
+      font-weight: bold !important;
+      letter-spacing: .6px;
+      margin: 6px 0;
+      text-transform: uppercase;
+    }
+
+    /* Logo */
+    .snocLogo {
+      width: 180px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Üst bilgi alanı */
+    table.meta {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 8.5pt;
+    }
+
+    table.meta td {
+      vertical-align: top;
+      padding: 2px 0;
+    }
+
+    .meta-left {
+      width: 68%;
+      padding-right: 8mm;
+      padding-left: 4mm;
+    }
+
+    .meta-right {
+      width: 32%;
+      padding-right: 0;
+    }
+
+    /* ===== KEY-VALUE HİZALAMA (iki nokta aynı sütunda) ===== */
+    .info-row,
+    .info-row-right {
+      margin: 3px 0;
+      font-size: 8.5pt;
+      white-space: nowrap;
+      font-weight: normal !important;
+    }
+
+    .info-row .info-label,
+    .info-row .info-colon,
+    .info-row .info-value {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    /* ÜST META (sol) */
+    .info-row .info-label {
+      width: 38mm;
+      font-weight: bold !important;
+    }
+
+    .info-row .info-colon {
+      width: 4mm;
+      text-align: center;
+      font-weight: bold !important;
+    }
+
+    .info-row .info-value {
+      max-width: 110mm;
+      white-space: normal;
+      font-weight: normal !important;
+    }
+
+    /* Sağ taraf */
+    .info-row-right {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .info-row-right .info-label,
+    .info-row-right .info-colon,
+    .info-row-right .info-value {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .info-row-right .info-label {
+      width: 30mm;
+      font-weight: bold !important;
+      text-align: right;
+    }
+
+    .info-row-right .info-colon {
+      width: 4mm;
+      text-align: center;
+      font-weight: bold !important;
+    }
+
+    .info-row-right .info-value {
+      max-width: 34mm;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
+      font-weight: normal !important;
+    }
+
+    /* FATURA + SEVKİYAT blokları */
+    table.twoCols {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 8.2pt;
+    }
+
+    table.twoCols td {
+      vertical-align: top;
+      width: 50%;
+      padding: 0;
+    }
+
+    .colPadRight {
+      padding-right: 8mm;
+      padding-left: 4mm;
+    }
+
+    .blockTitle {
+      font-weight: bold !important;
+      margin: 0 0 6px 0;
+      text-transform: uppercase;
+      font-size: 8.2pt;
+    }
+
+    /* ✅ FATURA/SEVKİYAT için ":" sütunu (etiket bitişinde) */
+    table.twoCols .info-row .info-label { width: 28mm !important; }
+    table.twoCols .info-row .info-colon { width: 3mm !important; }
+    table.twoCols .info-row .info-value { max-width: none !important; }
+
+    /* Ürün tablosu */
+    table.items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 8.2pt;
+      border-top: none;
+      table-layout: fixed;
+    }
+
+    table.items thead th,
+    table.items tbody td {
+      padding: 4px 2px;
+      vertical-align: top;
+      box-sizing: border-box;
+      font-weight: normal !important;
+    }
+
+    table.items thead th {
+      font-weight: bold !important;
+      border-bottom: 1px solid #000;
+    }
+
+    .col-item { width: 43%; text-align: left; }
+    .col-qty  { width: 10%; text-align: right; white-space: nowrap; }
+    .col-unit { width: 9%;  text-align: left;  white-space: nowrap; }
+    .col-price{ width: 13%; text-align: right; white-space: nowrap; }
+    .col-amount{width: 12%; text-align: right; white-space: nowrap; }
+    .col-date { width: 13%; text-align: right; white-space: nowrap; }
+
+    /* Alt alan */
+    table.bottom {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;
+      font-size: 8.2pt;
+    }
+
+    table.bottom td { vertical-align: top; }
+
+    .bottom-left {
+      width: 65%;
+      padding-right: 8mm;
+      padding-left: 4mm;
+    }
+
+    .bottom-right { width: 35%; }
+
+    .sectionTitle {
+      font-weight: bold !important;
+      margin: 8px 0 2px 0;
+      text-transform: uppercase;
+    }
+
+    .sectionText {
+      margin: 0 0 2px 0;
+      white-space: pre-wrap;
+      font-weight: normal !important;
+    }
+
+    table.totals {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.2pt;
+      table-layout: fixed;
+    }
+
+    table.totals td {
+      padding: 2px 0;
+      white-space: nowrap;
+      font-weight: normal !important;
+    }
+
+    .totL { font-weight: bold !important; width: 100px; }
+    .totC { width: 12px; text-align: center; font-weight: bold !important; }
+    .totV { text-align: right; font-weight: bold !important; }
+
+    /* Şartlar */
+    .terms {
+      margin-top: 10px;
+      font-size: 5pt;
+      line-height: 1.15;
+      font-weight: normal !important;
+    }
+
+    .term {
+      margin: 1px 0;
+      text-align: left;
+      font-weight: normal !important;
+    }
+
+    /* İmza */
+    table.sign {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 8pt;
+    }
+
+    table.sign td {
+      width: 50%;
+      text-align: center;
+      vertical-align: top;
+      padding-top: 8px;
+      font-weight: normal !important;
+    }
+
+    .signTitle {
+      font-weight: bold !important;
+      margin-bottom: 4px;
+    }
+
+    .signLine {
+      display: block;
+      width: 70%;
+      margin: 22px auto 6px auto;
+      border-bottom: 1px solid #000;
+      height: 1px;
+    }
+
+    .titleBand { margin: 8px 0; }
+
+    .bandLine {
+      border-top: 1px solid #000;
+      width: 100%;
+    }
+
+    .bandTitle {
+      text-align: center;
+      font-size: 11pt;
+      font-weight: bold !important;
+      letter-spacing: .6px;
+      margin: 6px 0;
+      text-transform: uppercase;
+    }
+
+    /* ✅ bazen VF/PDF engine link'leri farklı fontla basabiliyor */
+    a, a:visited, a * {
+      font-family: "Trajan Pro" !important;
+      font-weight: inherit !important;
+      text-decoration: none !important;
+      color: #000 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="center">
+    {{#if logoDataUri}}
+    <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+    {{/if}}
+
+    <div class="top-line">
+      NECİP FAZIL BULV. NO:46/A YUKARI DUDULLU ÜMRANİYE İSTANBUL / MASKO MOBİLYACILAR KENTİ 17-B NO:21-23
+      BAŞAKŞEHİR İSTANBUL TEL:0850 800 6464 &nbsp; web: snoc.com.tr &nbsp; e-posta: MUSTERIHIZMETLERI@snoc.com.tr
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="titleBand">
+    <div class="bandLine"></div>
+    <div class="bandTitle">CUSTOMER ORDER FORM</div>
+    <div class="bandLine"></div>
+  </div>
+
+  <!-- ÜST META -->
+  <table class="meta">
+    <tr>
+      <td class="meta-left">
+        <div class="info-row">
+          <span class="info-label">SAYIN</span><span class="info-colon">:</span>
+          <span class="info-value">{{sayin}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">İLETİŞİM</span><span class="info-colon">:</span>
+          <span class="info-value">{{iletisim}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">SİPARİŞ ŞUBE</span><span class="info-colon">:</span>
+          <span class="info-value">{{siparisSube}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">SATIŞ TEMSİLCİSİ</span><span class="info-colon">:</span>
+          <span class="info-value">{{satisTemsilcisi}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">SEVK DETAYI</span><span class="info-colon">:</span>
+          <span class="info-value">{{sevkDetayi}}</span>
+        </div>
+      </td>
+
+      <td class="meta-right">
+        <div class="info-row-right">
+          <span class="info-label">SİPARİŞ TARİHİ</span><span class="info-colon">:</span>
+          <span class="info-value">{{siparisTarihi}}</span>
+        </div>
+        <div class="info-row-right">
+          <span class="info-label">BELGE NO</span><span class="info-colon">:</span>
+          <span class="info-value">{{belgeNo}}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- FATURA + SEVKİYAT -->
+  <table class="twoCols">
+    <tr>
+      <td class="colPadRight">
+        <div class="blockTitle">FATURA BİLGİLERİ :</div>
+        <div class="info-row">
+          <span class="info-label">ADRES</span><span class="info-colon">:</span>
+          <span class="info-value">{{faturaAdres}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">İL / İLÇE</span><span class="info-colon">:</span>
+          <span class="info-value">{{faturaIlIlce}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">İLETİŞİM 1</span><span class="info-colon">:</span>
+          <span class="info-value">{{iletisim1}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">İLETİŞİM 2</span><span class="info-colon">:</span>
+          <span class="info-value">{{iletisim2}}</span>
+        </div>
+      </td>
+
+      <td>
+        <div class="blockTitle">SEVKİYAT BİLGİLERİ :</div>
+        <div class="info-row">
+          <span class="info-label">ADRES</span><span class="info-colon">:</span>
+          <span class="info-value">{{sevkAdres}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">İL / İLÇE</span><span class="info-colon">:</span>
+          <span class="info-value">{{sevkIlIlce}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">VERGİ DAİRESİ</span><span class="info-colon">:</span>
+          <span class="info-value">{{vergiDairesi}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">VERGİ / TC NO</span><span class="info-colon">:</span>
+          <span class="info-value">{{vergiTcNo}}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ÜRÜN TABLOSU -->
+  <table class="items">
+    <colgroup>
+      <col style="width:43%;">
+      <col style="width:10%;">
+      <col style="width:9%;">
+      <col style="width:13%;">
+      <col style="width:12%;">
+      <col style="width:13%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="col-item">ÜRÜN BİLGİLERİ</th>
+        <th class="col-qty">MİKTAR</th>
+        <th class="col-unit">BİRİM</th>
+        <th class="col-price">B.FİYAT</th>
+        <th class="col-amount">TUTAR</th>
+        <th class="col-date">TESLİM</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td class="col-item">{{productName}}</td>
+        <td class="col-qty">{{quantity}}</td>
+        <td class="col-unit">{{unit}}</td>
+        <td class="col-price">{{unitPrice}}</td>
+        <td class="col-amount">{{lineTotal}}</td>
+        <td class="col-date">{{deliveryDate}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div style="min-height: 120px;"></div>
+
+  <!-- ALT BLOK -->
+  <div class="hr" style="margin-top: 18px; margin-bottom: 14px;"></div>
+
+  <table class="bottom">
+    <tr>
+      <td class="bottom-left">
+        <div class="sectionTitle" style="margin-top: 0;">MİNDER BİLGİSİ</div>
+        <div class="sectionText">{{minderBilgisi}}</div>
+
+        <div class="sectionTitle">ÖDEME DETAYI</div>
+        <div class="sectionText">{{odemeDetayi}}</div>
+
+        <div class="sectionTitle">SEVKİYAT DETAYI</div>
+        <div class="sectionText">{{sevkDetayiAlt}}</div>
+
+        <div class="sectionTitle">ÖZEL NOT:</div>
+        <div class="sectionText">{{ozelNot}}</div>
+      </td>
+
+      <td class="bottom-right">
+        <table class="totals">
+          <tr>
+            <td class="totL">ARA TOPLAM</td>
+            <td class="totC">:</td>
+            <td class="totV">{{araToplam}}</td>
+          </tr>
+          <tr>
+            <td class="totL">TOPLAM İNDİRİM</td>
+            <td class="totC">:</td>
+            <td class="totV">{{toplamIndirim}}</td>
+          </tr>
+          <tr>
+            <td class="totL">NET TOPLAM</td>
+            <td class="totC">:</td>
+            <td class="totV">{{netToplam}}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ŞARTLAR -->
+  <div class="terms">
+    <div class="term">1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim
+      almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda; peşinatın
+      ve ilk senedin tarafıma iade edilmeyeceğini, kredi kartlı satışlarda ise; iptal ve iade durumunda
+      şirketimizden banka tarafından kesilen komisyon ve puanların müşteri tarafından karşılanacağını ve nakden
+      tahsil edileceği hususlarını kabul ve taahhüt ederim.</div>
+    <div class="term">2-) Ürünler müşterinin sipariş formunda gösterdiği adrese teslim edilir. Müşteri, ürünün
+      teslim tarihinden en geç bir hafta önce yazılı olarak Ekvator Isı Müh.San. İnş. ve Tic. Ltd. Şti. mağazasına
+      bildirmek kaydıyla teslim adresini değiştirebilir.</div>
+    <div class="term">3-) Ürünün sevk edilmeye hazır olduğu durumlarda, müşteri sipariş formunda belirtilen sevk
+      tarihini en fazla 15 gün ileri tarihe erteleyebilir. Aksi takdirde Ekvator Isı Müh. San. İnş. ve Tic. Ltd.
+      Şti. ilgili ürünleri başka siparişlere kaydırabilir ve yeni bir sevk tarihi verebilir. Bu durumda müşteri
+      yeni teslim tarihini kabul eder.</div>
+    <div class="term">4-) Standart dışı özel siparişlerin değiştirilmesi veya iptali söz konusu değildir. Döşemeli
+      ürünlerde ve minderlerde bu süre içersinde ilgili kumaş firmasına sipariş verilmiş ise müşteri kumaş
+      bedelini nakden ödemeyi kabul ve taahhüt eder.</div>
+    <div class="term">5-) Müşteri, Mağazanın bulunduğu ilin mücavir alanı dışına sevkiyat yapılması talebinde
+      bulunursa nakliye ve montaj müşteriye ait olur. Bu şartlarda ürün müşteri tarafından satış noktasında teslim
+      alınmış kabul edilir. Nakliye ve montajdan kaynaklanacak hasarların sorumluluğu müşteriye ait olur.
+      Ürünlerin nakliye ve montajı Ekvator Isı Müh. San. İnş. ve Tic. Ltd. Şti.'den talep edilebilir ve uygun
+      görülürse, müşteri bunlara ait bedeli ayrıca nakden öder.</div>
+    <div class="term">6-) İhtilaf halinde İSTANBUL mahkeme ve icra dairelerinin selahiyetli olduğunu kabul-beyan ve
+      taahhüt ederim. İş bu sözleşmeyi okuduktan sonra aşağıya adımı, soyadımı ve imzamı attığımı kabul ve imza
+      ederim.</div>
+    <div class="term">7-) Siparişin onaylanması durumunda, ürünün garantisi 2 yıldır.</div>
+  </div>
+
+  <!-- İMZA -->
+  <table class="sign">
+    <tr>
+      <td>
+        <div class="signTitle">MÜŞTERİ</div>
+        <span class="signLine"></span>
+        <div>Adı, Soyadı, İmzası</div>
+      </td>
+      <td>
+        <div class="signTitle">SATICI</div>
+        <span class="signLine"></span>
+        <div>Adı, Soyadı, İmzası</div>
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>

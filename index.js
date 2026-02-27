@@ -187,6 +187,20 @@ app.post('/generate-order-form', async (req, res) => {
 });
 
 // ----------------------
+// OrderForm ENG PDF Endpoints
+// ----------------------
+app.get('/generate-order-form-eng', (req, res) => {
+  res.status(200).send('OK (POST required)');
+});
+
+app.post('/generate-order-form-eng', async (req, res) => {
+  return renderPdfFromTemplate(req, res, 'order_form_eng.hbs', {
+    landscape: true,
+    margin: { top: '0', right: '0', bottom: '0', left: '0' }
+  });
+});
+
+// ----------------------
 // Server start
 // ----------------------
 const PORT = process.env.PORT || 3000;
