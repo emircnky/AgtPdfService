@@ -244,7 +244,7 @@
             font-family: "Trajan Pro", serif !important;
             display: block;
             font-size: 5.7pt !important;
-            font-weight: 600;
+            font-weight: 600; 
             margin-bottom: 16px;
         }
 
@@ -349,11 +349,6 @@
             font-size: 5pt !important;
             font-weight: normal !important;
             line-height: 2.5;
-
-            display: inline-block;
-            width: 100%;
-            page-break-inside: avoid;
-            break-inside: avoid;
         }
 
         .notes .note {
@@ -362,24 +357,6 @@
         }
 
         /* ===== BANK PAGE ===== */
-        .notes-and-bank-wrapper {
-            display: inline-block;
-            width: 100%;
-            page-break-inside: avoid;
-            break-inside: avoid;
-            margin-top: 15px;
-        }
-
-        .bank-container {
-            margin-top: 20px;
-            margin-bottom: 20px;
-
-            display: inline-block;
-            width: 100%;
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
         .bank-title-wrap {
             text-align: center;
             width: 100%;
@@ -453,29 +430,10 @@
             text-decoration: none !important;
             color: #000 !important;
         }
-
-        table.master-wrapper {
-            width: 100%;
-            border-collapse: collapse;
-            border: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        table.master-wrapper th,
-        table.master-wrapper td {
-            padding: 0;
-            margin: 0;
-            border: none;
-            vertical-align: top;
-            text-align: left;
-        }
     </style>
 </head>
 
 <body>
-
-    <table class="master-wrapper"></table>
 
     <!-- LINE PAGES -->
     {{#if pages}}
@@ -621,67 +579,13 @@
 
         <!-- NOTES -->
         <div class="notes">
-            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE
-                CONSIDERED.</div>
+            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE CONSIDERED.</div>
             <div class="note">- {{../notePayment1}}</div>
             <div class="note">- {{../notePayment2}}</div>
             <div class="note">- {{../noteDelivery}}</div>
             <div class="note">- {{../noteDeliveryTerms}}</div>
             <div class="note">- {{../noteKdv}}</div>
             <div class="note">- {{../noteValidity}}</div>
-
-            <!-- BANK PAGE -->
-            <div class="page-container">
-                <div class="bank-container"></div>
-                <div class="bank-title-wrap">
-                    <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
-                </div>
-
-                <table class="bank-block">
-                    <tr>
-                        <td class="bank-label">USD BANK ACCOUNT</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">BANK NAME</td>
-                        <td class="bank-value">VAKIF KATILIM BANKASI</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">ACCOUNT NAME</td>
-                        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">SWIFT CODE</td>
-                        <td class="bank-value">VAKFTRISXXX</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">ACCOUNT NUMBER</td>
-                        <td class="bank-value">IBAN: TR24 0021 0000 0004 6416 0001 05</td>
-                    </tr>
-                </table>
-
-                <table class="bank-block">
-                    <tr>
-                        <td class="bank-label">EURO BANK ACCOUNT</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">BANK NAME</td>
-                        <td class="bank-value">VAKIF KATILIM BANKASI</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">ACCOUNT NAME</td>
-                        <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">SWIFT CODE</td>
-                        <td class="bank-value">VAKFTRISXXX</td>
-                    </tr>
-                    <tr>
-                        <td class="bank-label">ACCOUNT NUMBER</td>
-                        <td class="bank-value">IBAN: TR94 0021 0000 0004 6416 0001 06</td>
-                    </tr>
-                </table>
-
-            </div>
         </div>
         {{/if}}
 
@@ -766,9 +670,68 @@
     </div>
     {{/if}}
 
-    </div>
+    <!-- BANK PAGE -->
+    <div class="page-container">
+        <div class="page-header">
+            {{#if logoDataUri}}
+            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+            {{/if}}
+            <div class="header-text">
+                EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
+                NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
+                TEL: +90 (850) 800 64 64
+            </div>
+        </div>
 
-    </table>
+        <div class="bank-title-wrap">
+            <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
+        </div>
+
+        <table class="bank-block">
+            <tr>
+                <td class="bank-label">USD BANK ACCOUNT</td>
+            </tr>
+            <tr>
+                <td class="bank-label">BANK NAME</td>
+                <td class="bank-value">VAKIF KATILIM BANKASI</td>
+            </tr>
+            <tr>
+                <td class="bank-label">ACCOUNT NAME</td>
+                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+            </tr>
+            <tr>
+                <td class="bank-label">SWIFT CODE</td>
+                <td class="bank-value">VAKFTRISXXX</td>
+            </tr>
+            <tr>
+                <td class="bank-label">ACCOUNT NUMBER</td>
+                <td class="bank-value">IBAN: TR24 0021 0000 0004 6416 0001 05</td>
+            </tr>
+        </table>
+
+        <table class="bank-block">
+            <tr>
+                <td class="bank-label">EURO BANK ACCOUNT</td>
+            </tr>
+            <tr>
+                <td class="bank-label">BANK NAME</td>
+                <td class="bank-value">VAKIF KATILIM BANKASI</td>
+            </tr>
+            <tr>
+                <td class="bank-label">ACCOUNT NAME</td>
+                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+            </tr>
+            <tr>
+                <td class="bank-label">SWIFT CODE</td>
+                <td class="bank-value">VAKFTRISXXX</td>
+            </tr>
+            <tr>
+                <td class="bank-label">ACCOUNT NUMBER</td>
+                <td class="bank-value">IBAN: TR94 0021 0000 0004 6416 0001 06</td>
+            </tr>
+        </table>
+
+    </div>
 
 </body>
 
