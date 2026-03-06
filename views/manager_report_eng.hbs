@@ -244,7 +244,7 @@
             font-family: "Trajan Pro", serif !important;
             display: block;
             font-size: 5.7pt !important;
-            font-weight: 600; 
+            font-weight: 600;
             margin-bottom: 16px;
         }
 
@@ -349,6 +349,9 @@
             font-size: 5pt !important;
             font-weight: normal !important;
             line-height: 2.5;
+
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .notes .note {
@@ -357,6 +360,13 @@
         }
 
         /* ===== BANK PAGE ===== */
+        .bank-container {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
         .bank-title-wrap {
             text-align: center;
             width: 100%;
@@ -579,7 +589,8 @@
 
         <!-- NOTES -->
         <div class="notes">
-            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE CONSIDERED.</div>
+            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE
+                CONSIDERED.</div>
             <div class="note">- {{../notePayment1}}</div>
             <div class="note">- {{../notePayment2}}</div>
             <div class="note">- {{../noteDelivery}}</div>
@@ -683,6 +694,7 @@
             </div>
         </div>
 
+        <div class="bank-container"></div>
         <div class="bank-title-wrap">
             <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
         </div>
@@ -731,6 +743,7 @@
             </tr>
         </table>
 
+    </div>
     </div>
 
 </body>
