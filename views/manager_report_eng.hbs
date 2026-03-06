@@ -350,7 +350,7 @@
             font-weight: normal !important;
             line-height: 2.5;
 
-            display: inline-block; 
+            display: inline-block;
             width: 100%;
             page-break-inside: avoid;
             break-inside: avoid;
@@ -362,11 +362,19 @@
         }
 
         /* ===== BANK PAGE ===== */
+        .notes-and-bank-wrapper {
+            display: inline-block;
+            width: 100%;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-top: 15px;
+        }
+
         .bank-container {
             margin-top: 20px;
             margin-bottom: 20px;
-            
-            display: inline-block; 
+
+            display: inline-block;
             width: 100%;
             page-break-inside: avoid;
             break-inside: avoid;
@@ -445,10 +453,29 @@
             text-decoration: none !important;
             color: #000 !important;
         }
+
+        table.master-wrapper {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        table.master-wrapper th,
+        table.master-wrapper td {
+            padding: 0;
+            margin: 0;
+            border: none;
+            vertical-align: top;
+            text-align: left;
+        }
     </style>
 </head>
 
 <body>
+
+    <table class="master-wrapper"></table>
 
     <!-- LINE PAGES -->
     {{#if pages}}
@@ -750,6 +777,8 @@
 
     </div>
     </div>
+
+    </table>
 
 </body>
 
