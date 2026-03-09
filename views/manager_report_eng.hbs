@@ -65,6 +65,20 @@
             page-break-after: auto;
         }
 
+        /* ===== LAYOUT TABLE FOR REPEATING HEADER ===== */
+        table.layout-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+        table.layout-table > thead > tr > td,
+        table.layout-table > tbody > tr > td {
+            border: none;
+            padding: 0;
+            vertical-align: top;
+            background: transparent;
+        }
+
         /* ===== HEADER ===== */
         .page-header {
             width: 100%;
@@ -180,29 +194,7 @@
             table-layout: fixed;
         }
 
-        /* TABLE HEADER OVERRIDES */
-        tr.logo-row th {
-            background: transparent !important;
-            border: none !important;
-            padding: 0 !important;
-            white-space: normal !important;
-        }
-
-        tr.top-info-row td {
-            background: transparent !important;
-            border: none !important;
-            padding: 0 0 10px 0 !important;
-            text-align: left !important;
-        }
-
-        tr.totals-row td {
-            background: transparent !important;
-            border: none !important;
-            padding: 10px 0 0 0 !important;
-            text-align: left !important;
-        }
-
-        table.quote-lines-table thead tr.column-headers th {
+        table.quote-lines-table thead th {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.45pt !important;
             font-weight: bold !important;
@@ -461,10 +453,10 @@
     {{#each pages}}
 
     <div class="page-container">
-        <table class="quote-lines-table">
+        <table class="layout-table">
             <thead>
-                <tr class="logo-row">
-                    <th colspan="7">
+                <tr>
+                    <td>
                         <div class="page-header">
                             {{#if ../logoDataUri}}
                             <img class="snocLogo" src="{{{../logoDataUri}}}" alt="Logo" />
@@ -476,23 +468,13 @@
                                 TEL: +90 (850) 800 64 64
                             </div>
                         </div>
-                    </th>
-                </tr>
-                <tr class="column-headers">
-                    <th style="width:16%;">PICTURE</th>
-                    <th style="width:28%;">DESCRIPTION</th>
-                    <th style="width:6%;">QTY</th>
-                    <th style="width:11%;">UNIT PRICE</th>
-                    <th style="width:8%;">TOTAL PRICE</th>
-                    <th class="th-discount" style="width:10%;">DISCOUNTED<br />PRICE</th>
-                    <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
+                    </td>
                 </tr>
             </thead>
-
             <tbody>
-                {{#if @first}}
-                <tr class="top-info-row">
-                    <td colspan="7">
+                <tr>
+                    <td>
+                        {{#if @first}}
                         <div class="main-title-wrap">
                             <span class="main-title">OFFER</span>
                         </div>
@@ -512,70 +494,83 @@
                                 </td>
                             </tr>
                         </table>
-                    </td>
-                </tr>
-                {{/if}}
-
-                {{#each lines}}
-                <tr class="data-row">
-                    <td class="imgCell">
-                        {{#if hasImage}}
-                        <img src="{{{imageDataUri}}}" alt="Product" />
-                        {{/if}}
-                    </td>
-
-                    <td class="descCell">
-                        {{#if productName}}
-                        <span class="prod-name">{{productName}}</span>
                         {{/if}}
 
-                        {{#if description}}
-                        <span class="prod-desc">{{description}}</span>
-                        {{/if}}
+                        <table class="quote-lines-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:16%;">PICTURE</th>
+                                    <th style="width:28%;">DESCRIPTION</th>
+                                    <th style="width:6%;">QTY</th>
+                                    <th style="width:11%;">UNIT PRICE</th>
+                                    <th style="width:8%;">TOTAL PRICE</th>
+                                    <th class="th-discount" style="width:10%;">DISCOUNTED<br />PRICE</th>
+                                    <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
+                                </tr>
+                            </thead>
 
-                        {{#if dimension}}
-                        <span class="prod-dim">{{dimension}}</span>
-                        {{/if}}
-                    </td>
+                            <tbody>
+                                {{#each lines}}
+                                <tr class="data-row">
+                                    <td class="imgCell">
+                                        {{#if hasImage}}
+                                        <img src="{{{imageDataUri}}}" alt="Product" />
+                                        {{/if}}
+                                    </td>
 
-                    <td>{{quantity}}</td>
+                                    <td class="descCell">
+                                        {{#if productName}}
+                                        <span class="prod-name">{{productName}}</span>
+                                        {{/if}}
 
-                    <td class="amount-cell">
-                        <div class="price-wrapper">
-                            <span class="val">{{unitPrice}}</span>
-                            <span class="cur">€</span>
-                        </div>
-                    </td>
+                                        {{#if description}}
+                                        <span class="prod-desc">{{description}}</span>
+                                        {{/if}}
 
-                    <td class="amount-cell">
-                        <div class="price-wrapper">
-                            <span class="val">{{subTotal}}</span>
-                            <span class="cur">€</span>
-                        </div>
-                    </td>
+                                        {{#if dimension}}
+                                        <span class="prod-dim">{{dimension}}</span>
+                                        {{/if}}
+                                    </td>
 
-                    <td class="amount-cell">
-                        <div class="price-wrapper">
-                            <span class="val">{{totalPrice}}</span>
-                            <span class="cur">€</span>
-                        </div>
-                    </td>
+                                    <td>{{quantity}}</td>
 
-                    <td>{{stockStatus}}</td>
-                </tr>
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{unitPrice}}</span>
+                                            <span class="cur">€</span>
+                                        </div>
+                                    </td>
 
-                {{#if productLink}}
-                <tr class="link-row">
-                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                    </td>
-                </tr>
-                {{/if}}
-                {{/each}}
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{subTotal}}</span>
+                                            <span class="cur">€</span>
+                                        </div>
+                                    </td>
 
-                {{#if @last}}
-                <tr class="totals-row">
-                    <td colspan="7">
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{totalPrice}}</span>
+                                            <span class="cur">€</span>
+                                        </div>
+                                    </td>
+
+                                    <td>{{stockStatus}}</td>
+                                </tr>
+
+                                {{#if productLink}}
+                                <tr class="link-row">
+                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                {{/each}}
+                            </tbody>
+
+                        </table>
+
+                        {{#if @last}}
                         <div class="totals-wrap">
                             <div class="line-hr"></div>
 
@@ -609,9 +604,9 @@
                             <div class="note">- {{../noteKdv}}</div>
                             <div class="note">- {{../noteValidity}}</div>
                         </div>
+                        {{/if}}
                     </td>
                 </tr>
-                {{/if}}
             </tbody>
         </table>
     </div>
@@ -620,10 +615,10 @@
 
     {{else}}
     <div class="page-container">
-        <table class="quote-lines-table">
+        <table class="layout-table">
             <thead>
-                <tr class="logo-row">
-                    <th colspan="7">
+                <tr>
+                    <td>
                         <div class="page-header">
                             {{#if logoDataUri}}
                             <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
@@ -634,21 +629,12 @@
                                 TEL: +90 (850) 800 64 64
                             </div>
                         </div>
-                    </th>
-                </tr>
-                <tr class="column-headers">
-                    <th style="width:16%;">FOTOĞRAF</th>
-                    <th style="width:20%;">AÇIKLAMA</th>
-                    <th style="width:6%;">ADET</th>
-                    <th style="width:13%;">BİRİM FİYATI</th>
-                    <th style="width:8%;">TOPLAM</th>
-                    <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
-                    <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
+                    </td>
                 </tr>
             </thead>
             <tbody>
-                <tr class="top-info-row">
-                    <td colspan="7">
+                <tr>
+                    <td>
                         <div class="main-title-wrap">
                             <span class="main-title">TEKLİF FORMU</span>
                         </div>
@@ -662,102 +648,131 @@
                                 <td class="top-right">
                                     <div><span class="val-861b">{{today}}</span></div>
                                     <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span></div>
+                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
-                    </td>
-                </tr>
 
-                {{#each lines}}
-                <tr class="data-row">
-                    <td class="imgCell">
-                        {{#if hasImage}}
-                        <img src="{{{imageDataUri}}}" alt="Product" />
-                        {{/if}}
+                        <table class="quote-lines-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:16%;">FOTOĞRAF</th>
+                                    <th style="width:20%;">AÇIKLAMA</th>
+                                    <th style="width:6%;">ADET</th>
+                                    <th style="width:13%;">BİRİM FİYATI</th>
+                                    <th style="width:8%;">TOPLAM</th>
+                                    <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
+                                    <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each lines}}
+                                <tr class="data-row">
+                                    <td class="imgCell">
+                                        {{#if hasImage}}
+                                        <img src="{{{imageDataUri}}}" alt="Product" />
+                                        {{/if}}
+                                    </td>
+                                    <td class="descCell">
+                                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
+                                        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
+                                        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
+                                    </td>
+                                    <td>{{quantity}}</td>
+                                    <td>{{unitPrice}} <span class="cur">₺</span></td>
+                                    <td>{{subTotal}} <span class="cur">₺</span></td>
+                                    <td>{{totalPrice}} <span class="cur">₺</span></td>
+                                    <td>{{stockStatus}}</td>
+                                </tr>
+                                {{#if productLink}}
+                                <tr class="link-row">
+                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                {{/each}}
+                            </tbody>
+                        </table>
                     </td>
-                    <td class="descCell">
-                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
-                        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
-                    </td>
-                    <td>{{quantity}}</td>
-                    <td>{{unitPrice}} <span class="cur">₺</span></td>
-                    <td>{{subTotal}} <span class="cur">₺</span></td>
-                    <td>{{totalPrice}} <span class="cur">₺</span></td>
-                    <td>{{stockStatus}}</td>
                 </tr>
-                {{#if productLink}}
-                <tr class="link-row">
-                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                    </td>
-                </tr>
-                {{/if}}
-                {{/each}}
             </tbody>
         </table>
     </div>
     {{/if}}
 
     <div class="page-container">
-        <div class="page-header">
-            {{#if logoDataUri}}
-            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
-            {{/if}}
-            <div class="header-text">
-                EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
-                NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
-                TEL: +90 (850) 800 64 64
-            </div>
-        </div>
+        <table class="layout-table">
+            <thead>
+                <tr>
+                    <td>
+                        <div class="page-header">
+                            {{#if logoDataUri}}
+                            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
+                            {{/if}}
+                            <div class="header-text">
+                                EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
+                                NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
+                                TEL: +90 (850) 800 64 64
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="bank-title-wrap">
+                            <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
+                        </div>
 
-        <div class="bank-title-wrap">
-            <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
-        </div>
+                        <table class="bank-block">
+                            <tr>
+                                <td class="bank-label">USD BANK ACCOUNT</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">BANK NAME</td>
+                                <td class="bank-value">VAKIF KATILIM BANKASI</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">ACCOUNT NAME</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">SWIFT CODE</td>
+                                <td class="bank-value">VAKFTRISXXX</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">ACCOUNT NUMBER</td>
+                                <td class="bank-value">IBAN: TR24 0021 0000 0004 6416 0001 05</td>
+                            </tr>
+                        </table>
 
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">USD BANK ACCOUNT</td>
-            </tr>
-            <tr>
-                <td class="bank-label">BANK NAME</td>
-                <td class="bank-value">VAKIF KATILIM BANKASI</td>
-            </tr>
-            <tr>
-                <td class="bank-label">ACCOUNT NAME</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">SWIFT CODE</td>
-                <td class="bank-value">VAKFTRISXXX</td>
-            </tr>
-            <tr>
-                <td class="bank-label">ACCOUNT NUMBER</td>
-                <td class="bank-value">IBAN: TR24 0021 0000 0004 6416 0001 05</td>
-            </tr>
-        </table>
-
-        <table class="bank-block">
-            <tr>
-                <td class="bank-label">EURO BANK ACCOUNT</td>
-            </tr>
-            <tr>
-                <td class="bank-label">BANK NAME</td>
-                <td class="bank-value">VAKIF KATILIM BANKASI</td>
-            </tr>
-            <tr>
-                <td class="bank-label">ACCOUNT NAME</td>
-                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-            </tr>
-            <tr>
-                <td class="bank-label">SWIFT CODE</td>
-                <td class="bank-value">VAKFTRISXXX</td>
-            </tr>
-            <tr>
-                <td class="bank-label">ACCOUNT NUMBER</td>
-                <td class="bank-value">IBAN: TR94 0021 0000 0004 6416 0001 06</td>
-            </tr>
+                        <table class="bank-block">
+                            <tr>
+                                <td class="bank-label">EURO BANK ACCOUNT</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">BANK NAME</td>
+                                <td class="bank-value">VAKIF KATILIM BANKASI</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">ACCOUNT NAME</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">SWIFT CODE</td>
+                                <td class="bank-value">VAKFTRISXXX</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">ACCOUNT NUMBER</td>
+                                <td class="bank-value">IBAN: TR94 0021 0000 0004 6416 0001 06</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
