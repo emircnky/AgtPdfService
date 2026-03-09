@@ -450,18 +450,15 @@
 <body>
 
     {{#if pages}}
-    {{#each pages}}
-
     <div class="page-container">
         <table class="layout-table">
             <thead>
                 <tr>
                     <td>
                         <div class="page-header">
-                            {{#if ../logoDataUri}}
-                            <img class="snocLogo" src="{{{../logoDataUri}}}" alt="Logo" />
+                            {{#if logoDataUri}}
+                            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
                             {{/if}}
-                        
                             <div class="header-text">
                                 EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
                                 NECİP FAZIL BULVARI NO:46/A Y.DUDULLU / ÜMRANİYE / İSTANBUL/TÜRKİYE<br />
@@ -474,7 +471,6 @@
             <tbody>
                 <tr>
                     <td>
-                        {{#if @first}}
                         <div class="main-title-wrap">
                             <span class="main-title">TEKLİF FORMU</span>
                         </div>
@@ -483,20 +479,17 @@
                             <tr>
                                 <td class="top-left">
                                     <span class="sayin-label">SAYIN:</span>
-                                    <span>{{../sayin}}</span>
+                                    <span>{{sayin}}</span>
                                 </td>
                                 <td class="top-right">
                                     <div class="info-container">
-                                        <div class="info1-row"><b>{{../today}}</b></div>
-                                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{../ownerName}}</span>
-                                        </div>
-                                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span>
-                                        </div>
+                                        <div class="info1-row"><b>{{today}}</b></div>
+                                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{ownerName}}</span></div>
+                                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{ownerEmail}}</span></div>
                                     </div>
                                 </td>
                             </tr>
                         </table>
-                        {{/if}}
 
                         <table class="quote-lines-table">
                             <thead>
@@ -510,69 +503,68 @@
                                     <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                {{#each lines}}
-                                <tr class="data-row">
-                                    <td class="imgCell">
-                                        {{#if hasImage}}
-                                        <img src="{{{imageDataUri}}}" alt="Product" />
-                                        {{/if}}
-                                    </td>
+                                {{#each pages}}
+                                    {{#each lines}}
+                                    <tr class="data-row">
+                                        <td class="imgCell">
+                                            {{#if hasImage}}
+                                            <img src="{{{imageDataUri}}}" alt="Product" />
+                                            {{/if}}
+                                        </td>
 
-                                    <td class="descCell">
-                                        {{#if productName}}
-                                        <span class="prod-name">{{productName}}</span>
-                                        {{/if}}
+                                        <td class="descCell">
+                                            {{#if productName}}
+                                            <span class="prod-name">{{productName}}</span>
+                                            {{/if}}
 
-                                        {{#if description}}
-                                        <span class="prod-desc">{{description}}</span>
-                                        {{/if}}
+                                            {{#if description}}
+                                            <span class="prod-desc">{{description}}</span>
+                                            {{/if}}
 
-                                        {{#if dimension}}
-                                        <span class="prod-dim">{{dimension}}</span>
-                                        {{/if}}
-                                    </td>
+                                            {{#if dimension}}
+                                            <span class="prod-dim">{{dimension}}</span>
+                                            {{/if}}
+                                        </td>
 
-                                    <td>{{quantity}}</td>
+                                        <td>{{quantity}}</td>
 
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{unitPrice}}</span>
-                                            <span class="cur">₺</span>
-                                        </div>
-                                    </td>
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{unitPrice}}</span>
+                                                <span class="cur">₺</span>
+                                            </div>
+                                        </td>
 
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{subTotal}}</span>
-                                            <span class="cur">₺</span>
-                                        </div>
-                                    </td>
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{subTotal}}</span>
+                                                <span class="cur">₺</span>
+                                            </div>
+                                        </td>
 
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{totalPrice}}</span>
-                                            <span class="cur">₺</span>
-                                        </div>
-                                    </td>
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{totalPrice}}</span>
+                                                <span class="cur">₺</span>
+                                            </div>
+                                        </td>
 
-                                    <td>{{stockStatus}}</td>
-                                </tr>
+                                        <td>{{stockStatus}}</td>
+                                    </tr>
 
-                                {{#if productLink}}
-                                <tr class="link-row">
-                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                    </td>
-                                </tr>
-                                {{/if}}
+                                    {{#if productLink}}
+                                    <tr class="link-row">
+                                        <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                        </td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
                                 {{/each}}
                             </tbody>
-
                         </table>
 
-                        {{#if @last}}
                         <div class="totals-wrap">
                             <div class="line-hr"></div>
 
@@ -580,17 +572,17 @@
                                 <tr>
                                     <td style="width:70%;">&nbsp;</td>
                                     <td class="totals-label" style="width:15%;">TOPLAM</td>
-                                    <td class="totals-value" style="width:15%;">{{../totalAmount}} ₺</td>
+                                    <td class="totals-value" style="width:15%;">{{totalAmount}} ₺</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td class="totals-label">TOPLAM İNDİRİM</td>
-                                    <td class="totals-value">{{../totalDiscount}} ₺</td>
+                                    <td class="totals-value">{{totalDiscount}} ₺</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td class="totals-label">GENEL TOPLAM</td>
-                                    <td class="totals-value">{{../grandTotal}} ₺</td>
+                                    <td class="totals-value">{{grandTotal}} ₺</td>
                                 </tr>
                             </table>
 
@@ -599,19 +591,16 @@
 
                         <div class="notes">
                             <div class="note">- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR.</div>
-                            <div class="note">- {{../notePayment}}</div>
-                            <div class="note">- {{../noteDelivery}}</div>
-                            <div class="note">- {{../noteKdv}}</div>
-                            <div class="note">- {{../noteValidity}}</div>
+                            <div class="note">- {{notePayment}}</div>
+                            <div class="note">- {{noteDelivery}}</div>
+                            <div class="note">- {{noteKdv}}</div>
+                            <div class="note">- {{noteValidity}}</div>
                         </div>
-                        {{/if}}
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    {{/each}}
 
     {{else}}
     <div class="page-container">
