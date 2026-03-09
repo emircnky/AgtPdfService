@@ -215,8 +215,7 @@
             font-size: 6.2pt !important;
             font-weight: normal !important;
             text-align: center;
-            /* 6. Ürünün sığması için padding hafifçe daraltıldı */
-            padding: 8px 4px; 
+            padding: 10px 4px;
             vertical-align: middle;
             border: 1px solid #fff;
         }
@@ -451,16 +450,14 @@
 <body>
 
     {{#if pages}}
-    {{#each pages}}
-
     <div class="page-container">
         <table class="layout-table">
             <thead>
                 <tr>
                     <td>
                         <div class="page-header">
-                            {{#if ../logoDataUri}}
-                            <img class="snocLogo" src="{{{../logoDataUri}}}" alt="Logo" />
+                            {{#if logoDataUri}}
+                            <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
                             {{/if}}
                             <div class="header-text">
                                 EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD. ŞTİ.<br />
@@ -474,7 +471,6 @@
             <tbody>
                 <tr>
                     <td>
-                        {{#if @first}}
                         <div class="main-title-wrap">
                             <span class="main-title">OFFER</span>
                         </div>
@@ -483,18 +479,17 @@
                             <tr>
                                 <td class="top-left">
                                     <span class="sayin-label">DEAR;</span>
-                                    <span class="sayin-label">{{../sayin}}</span>
+                                    <span class="sayin-label">{{sayin}}</span>
                                 </td>
                                 <td class="top-right">
                                     <div class="info-container">
-                                        <div class="info1-row"><b>{{../today}}</b></div>
-                                        <div class="info-row"><span class="info-label">CONTACT:</span> <span>{{../ownerName}}</span></div>
-                                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{../ownerEmail}}</span></div>
+                                        <div class="info1-row"><b>{{today}}</b></div>
+                                        <div class="info-row"><span class="info-label">CONTACT:</span> <span>{{ownerName}}</span></div>
+                                        <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{ownerEmail}}</span></div>
                                     </div>
                                 </td>
                             </tr>
                         </table>
-                        {{/if}}
 
                         <table class="quote-lines-table">
                             <thead>
@@ -508,98 +503,106 @@
                                     <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
                                 </tr>
                             </thead>
-                            
-                            {{#each lines}}
-                            <tbody style="page-break-inside: avoid;">
-                                <tr class="data-row">
-                                    <td class="imgCell">
-                                        {{#if hasImage}}
-                                        <img src="{{{imageDataUri}}}" alt="Product" />
-                                        {{/if}}
-                                    </td>
-                                    <td class="descCell">
-                                        {{#if productName}}
-                                        <span class="prod-name">{{productName}}</span>
-                                        {{/if}}
-                                        {{#if description}}
-                                        <span class="prod-desc">{{description}}</span>
-                                        {{/if}}
-                                        {{#if dimension}}
-                                        <span class="prod-dim">{{dimension}}</span>
-                                        {{/if}}
-                                    </td>
-                                    <td>{{quantity}}</td>
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{unitPrice}}</span>
-                                            <span class="cur">€</span>
-                                        </div>
-                                    </td>
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{subTotal}}</span>
-                                            <span class="cur">€</span>
-                                        </div>
-                                    </td>
-                                    <td class="amount-cell">
-                                        <div class="price-wrapper">
-                                            <span class="val">{{totalPrice}}</span>
-                                            <span class="cur">€</span>
-                                        </div>
-                                    </td>
-                                    <td>{{stockStatus}}</td>
-                                </tr>
-                                {{#if productLink}}
-                                <tr class="link-row">
-                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                    </td>
-                                </tr>
-                                {{/if}}
+                            <tbody>
+                                {{#each pages}}
+                                    {{#each lines}}
+                                    <tr class="data-row">
+                                        <td class="imgCell">
+                                            {{#if hasImage}}
+                                            <img src="{{{imageDataUri}}}" alt="Product" />
+                                            {{/if}}
+                                        </td>
+
+                                        <td class="descCell">
+                                            {{#if productName}}
+                                            <span class="prod-name">{{productName}}</span>
+                                            {{/if}}
+
+                                            {{#if description}}
+                                            <span class="prod-desc">{{description}}</span>
+                                            {{/if}}
+
+                                            {{#if dimension}}
+                                            <span class="prod-dim">{{dimension}}</span>
+                                            {{/if}}
+                                        </td>
+
+                                        <td>{{quantity}}</td>
+
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{unitPrice}}</span>
+                                                <span class="cur">€</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{subTotal}}</span>
+                                                <span class="cur">€</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="amount-cell">
+                                            <div class="price-wrapper">
+                                                <span class="val">{{totalPrice}}</span>
+                                                <span class="cur">€</span>
+                                            </div>
+                                        </td>
+
+                                        <td>{{stockStatus}}</td>
+                                    </tr>
+
+                                    {{#if productLink}}
+                                    <tr class="link-row">
+                                        <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                        </td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
+                                {{/each}}
                             </tbody>
-                            {{/each}}
                         </table>
 
-                        {{#if @last}}
                         <div class="totals-wrap">
                             <div class="line-hr"></div>
+
                             <table class="totals-table">
                                 <tr>
                                     <td style="width:70%;">&nbsp;</td>
                                     <td class="totals-label" style="width:15%;">TOTAL</td>
-                                    <td class="totals-value" style="width:15%;">{{../totalAmount}} €</td>
+                                    <td class="totals-value" style="width:15%;">{{totalAmount}} €</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td class="totals-label">DISCOUNT</td>
-                                    <td class="totals-value">{{../totalDiscount}} €</td>
+                                    <td class="totals-value">{{totalDiscount}} €</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td class="totals-label">GENERAL TOTAL</td>
-                                    <td class="totals-value">{{../grandTotal}} €</td>
+                                    <td class="totals-value">{{grandTotal}} €</td>
                                 </tr>
                             </table>
+
                             <div class="line-hr"></div>
                         </div>
 
                         <div class="notes">
                             <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE CONSIDERED.</div>
-                            <div class="note">- {{../notePayment1}}</div>
-                            <div class="note">- {{../notePayment2}}</div>
-                            <div class="note">- {{../noteDelivery}}</div>
-                            <div class="note">- {{../noteDeliveryTerms}}</div>
-                            <div class="note">- {{../noteKdv}}</div>
-                            <div class="note">- {{../noteValidity}}</div>
+                            <div class="note">- {{notePayment1}}</div>
+                            <div class="note">- {{notePayment2}}</div>
+                            <div class="note">- {{noteDelivery}}</div>
+                            <div class="note">- {{noteDeliveryTerms}}</div>
+                            <div class="note">- {{noteKdv}}</div>
+                            <div class="note">- {{noteValidity}}</div>
                         </div>
-                        {{/if}}
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    {{/each}}
 
     {{else}}
     <div class="page-container">
@@ -626,6 +629,7 @@
                         <div class="main-title-wrap">
                             <span class="main-title">TEKLİF FORMU</span>
                         </div>
+
                         <table class="top-info">
                             <tr>
                                 <td class="top-left">
@@ -635,7 +639,8 @@
                                 <td class="top-right">
                                     <div><span class="val-861b">{{today}}</span></div>
                                     <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span></div>
+                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -652,8 +657,8 @@
                                     <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
-                            {{#each lines}}
-                            <tbody style="page-break-inside: avoid;">
+                            <tbody>
+                                {{#each lines}}
                                 <tr class="data-row">
                                     <td class="imgCell">
                                         {{#if hasImage}}
@@ -678,8 +683,8 @@
                                     </td>
                                 </tr>
                                 {{/if}}
+                                {{/each}}
                             </tbody>
-                            {{/each}}
                         </table>
                     </td>
                 </tr>
