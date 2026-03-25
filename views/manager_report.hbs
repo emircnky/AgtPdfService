@@ -525,6 +525,10 @@
                                             {{#if dimension}}
                                             <span class="prod-dim">{{dimension}}</span>
                                             {{/if}}
+
+                                            {{#if Usage_Area__c}}
+                                            <span class="prod-dim">{{Usage_Area__c}}</span>
+                                            {{/if}}
                                         </td>
 
                                         <td>{{quantity}}</td>
@@ -667,6 +671,7 @@
                                         {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
                                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
+                                        {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
                                     </td>
                                     <td>{{quantity}}</td>
                                     <td>{{unitPrice}} <span class="cur">₺</span></td>
