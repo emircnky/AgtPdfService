@@ -354,7 +354,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <div class="center">
     {{#if logoDataUri}}
     <img class="snocLogo" src="{{{logoDataUri}}}" alt="Logo" />
@@ -366,14 +365,12 @@
     </div>
   </div>
 
-  <!-- TITLE -->
   <div class="titleBand">
     <div class="bandLine"></div>
     <div class="bandTitle">MÜŞTERİ SİPARİŞ FORMU</div>
     <div class="bandLine"></div>
   </div>
 
-  <!-- ÜST META -->
   <table class="meta">
     <tr>
       <td class="meta-left">
@@ -412,7 +409,6 @@
     </tr>
   </table>
 
-  <!-- FATURA + SEVKİYAT -->
   <table class="twoCols">
     <tr>
       <td class="colPadRight">
@@ -457,7 +453,6 @@
     </tr>
   </table>
 
-  <!-- ÜRÜN TABLOSU -->
   <table class="items">
     <colgroup>
       <col style="width:43%;">
@@ -480,7 +475,12 @@
     <tbody>
       {{#each items}}
       <tr>
-        <td class="col-item">{{productName}}</td>
+        <td class="col-item">
+          <div>{{productName}}</div>
+          {{#if Usage_Area__c}}
+          <div style="font-size: 7.5pt; margin-top: 2px;">{{Usage_Area__c}}</div>
+          {{/if}}
+        </td>
         <td class="col-qty">{{quantity}}</td>
         <td class="col-unit">{{unit}}</td>
         <td class="col-price">{{unitPrice}}</td>
@@ -493,7 +493,6 @@
 
   <div style="min-height: 120px;"></div>
 
-  <!-- ALT BLOK -->
   <div class="hr" style="margin-top: 18px; margin-bottom: 14px;"></div>
 
   <table class="bottom">
@@ -534,7 +533,6 @@
     </tr>
   </table>
 
-  <!-- ŞARTLAR -->
   <div class="terms">
     <div class="term">1-) Yukarıda cins, renk ve adetleri belirtilen, beğenerek siparişini verdiğim ürünleri teslim
       almadan önce alışverişten vazgeçtiğim takdirde cezai şart mahiyetinde senetli ve nakit satışlarda; peşinatın
@@ -562,7 +560,6 @@
     <div class="term">7-) Siparişin onaylanması durumunda, ürünün garantisi 2 yıldır.</div>
   </div>
 
-  <!-- İMZA -->
   <table class="sign">
     <tr>
       <td>
