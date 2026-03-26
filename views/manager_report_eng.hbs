@@ -43,7 +43,7 @@
             margin-left: 0.4cm;
             margin-right: 0.4cm;
             margin-top: 0.2cm;
-            margin-bottom: 1cm; 
+            margin-bottom: 1cm;
         }
 
         body {
@@ -71,8 +71,9 @@
             border-collapse: collapse;
             border: none;
         }
-        table.layout-table > thead > tr > td,
-        table.layout-table > tbody > tr > td {
+
+        table.layout-table>thead>tr>td,
+        table.layout-table>tbody>tr>td {
             border: none;
             padding: 0;
             vertical-align: top;
@@ -194,6 +195,10 @@
             table-layout: fixed;
         }
 
+        table.quote-lines-table thead {
+            display: table-header-group;
+        }
+
         table.quote-lines-table thead th {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.45pt !important;
@@ -210,6 +215,17 @@
             white-space: nowrap;
         }
 
+        table.quote-lines-table tbody.item-block {
+            display: table-row-group;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        table.quote-lines-table tbody.item-block tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
         table.quote-lines-table tbody td {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.2pt !important;
@@ -220,11 +236,7 @@
             border: 1px solid #fff;
         }
 
-        tr.data-row {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
+        tr.data-row,
         tr.link-row {
             page-break-inside: avoid;
             break-inside: avoid;
@@ -258,7 +270,7 @@
             font-family: "Trajan Pro", serif !important;
             display: block;
             font-size: 5.7pt !important;
-            font-weight: 600; 
+            font-weight: 600;
             margin-bottom: 16px;
         }
 
@@ -286,6 +298,14 @@
             color: #000 !important;
             display: block;
             margin-top: 4px;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        .link-cell {
+            text-align: center;
+            padding: 0 4px 8px 4px !important;
+            border: 1px solid #fff;
         }
 
         .amount-cell {
@@ -503,9 +523,10 @@
                                     <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{#each pages}}
-                                    {{#each lines}}
+
+                            {{#each pages}}
+                                {{#each lines}}
+                                <tbody class="item-block">
                                     <tr class="data-row">
                                         <td class="imgCell">
                                             {{#if hasImage}}
@@ -528,6 +549,10 @@
 
                                             {{#if usageArea}}
                                             <span class="prod-dim">{{usageArea}}</span>
+                                            {{else}}
+                                                {{#if Usage_Area__c}}
+                                                <span class="prod-dim">{{Usage_Area__c}}</span>
+                                                {{/if}}
                                             {{/if}}
                                         </td>
 
@@ -559,14 +584,14 @@
 
                                     {{#if productLink}}
                                     <tr class="link-row">
-                                        <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                        <td colspan="7" class="link-cell">
                                             <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
                                         </td>
                                     </tr>
                                     {{/if}}
-                                    {{/each}}
+                                </tbody>
                                 {{/each}}
-                            </tbody>
+                            {{/each}}
                         </table>
 
                         <div class="totals-wrap">
@@ -643,8 +668,7 @@
                                 <td class="top-right">
                                     <div><span class="val-861b">{{today}}</span></div>
                                     <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
-                                    </div>
+                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span></div>
                                 </td>
                             </tr>
                         </table>
@@ -661,35 +685,73 @@
                                     <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{#each lines}}
+
+                            {{#each lines}}
+                            <tbody class="item-block">
                                 <tr class="data-row">
                                     <td class="imgCell">
                                         {{#if hasImage}}
                                         <img src="{{{imageDataUri}}}" alt="Product" />
                                         {{/if}}
                                     </td>
+
                                     <td class="descCell">
-                                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                                        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
-                                        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
-                                        {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
+                                        {{#if productName}}
+                                        <span class="prod-name">{{productName}}</span>
+                                        {{/if}}
+
+                                        {{#if description}}
+                                        <span class="prod-desc">{{description}}</span>
+                                        {{/if}}
+
+                                        {{#if dimension}}
+                                        <span class="prod-dim">{{dimension}}</span>
+                                        {{/if}}
+
+                                        {{#if usageArea}}
+                                        <span class="prod-dim">{{usageArea}}</span>
+                                        {{else}}
+                                            {{#if Usage_Area__c}}
+                                            <span class="prod-dim">{{Usage_Area__c}}</span>
+                                            {{/if}}
+                                        {{/if}}
                                     </td>
+
                                     <td>{{quantity}}</td>
-                                    <td>{{unitPrice}} <span class="cur">₺</span></td>
-                                    <td>{{subTotal}} <span class="cur">₺</span></td>
-                                    <td>{{totalPrice}} <span class="cur">₺</span></td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{unitPrice}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{subTotal}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{totalPrice}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
                                     <td>{{stockStatus}}</td>
                                 </tr>
+
                                 {{#if productLink}}
                                 <tr class="link-row">
-                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
+                                    <td colspan="7" class="link-cell">
                                         <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
                                     </td>
                                 </tr>
                                 {{/if}}
-                                {{/each}}
                             </tbody>
+                            {{/each}}
                         </table>
                     </td>
                 </tr>
