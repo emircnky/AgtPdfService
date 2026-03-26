@@ -243,36 +243,36 @@
             word-break: break-word;
             overflow-wrap: anywhere;
             vertical-align: middle;
-        }
-
-        .text-right {
-            text-align: right !important;
-            padding-right: 8px !important;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         .prod-name {
             font-family: "Trajan Pro", serif !important;
             display: block;
             font-size: 5.7pt !important;
-            font-weight: 600; 
-            margin-bottom: 16px;
+            font-weight: bold !important; 
+            margin-bottom: 12px;
+            text-align: left;
         }
 
         .prod-desc,
         .prod-dim {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.3pt !important;
-            font-weight: 400;
+            font-weight: normal;
             margin-bottom: 2px;
             display: block;
-            text-align: center; /* Ölçüler görseldeki gibi ortalı */
+            text-align: center; 
         }
 
-        /* URL İçin Özel Stil: Ortalanmış ve Metinden Ayrılmış */
+        /* URL KAPSAYICI - SATIR OLARAK DAVRANIR VE ORTALAR */
         .url-container {
+            display: block;
             width: 100%;
-            text-align: center;
+            text-align: center !important;
             margin-top: 15px;
+            clear: both;
         }
 
         .prod-link-row {
@@ -282,6 +282,7 @@
             color: #000 !important;
             display: inline-block;
             word-break: break-all;
+            text-align: center;
         }
 
         .amount-cell {
@@ -522,8 +523,8 @@
                                             <span class="prod-dim">{{dimension}}</span>
                                             {{/if}}
 
-                                            {{#if Usage_Area__c}}
-                                            <span class="prod-dim">{{Usage_Area__c}}</span>
+                                            {{#if usageArea}}
+                                            <span class="prod-dim">{{usageArea}}</span>
                                             {{/if}}
 
                                             {{#if productLink}}
