@@ -195,6 +195,10 @@
             table-layout: fixed;
         }
 
+        table.quote-lines-table thead {
+            display: table-header-group;
+        }
+
         table.quote-lines-table thead th {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.45pt !important;
@@ -211,26 +215,35 @@
             white-space: nowrap;
         }
 
+        table.quote-lines-table tbody.item-block {
+            display: table-row-group;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        table.quote-lines-table tbody.item-block tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
         table.quote-lines-table tbody td {
             font-family: "Trajan Pro", serif !important;
             font-size: 6.2pt !important;
             font-weight: normal !important;
             text-align: center;
-            padding: 12px 6px;
+            padding: 10px 4px;
             vertical-align: middle;
             border: 1px solid #fff;
         }
 
-        tr.data-row {
+        tr.data-row,
+        tr.link-row {
             page-break-inside: avoid;
             break-inside: avoid;
-            height: 110px;
         }
 
         td.imgCell {
             width: 16%;
-            text-align: center;
-            vertical-align: middle;
         }
 
         td.imgCell img {
@@ -243,74 +256,65 @@
 
         td.descCell {
             width: 32%;
-            text-align: center;
-            vertical-align: middle;
-            padding-left: 8px;
-            padding-right: 8px;
+            text-align: left;
             word-break: break-word;
             overflow-wrap: anywhere;
         }
 
-        .desc-inner {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 80px;
-            text-align: center;
-            gap: 6px;
+        .text-right {
+            text-align: right !important;
+            padding-right: 8px !important;
         }
 
         .prod-name {
             font-family: "Trajan Pro", serif !important;
             display: block;
-            font-size: 5.9pt !important;
-            font-weight: bold !important;
-            line-height: 1.3;
-            text-align: center;
-            margin: 0;
+            font-size: 5.7pt !important;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
         .prod-desc,
         .prod-dim {
             font-family: "Trajan Pro", serif !important;
-            font-size: 6.2pt !important;
-            font-weight: normal !important;
-            line-height: 1.3;
-            margin: 0;
-            display: block;
-            text-align: center;
+            font-size: 6.3pt !important;
+            font-weight: 400;
+            margin-bottom: 2px;
         }
 
-        .url-container {
+        .prod-desc {
             display: block;
-            width: 100%;
-            text-align: center !important;
-            margin-top: 6px;
-            clear: both;
+        }
+
+        .prod-dim {
+            display: block;
         }
 
         .prod-link-row {
             font-family: "Trajan Pro", serif !important;
-            font-size: 5.2pt !important;
+            font-size: 5.5pt !important;
+            text-align: center;
             text-decoration: none !important;
             color: #000 !important;
-            display: inline-block;
-            word-break: break-all;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .link-cell {
             text-align: center;
-            line-height: 1.2;
+            padding: 0 4px 8px 4px !important;
+            border: 1px solid #fff;
         }
 
         .amount-cell {
-            text-align: center;
+            text-align: right;
             vertical-align: middle;
         }
 
         .price-wrapper {
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            align-items: baseline;
+            justify-content: flex-end;
             white-space: nowrap;
             width: 100%;
         }
@@ -318,7 +322,7 @@
         .cur {
             font-family: "Calibri", serif !important;
             font-size: 6pt !important;
-            margin-left: 0;
+            margin-left: 15px;
             display: inline-block;
             vertical-align: baseline;
         }
@@ -517,9 +521,10 @@
                                     <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{#each pages}}
-                                    {{#each lines}}
+
+                            {{#each pages}}
+                                {{#each lines}}
+                                <tbody class="item-block">
                                     <tr class="data-row">
                                         <td class="imgCell">
                                             {{#if hasImage}}
@@ -528,29 +533,21 @@
                                         </td>
 
                                         <td class="descCell">
-                                            <div class="desc-inner">
-                                                {{#if productName}}
-                                                <span class="prod-name">{{productName}}</span>
-                                                {{/if}}
+                                            {{#if productName}}
+                                            <span class="prod-name">{{productName}}</span>
+                                            {{/if}}
 
-                                                {{#if description}}
-                                                <span class="prod-desc">{{description}}</span>
-                                                {{/if}}
+                                            {{#if description}}
+                                            <span class="prod-desc">{{description}}</span>
+                                            {{/if}}
 
-                                                {{#if dimension}}
-                                                <span class="prod-dim">{{dimension}}</span>
-                                                {{/if}}
+                                            {{#if dimension}}
+                                            <span class="prod-dim">{{dimension}}</span>
+                                            {{/if}}
 
-                                                {{#if usageArea}}
-                                                <span class="prod-dim">{{usageArea}}</span>
-                                                {{/if}}
-
-                                                {{#if productLink}}
-                                                <div class="url-container">
-                                                    <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                                </div>
-                                                {{/if}}
-                                            </div>
+                                            {{#if usageArea}}
+                                            <span class="prod-dim">{{usageArea}}</span>
+                                            {{/if}}
                                         </td>
 
                                         <td>{{quantity}}</td>
@@ -578,9 +575,17 @@
 
                                         <td>{{stockStatus}}</td>
                                     </tr>
-                                    {{/each}}
+
+                                    {{#if productLink}}
+                                    <tr class="link-row">
+                                        <td colspan="7" class="link-cell">
+                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                        </td>
+                                    </tr>
+                                    {{/if}}
+                                </tbody>
                                 {{/each}}
-                            </tbody>
+                            {{/each}}
                         </table>
 
                         <div class="totals-wrap">
@@ -672,8 +677,9 @@
                                     <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{#each lines}}
+
+                            {{#each lines}}
+                            <tbody class="item-block">
                                 <tr class="data-row">
                                     <td class="imgCell">
                                         {{#if hasImage}}
@@ -682,29 +688,10 @@
                                     </td>
 
                                     <td class="descCell">
-                                        <div class="desc-inner">
-                                            {{#if productName}}
-                                            <span class="prod-name">{{productName}}</span>
-                                            {{/if}}
-
-                                            {{#if description}}
-                                            <span class="prod-desc">{{description}}</span>
-                                            {{/if}}
-
-                                            {{#if dimension}}
-                                            <span class="prod-dim">{{dimension}}</span>
-                                            {{/if}}
-
-                                            {{#if Usage_Area__c}}
-                                            <span class="prod-dim">{{Usage_Area__c}}</span>
-                                            {{/if}}
-
-                                            {{#if productLink}}
-                                            <div class="url-container">
-                                                <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                            </div>
-                                            {{/if}}
-                                        </div>
+                                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
+                                        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
+                                        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
+                                        {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
                                     </td>
 
                                     <td>{{quantity}}</td>
@@ -732,8 +719,16 @@
 
                                     <td>{{stockStatus}}</td>
                                 </tr>
-                                {{/each}}
+
+                                {{#if productLink}}
+                                <tr class="link-row">
+                                    <td colspan="7" class="link-cell">
+                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                    </td>
+                                </tr>
+                                {{/if}}
                             </tbody>
+                            {{/each}}
                         </table>
                     </td>
                 </tr>
@@ -768,33 +763,78 @@
                         </div>
 
                         <table class="bank-block">
-                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">GARANTİ BANKASI</td></tr>
-                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td></tr>
+                            <tr>
+                                <td class="bank-label">BANKA ADI</td>
+                                <td class="bank-value">GARANTİ BANKASI</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP BİLGİSİ</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP NUMARASI</td>
+                                <td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td>
+                            </tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">AKBANK</td></tr>
-                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td></tr>
+                            <tr>
+                                <td class="bank-label">BANKA ADI</td>
+                                <td class="bank-value">AKBANK</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP BİLGİSİ</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP NUMARASI</td>
+                                <td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td>
+                            </tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">İŞ BANKASI</td></tr>
-                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td></tr>
+                            <tr>
+                                <td class="bank-label">BANKA ADI</td>
+                                <td class="bank-value">İŞ BANKASI</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP BİLGİSİ</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP NUMARASI</td>
+                                <td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td>
+                            </tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">QNB FİNANSBANK</td></tr>
-                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td></tr>
+                            <tr>
+                                <td class="bank-label">BANKA ADI</td>
+                                <td class="bank-value">QNB FİNANSBANK</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP BİLGİSİ</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP NUMARASI</td>
+                                <td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td>
+                            </tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">ZİRAAT BANKASI</td></tr>
-                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
-                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td></tr>
+                            <tr>
+                                <td class="bank-label">BANKA ADI</td>
+                                <td class="bank-value">ZİRAAT BANKASI</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP BİLGİSİ</td>
+                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
+                            </tr>
+                            <tr>
+                                <td class="bank-label">HESAP NUMARASI</td>
+                                <td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
