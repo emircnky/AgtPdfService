@@ -43,7 +43,7 @@
             margin-left: 0.4cm;
             margin-right: 0.4cm;
             margin-top: 0.2cm;
-            margin-bottom: 1cm; 
+            margin-bottom: 1cm;
         }
 
         body {
@@ -71,6 +71,7 @@
             border-collapse: collapse;
             border: none;
         }
+
         table.layout-table > thead > tr > td,
         table.layout-table > tbody > tr > td {
             border: none;
@@ -215,7 +216,7 @@
             font-size: 6.2pt !important;
             font-weight: normal !important;
             text-align: center;
-            padding: 10px 4px;
+            padding: 12px 6px;
             vertical-align: middle;
             border: 1px solid #fff;
         }
@@ -223,10 +224,13 @@
         tr.data-row {
             page-break-inside: avoid;
             break-inside: avoid;
+            height: 110px;
         }
 
         td.imgCell {
             width: 16%;
+            text-align: center;
+            vertical-align: middle;
         }
 
         td.imgCell img {
@@ -239,39 +243,50 @@
 
         td.descCell {
             width: 32%;
-            text-align: left;
+            text-align: center;
+            vertical-align: middle;
+            padding-left: 8px;
+            padding-right: 8px;
             word-break: break-word;
             overflow-wrap: anywhere;
-            vertical-align: middle;
-            padding-left: 5px;
-            padding-right: 5px;
+        }
+
+        .desc-inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            text-align: center;
+            gap: 6px;
         }
 
         .prod-name {
             font-family: "Trajan Pro", serif !important;
             display: block;
-            font-size: 5.7pt !important;
-            font-weight: bold !important; 
-            margin-bottom: 12px;
-            text-align: left;
+            font-size: 5.9pt !important;
+            font-weight: bold !important;
+            line-height: 1.3;
+            text-align: center;
+            margin: 0;
         }
 
         .prod-desc,
         .prod-dim {
             font-family: "Trajan Pro", serif !important;
-            font-size: 6.3pt !important;
-            font-weight: normal;
-            margin-bottom: 2px;
+            font-size: 6.2pt !important;
+            font-weight: normal !important;
+            line-height: 1.3;
+            margin: 0;
             display: block;
-            text-align: center; 
+            text-align: center;
         }
 
-        /* URL KAPSAYICI - SATIR OLARAK DAVRANIR VE ORTALAR */
         .url-container {
             display: block;
             width: 100%;
             text-align: center !important;
-            margin-top: 15px;
+            margin-top: 6px;
             clear: both;
         }
 
@@ -283,17 +298,19 @@
             display: inline-block;
             word-break: break-all;
             text-align: center;
+            line-height: 1.2;
         }
 
         .amount-cell {
-            text-align: right;
+            text-align: center;
             vertical-align: middle;
         }
 
         .price-wrapper {
             display: inline-flex;
-            align-items: baseline;
-            justify-content: flex-end;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             white-space: nowrap;
             width: 100%;
         }
@@ -301,7 +318,7 @@
         .cur {
             font-family: "Calibri", serif !important;
             font-size: 6pt !important;
-            margin-left: 15px;
+            margin-left: 0;
             display: inline-block;
             vertical-align: baseline;
         }
@@ -511,27 +528,29 @@
                                         </td>
 
                                         <td class="descCell">
-                                            {{#if productName}}
-                                            <span class="prod-name">{{productName}}</span>
-                                            {{/if}}
+                                            <div class="desc-inner">
+                                                {{#if productName}}
+                                                <span class="prod-name">{{productName}}</span>
+                                                {{/if}}
 
-                                            {{#if description}}
-                                            <span class="prod-desc">{{description}}</span>
-                                            {{/if}}
+                                                {{#if description}}
+                                                <span class="prod-desc">{{description}}</span>
+                                                {{/if}}
 
-                                            {{#if dimension}}
-                                            <span class="prod-dim">{{dimension}}</span>
-                                            {{/if}}
+                                                {{#if dimension}}
+                                                <span class="prod-dim">{{dimension}}</span>
+                                                {{/if}}
 
-                                            {{#if usageArea}}
-                                            <span class="prod-dim">{{usageArea}}</span>
-                                            {{/if}}
+                                                {{#if usageArea}}
+                                                <span class="prod-dim">{{usageArea}}</span>
+                                                {{/if}}
 
-                                            {{#if productLink}}
-                                            <div class="url-container">
-                                                <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                                {{#if productLink}}
+                                                <div class="url-container">
+                                                    <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                                </div>
+                                                {{/if}}
                                             </div>
-                                            {{/if}}
                                         </td>
 
                                         <td>{{quantity}}</td>
@@ -636,8 +655,7 @@
                                 <td class="top-right">
                                     <div><span class="val-861b">{{today}}</span></div>
                                     <div><span class="lbl-779">İLETİŞİM:</span> <span class="val-861">{{ownerName}}</span></div>
-                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span>
-                                    </div>
+                                    <div><span class="lbl-779">E-MAIL:</span> <span class="val-861 email-no-link">{{ownerEmail}}</span></div>
                                 </td>
                             </tr>
                         </table>
@@ -662,22 +680,56 @@
                                         <img src="{{{imageDataUri}}}" alt="Product" />
                                         {{/if}}
                                     </td>
-                                    <td class="descCell">
-                                        {{#if productName}}<span class="prod-name">{{productName}}</span>{{/if}}
-                                        {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
-                                        {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
-                                        {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
 
-                                        {{#if productLink}}
-                                        <div class="url-container">
-                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                    <td class="descCell">
+                                        <div class="desc-inner">
+                                            {{#if productName}}
+                                            <span class="prod-name">{{productName}}</span>
+                                            {{/if}}
+
+                                            {{#if description}}
+                                            <span class="prod-desc">{{description}}</span>
+                                            {{/if}}
+
+                                            {{#if dimension}}
+                                            <span class="prod-dim">{{dimension}}</span>
+                                            {{/if}}
+
+                                            {{#if Usage_Area__c}}
+                                            <span class="prod-dim">{{Usage_Area__c}}</span>
+                                            {{/if}}
+
+                                            {{#if productLink}}
+                                            <div class="url-container">
+                                                <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                            </div>
+                                            {{/if}}
                                         </div>
-                                        {{/if}}
                                     </td>
+
                                     <td>{{quantity}}</td>
-                                    <td>{{unitPrice}} <span class="cur">₺</span></td>
-                                    <td>{{subTotal}} <span class="cur">₺</span></td>
-                                    <td>{{totalPrice}} <span class="cur">₺</span></td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{unitPrice}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{subTotal}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="amount-cell">
+                                        <div class="price-wrapper">
+                                            <span class="val">{{totalPrice}}</span>
+                                            <span class="cur">₺</span>
+                                        </div>
+                                    </td>
+
                                     <td>{{stockStatus}}</td>
                                 </tr>
                                 {{/each}}
