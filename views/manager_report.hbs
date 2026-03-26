@@ -255,7 +255,7 @@
             display: block;
             font-size: 5.7pt !important;
             font-weight: 600; 
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .prod-desc,
@@ -265,12 +265,14 @@
             font-weight: 400;
             margin-bottom: 2px;
             display: block;
+            text-align: center; /* Ölçüler görseldeki gibi ortalı */
         }
 
-        .prod-link-wrapper {
+        /* URL İçin Özel Stil: Ortalanmış ve Metinden Ayrılmış */
+        .url-container {
             width: 100%;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .prod-link-row {
@@ -520,12 +522,12 @@
                                             <span class="prod-dim">{{dimension}}</span>
                                             {{/if}}
 
-                                            {{#if usageArea}}
-                                            <span class="prod-dim">{{usageArea}}</span>
+                                            {{#if Usage_Area__c}}
+                                            <span class="prod-dim">{{Usage_Area__c}}</span>
                                             {{/if}}
 
                                             {{#if productLink}}
-                                            <div class="prod-link-wrapper">
+                                            <div class="url-container">
                                                 <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
                                             </div>
                                             {{/if}}
@@ -664,9 +666,9 @@
                                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
                                         {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
-                                        
+
                                         {{#if productLink}}
-                                        <div class="prod-link-wrapper">
+                                        <div class="url-container">
                                             <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
                                         </div>
                                         {{/if}}
@@ -713,78 +715,33 @@
                         </div>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">BANKA ADI</td>
-                                <td class="bank-value">GARANTİ BANKASI</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP BİLGİSİ</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP NUMARASI</td>
-                                <td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">GARANTİ BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td></tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">BANKA ADI</td>
-                                <td class="bank-value">AKBANK</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP BİLGİSİ</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP NUMARASI</td>
-                                <td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">AKBANK</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td></tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">BANKA ADI</td>
-                                <td class="bank-value">İŞ BANKASI</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP BİLGİSİ</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP NUMARASI</td>
-                                <td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">İŞ BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td></tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">BANKA ADI</td>
-                                <td class="bank-value">QNB FİNANSBANK</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP BİLGİSİ</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP NUMARASI</td>
-                                <td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">QNB FİNANSBANK</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td></tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">BANKA ADI</td>
-                                <td class="bank-value">ZİRAAT BANKASI</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP BİLGİSİ</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">HESAP NUMARASI</td>
-                                <td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">ZİRAAT BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td></tr>
                         </table>
                     </td>
                 </tr>
