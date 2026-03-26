@@ -225,11 +225,6 @@
             break-inside: avoid;
         }
 
-        tr.link-row {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
         td.imgCell {
             width: 16%;
         }
@@ -247,6 +242,7 @@
             text-align: left;
             word-break: break-word;
             overflow-wrap: anywhere;
+            vertical-align: middle;
         }
 
         .text-right {
@@ -268,24 +264,24 @@
             font-size: 6.3pt !important;
             font-weight: 400;
             margin-bottom: 2px;
+            display: block;
+            text-align: center; /* Ölçüler görseldeki gibi ortalı */
         }
 
-        .prod-desc {
-            display: block;
-        }
-
-        .prod-dim {
-            display: block;
+        /* URL İçin Özel Stil: Ortalanmış ve Metinden Ayrılmış */
+        .url-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
         }
 
         .prod-link-row {
             font-family: "Trajan Pro", serif !important;
-            font-size: 5.5pt !important;
-            text-align: center;
+            font-size: 5.2pt !important;
             text-decoration: none !important;
             color: #000 !important;
-            display: block;
-            margin-top: 4px;
+            display: inline-block;
+            word-break: break-all;
         }
 
         .amount-cell {
@@ -472,19 +468,19 @@
                 <tr>
                     <td>
                         <div class="main-title-wrap">
-                            <span class="main-title">OFFER</span>
+                            <span class="main-title">TEKLİF FORMU</span>
                         </div>
 
                         <table class="top-info">
                             <tr>
                                 <td class="top-left">
-                                    <span class="sayin-label">DEAR;</span>
-                                    <span class="sayin-label">{{sayin}}</span>
+                                    <span class="sayin-label">SAYIN:</span>
+                                    <span>{{sayin}}</span>
                                 </td>
                                 <td class="top-right">
                                     <div class="info-container">
                                         <div class="info1-row"><b>{{today}}</b></div>
-                                        <div class="info-row"><span class="info-label">CONTACT:</span> <span>{{ownerName}}</span></div>
+                                        <div class="info-row"><span class="info-label">İLETİŞİM:</span> <span>{{ownerName}}</span></div>
                                         <div class="info-row"><span class="info-label">E-MAIL:</span> <span>{{ownerEmail}}</span></div>
                                     </div>
                                 </td>
@@ -494,13 +490,13 @@
                         <table class="quote-lines-table">
                             <thead>
                                 <tr>
-                                    <th style="width:16%;">PICTURE</th>
-                                    <th style="width:28%;">DESCRIPTION</th>
-                                    <th style="width:6%;">QTY</th>
-                                    <th style="width:11%;">UNIT PRICE</th>
-                                    <th style="width:8%;">TOTAL PRICE</th>
-                                    <th class="th-discount" style="width:10%;">DISCOUNTED<br />PRICE</th>
-                                    <th class="th-stock" style="width:10%;">STOCK<br />AVAILABILITY</th>
+                                    <th style="width:16%;">FOTOĞRAF</th>
+                                    <th style="width:28%;">AÇIKLAMA</th>
+                                    <th style="width:6%;">ADET</th>
+                                    <th style="width:11%;">BİRİM FİYATI</th>
+                                    <th style="width:8%;">TOPLAM</th>
+                                    <th class="th-discount" style="width:10%;">İNDİRİMLİ<br />TUTAR</th>
+                                    <th class="th-stock" style="width:10%;">STOK<br />DURUMU</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -526,8 +522,14 @@
                                             <span class="prod-dim">{{dimension}}</span>
                                             {{/if}}
 
-                                            {{#if usageArea}}
-                                            <span class="prod-dim">{{usageArea}}</span>
+                                            {{#if Usage_Area__c}}
+                                            <span class="prod-dim">{{Usage_Area__c}}</span>
+                                            {{/if}}
+
+                                            {{#if productLink}}
+                                            <div class="url-container">
+                                                <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                            </div>
                                             {{/if}}
                                         </td>
 
@@ -536,34 +538,26 @@
                                         <td class="amount-cell">
                                             <div class="price-wrapper">
                                                 <span class="val">{{unitPrice}}</span>
-                                                <span class="cur">€</span>
+                                                <span class="cur">₺</span>
                                             </div>
                                         </td>
 
                                         <td class="amount-cell">
                                             <div class="price-wrapper">
                                                 <span class="val">{{subTotal}}</span>
-                                                <span class="cur">€</span>
+                                                <span class="cur">₺</span>
                                             </div>
                                         </td>
 
                                         <td class="amount-cell">
                                             <div class="price-wrapper">
                                                 <span class="val">{{totalPrice}}</span>
-                                                <span class="cur">€</span>
+                                                <span class="cur">₺</span>
                                             </div>
                                         </td>
 
                                         <td>{{stockStatus}}</td>
                                     </tr>
-
-                                    {{#if productLink}}
-                                    <tr class="link-row">
-                                        <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                        </td>
-                                    </tr>
-                                    {{/if}}
                                     {{/each}}
                                 {{/each}}
                             </tbody>
@@ -575,18 +569,18 @@
                             <table class="totals-table">
                                 <tr>
                                     <td style="width:70%;">&nbsp;</td>
-                                    <td class="totals-label" style="width:15%;">TOTAL</td>
-                                    <td class="totals-value" style="width:15%;">{{totalAmount}} €</td>
+                                    <td class="totals-label" style="width:15%;">TOPLAM</td>
+                                    <td class="totals-value" style="width:15%;">{{totalAmount}} ₺</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td class="totals-label">DISCOUNT</td>
-                                    <td class="totals-value">{{totalDiscount}} €</td>
+                                    <td class="totals-label">TOPLAM İNDİRİM</td>
+                                    <td class="totals-value">{{totalDiscount}} ₺</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td class="totals-label">GENERAL TOTAL</td>
-                                    <td class="totals-value">{{grandTotal}} €</td>
+                                    <td class="totals-label">GENEL TOPLAM</td>
+                                    <td class="totals-value">{{grandTotal}} ₺</td>
                                 </tr>
                             </table>
 
@@ -594,11 +588,9 @@
                         </div>
 
                         <div class="notes">
-                            <div class="note">- THE IMAGES IN THE OFFER ARE FOR PROMOTIONAL PURPOSES ONLY, AND THE EXPLANATIONS MUST BE CONSIDERED.</div>
-                            <div class="note">- {{notePayment1}}</div>
-                            <div class="note">- {{notePayment2}}</div>
+                            <div class="note">- TEKLİFTE KULLANILAN GÖRSELLER TANITIM AMAÇLI OLUP AÇIKLAMALAR DİKKATE ALINMALIDIR.</div>
+                            <div class="note">- {{notePayment}}</div>
                             <div class="note">- {{noteDelivery}}</div>
-                            <div class="note">- {{noteDeliveryTerms}}</div>
                             <div class="note">- {{noteKdv}}</div>
                             <div class="note">- {{noteValidity}}</div>
                         </div>
@@ -674,6 +666,12 @@
                                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
                                         {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
+
+                                        {{#if productLink}}
+                                        <div class="url-container">
+                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                        </div>
+                                        {{/if}}
                                     </td>
                                     <td>{{quantity}}</td>
                                     <td>{{unitPrice}} <span class="cur">₺</span></td>
@@ -681,13 +679,6 @@
                                     <td>{{totalPrice}} <span class="cur">₺</span></td>
                                     <td>{{stockStatus}}</td>
                                 </tr>
-                                {{#if productLink}}
-                                <tr class="link-row">
-                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                    </td>
-                                </tr>
-                                {{/if}}
                                 {{/each}}
                             </tbody>
                         </table>
@@ -720,51 +711,37 @@
                 <tr>
                     <td>
                         <div class="bank-title-wrap">
-                            <div class="bank-title">OUR BANK ACCOUNT INFORMATION</div>
+                            <div class="bank-title">HESAP BİLGİLERİMİZ</div>
                         </div>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">USD BANK ACCOUNT</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">BANK NAME</td>
-                                <td class="bank-value">VAKIF KATILIM BANKASI</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">ACCOUNT NAME</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">SWIFT CODE</td>
-                                <td class="bank-value">VAKFTRISXXX</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">ACCOUNT NUMBER</td>
-                                <td class="bank-value">IBAN: TR24 0021 0000 0004 6416 0001 05</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">GARANTİ BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR90 0006 2001 6690 0006 2978 90</td></tr>
                         </table>
 
                         <table class="bank-block">
-                            <tr>
-                                <td class="bank-label">EURO BANK ACCOUNT</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">BANK NAME</td>
-                                <td class="bank-value">VAKIF KATILIM BANKASI</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">ACCOUNT NAME</td>
-                                <td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">SWIFT CODE</td>
-                                <td class="bank-value">VAKFTRISXXX</td>
-                            </tr>
-                            <tr>
-                                <td class="bank-label">ACCOUNT NUMBER</td>
-                                <td class="bank-value">IBAN: TR94 0021 0000 0004 6416 0001 06</td>
-                            </tr>
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">AKBANK</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR84 0004 6006 2888 8000 1241 74</td></tr>
+                        </table>
+
+                        <table class="bank-block">
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">İŞ BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR87 0006 4000 0011 2110 3359 72</td></tr>
+                        </table>
+
+                        <table class="bank-block">
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">QNB FİNANSBANK</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR62 0011 1000 0000 0061 6173 81</td></tr>
+                        </table>
+
+                        <table class="bank-block">
+                            <tr><td class="bank-label">BANKA ADI</td><td class="bank-value">ZİRAAT BANKASI</td></tr>
+                            <tr><td class="bank-label">HESAP BİLGİSİ</td><td class="bank-value">EKVATOR ISI MÜHENDİSLİK İNŞ. SAN. VE TİC. LTD.ŞTİ</td></tr>
+                            <tr><td class="bank-label">HESAP NUMARASI</td><td class="bank-value">IBAN: TR19 0001 0021 8862 9823 6850 03</td></tr>
                         </table>
                     </td>
                 </tr>
