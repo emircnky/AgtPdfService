@@ -225,11 +225,6 @@
             break-inside: avoid;
         }
 
-        tr.link-row {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
         td.imgCell {
             width: 16%;
         }
@@ -247,6 +242,7 @@
             text-align: left;
             word-break: break-word;
             overflow-wrap: anywhere;
+            vertical-align: middle;
         }
 
         .text-right {
@@ -259,7 +255,7 @@
             display: block;
             font-size: 5.7pt !important;
             font-weight: 600; 
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .prod-desc,
@@ -268,24 +264,22 @@
             font-size: 6.3pt !important;
             font-weight: 400;
             margin-bottom: 2px;
-        }
-
-        .prod-desc {
             display: block;
         }
 
-        .prod-dim {
-            display: block;
+        .prod-link-wrapper {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
         }
 
         .prod-link-row {
             font-family: "Trajan Pro", serif !important;
-            font-size: 5.5pt !important;
-            text-align: center;
+            font-size: 5.2pt !important;
             text-decoration: none !important;
             color: #000 !important;
-            display: block;
-            margin-top: 4px;
+            display: inline-block;
+            word-break: break-all;
         }
 
         .amount-cell {
@@ -529,6 +523,12 @@
                                             {{#if usageArea}}
                                             <span class="prod-dim">{{usageArea}}</span>
                                             {{/if}}
+
+                                            {{#if productLink}}
+                                            <div class="prod-link-wrapper">
+                                                <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                            </div>
+                                            {{/if}}
                                         </td>
 
                                         <td>{{quantity}}</td>
@@ -556,14 +556,6 @@
 
                                         <td>{{stockStatus}}</td>
                                     </tr>
-
-                                    {{#if productLink}}
-                                    <tr class="link-row">
-                                        <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                        </td>
-                                    </tr>
-                                    {{/if}}
                                     {{/each}}
                                 {{/each}}
                             </tbody>
@@ -672,6 +664,12 @@
                                         {{#if description}}<span class="prod-desc">{{description}}</span>{{/if}}
                                         {{#if dimension}}<span class="prod-dim">{{dimension}}</span>{{/if}}
                                         {{#if Usage_Area__c}}<span class="prod-dim">{{Usage_Area__c}}</span>{{/if}}
+                                        
+                                        {{#if productLink}}
+                                        <div class="prod-link-wrapper">
+                                            <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
+                                        </div>
+                                        {{/if}}
                                     </td>
                                     <td>{{quantity}}</td>
                                     <td>{{unitPrice}} <span class="cur">₺</span></td>
@@ -679,13 +677,6 @@
                                     <td>{{totalPrice}} <span class="cur">₺</span></td>
                                     <td>{{stockStatus}}</td>
                                 </tr>
-                                {{#if productLink}}
-                                <tr class="link-row">
-                                    <td colspan="7" style="text-align:center; padding: 0 4px 8px 4px; border: 1px solid #fff;">
-                                        <a class="prod-link-row" href="{{productLink}}" target="_blank">{{productLink}}</a>
-                                    </td>
-                                </tr>
-                                {{/if}}
                                 {{/each}}
                             </tbody>
                         </table>
