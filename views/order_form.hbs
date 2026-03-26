@@ -11,14 +11,8 @@
       margin: 10mm 6mm 10mm 6mm;
     }
 
-    /* =========================================================
-       ✅ FONT KİLİDİ (Static Resource yok, sadece CSS ile)
-       - Her elemente Trajan Pro zorlanır.
-       - 700 gibi numeric weight yerine bold/normal kullanılır
-         (bazı engine'ler numeric weight'te fallback yapabiliyor).
-       - b/strong ayrıca kilitlenir.
-       ========================================================= */
-    html, body {
+    html,
+    body {
       font-family: "Trajan Pro" !important;
       font-weight: normal !important;
       font-style: normal !important;
@@ -31,7 +25,8 @@
       text-rendering: geometricPrecision;
     }
 
-    b, strong {
+    b,
+    strong {
       font-family: "Trajan Pro" !important;
       font-weight: bold !important;
       font-style: normal !important;
@@ -47,11 +42,17 @@
       font-weight: normal;
     }
 
-    .center { text-align: center; }
-    .right  { text-align: right; }
+    .center {
+      text-align: center;
+    }
 
-    /* numeric yerine bold */
-    .bold { font-weight: bold !important; }
+    .right {
+      text-align: right;
+    }
+
+    .bold {
+      font-weight: bold !important;
+    }
 
     .top-line {
       font-size: 6.5pt;
@@ -74,7 +75,6 @@
       text-transform: uppercase;
     }
 
-    /* Logo */
     .snocLogo {
       width: 180px;
       height: 60px;
@@ -83,7 +83,6 @@
       margin: 0 auto;
     }
 
-    /* Üst bilgi alanı */
     table.meta {
       width: 100%;
       border-collapse: collapse;
@@ -107,7 +106,6 @@
       padding-right: 0;
     }
 
-    /* ===== KEY-VALUE HİZALAMA (iki nokta aynı sütunda) ===== */
     .info-row,
     .info-row-right {
       margin: 3px 0;
@@ -123,7 +121,6 @@
       vertical-align: top;
     }
 
-    /* ÜST META (sol) */
     .info-row .info-label {
       width: 38mm;
       font-weight: bold !important;
@@ -141,7 +138,6 @@
       font-weight: normal !important;
     }
 
-    /* Sağ taraf */
     .info-row-right {
       text-align: right;
       white-space: nowrap;
@@ -175,7 +171,6 @@
       font-weight: normal !important;
     }
 
-    /* FATURA + SEVKİYAT blokları */
     table.twoCols {
       width: 100%;
       border-collapse: collapse;
@@ -201,10 +196,17 @@
       font-size: 8.2pt;
     }
 
-    /* ✅ FATURA/SEVKİYAT için ":" sütunu (etiket bitişinde) */
-    table.twoCols .info-row .info-label { width: 28mm !important; }
-    table.twoCols .info-row .info-colon { width: 3mm !important; }
-    table.twoCols .info-row .info-value { max-width: none !important; }
+    table.twoCols .info-row .info-label {
+      width: 28mm !important;
+    }
+
+    table.twoCols .info-row .info-colon {
+      width: 3mm !important;
+    }
+
+    table.twoCols .info-row .info-value {
+      max-width: none !important;
+    }
 
     /* Ürün tablosu */
     table.items {
@@ -214,6 +216,10 @@
       font-size: 8.2pt;
       border-top: none;
       table-layout: fixed;
+    }
+
+    table.items thead {
+      display: table-header-group;
     }
 
     table.items thead th,
@@ -229,14 +235,87 @@
       border-bottom: 1px solid #000;
     }
 
-    .col-item { width: 43%; text-align: left; }
-    .col-qty  { width: 10%; text-align: right; white-space: nowrap; }
-    .col-unit { width: 9%;  text-align: left;  white-space: nowrap; }
-    .col-price{ width: 13%; text-align: right; white-space: nowrap; }
-    .col-amount{width: 12%; text-align: right; white-space: nowrap; }
-    .col-date { width: 13%; text-align: right; white-space: nowrap; }
+    table.items tbody.item-block {
+      display: table-row-group;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
 
-    /* Alt alan */
+    table.items tbody.item-block tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .item-row,
+    .item-link-row {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .col-item {
+      width: 43%;
+      text-align: left;
+    }
+
+    .col-qty {
+      width: 10%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .col-unit {
+      width: 9%;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .col-price {
+      width: 13%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .col-amount {
+      width: 12%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .col-date {
+      width: 13%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .item-name {
+      display: block;
+      font-size: 8.2pt;
+      font-weight: normal !important;
+      line-height: 1.2;
+    }
+
+    .item-usage {
+      display: block;
+      font-size: 7.5pt;
+      margin-top: 2px;
+      line-height: 1.2;
+      font-weight: normal !important;
+    }
+
+    .item-link-cell {
+      padding: 0 2px 6px 2px !important;
+    }
+
+    .item-link {
+      display: block;
+      font-size: 7pt;
+      line-height: 1.15;
+      text-decoration: none !important;
+      color: #000 !important;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
     table.bottom {
       width: 100%;
       border-collapse: collapse;
@@ -244,7 +323,9 @@
       font-size: 8.2pt;
     }
 
-    table.bottom td { vertical-align: top; }
+    table.bottom td {
+      vertical-align: top;
+    }
 
     .bottom-left {
       width: 65%;
@@ -252,7 +333,9 @@
       padding-left: 4mm;
     }
 
-    .bottom-right { width: 35%; }
+    .bottom-right {
+      width: 35%;
+    }
 
     .sectionTitle {
       font-weight: bold !important;
@@ -279,11 +362,22 @@
       font-weight: normal !important;
     }
 
-    .totL { font-weight: bold !important; width: 100px; }
-    .totC { width: 12px; text-align: center; font-weight: bold !important; }
-    .totV { text-align: right; font-weight: bold !important; }
+    .totL {
+      font-weight: bold !important;
+      width: 100px;
+    }
 
-    /* Şartlar */
+    .totC {
+      width: 12px;
+      text-align: center;
+      font-weight: bold !important;
+    }
+
+    .totV {
+      text-align: right;
+      font-weight: bold !important;
+    }
+
     .terms {
       margin-top: 10px;
       font-size: 5pt;
@@ -297,7 +391,6 @@
       font-weight: normal !important;
     }
 
-    /* İmza */
     table.sign {
       width: 100%;
       border-collapse: collapse;
@@ -326,7 +419,9 @@
       height: 1px;
     }
 
-    .titleBand { margin: 8px 0; }
+    .titleBand {
+      margin: 8px 0;
+    }
 
     .bandLine {
       border-top: 1px solid #000;
@@ -342,8 +437,9 @@
       text-transform: uppercase;
     }
 
-    /* ✅ bazen VF/PDF engine link'leri farklı fontla basabiliyor */
-    a, a:visited, a * {
+    a,
+    a:visited,
+    a * {
       font-family: "Trajan Pro" !important;
       font-weight: inherit !important;
       text-decoration: none !important;
@@ -472,13 +568,19 @@
         <th class="col-date">TESLİM</th>
       </tr>
     </thead>
-    <tbody>
-      {{#each items}}
-      <tr>
+
+    {{#each items}}
+    <tbody class="item-block">
+      <tr class="item-row">
         <td class="col-item">
-          <div>{{productName}}</div>
+          <span class="item-name">{{productName}}</span>
+
           {{#if usageArea}}
-          <div style="font-size: 7.5pt; margin-top: 2px;">{{usageArea}}</div>
+          <span class="item-usage">{{usageArea}}</span>
+          {{else}}
+            {{#if Usage_Area__c}}
+            <span class="item-usage">{{Usage_Area__c}}</span>
+            {{/if}}
           {{/if}}
         </td>
         <td class="col-qty">{{quantity}}</td>
@@ -487,8 +589,16 @@
         <td class="col-amount">{{lineTotal}}</td>
         <td class="col-date">{{deliveryDate}}</td>
       </tr>
-      {{/each}}
+
+      {{#if productLink}}
+      <tr class="item-link-row">
+        <td class="item-link-cell" colspan="6">
+          <a class="item-link" href="{{productLink}}" target="_blank">{{productLink}}</a>
+        </td>
+      </tr>
+      {{/if}}
     </tbody>
+    {{/each}}
   </table>
 
   <div style="min-height: 120px;"></div>
